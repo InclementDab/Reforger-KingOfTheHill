@@ -121,6 +121,7 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTH_ZoneTriggerEntity m_Zone;
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
+	protected KOTHZoneContestType m_KOTHZoneContestType;
 	
 	void SetZone(KOTH_ZoneTriggerEntity zone)
 	{
@@ -149,11 +150,13 @@ class KOTH_ZoneManager: GenericComponent
 		
 		// no ticket updates, no one is in zone
 		if (most_populated_factions.Count() == 0) {
+			m_KOTHZoneContestType = KOTHZoneContestType.EMPTY;
 			Print("Zone is empty");
 			return;
 		}
 		
 		if (most_populated_factions.Count() == 1) {
+			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
 			Faction owned_faction = most_populated_factions[0];
 			Print("Zone is owned by " + owned_faction.GetFactionName());
 			m_Tickets[owned_faction] = m_Tickets[owned_faction] + 1;
@@ -163,9 +166,15 @@ class KOTH_ZoneManager: GenericComponent
 		
 		// contested!
 		if (most_populated_factions.Count() > 1) {
+			m_KOTHZoneContestType = KOTHZoneContestType.TIE;
 			Print("Zone is contested by..");
 			most_populated_factions.Debug();
 		}
+	}
+	
+	KOTHZoneContestType GetZoneContestType()
+	{
+		return m_KOTHZoneContestType;
 	}
 	
 	int GetTicketsForFaction(Faction faction)

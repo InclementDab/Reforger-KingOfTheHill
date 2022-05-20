@@ -46,23 +46,83 @@ KOTH_ZoneTriggerEntity {
  PeriodicQueries 1
  UpdatePeriod 0.1
 }
-SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
- coords 4695.77 129.354 7776.513
+SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
+ coords 4723.391 133.456 7743.081
  {
-  SCR_Position {
-   coords 1.218 0.118 -2.353
+  $grp SCR_Position {
+   {
+    coords 2.531 0.286 -1.02
+   }
+   {
+    coords -0.13 -0.044 1.869
+   }
+  }
+ }
+}
+SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
+ coords 4695.77 131.976 7728.992
+ m_fSpawnRadius 1
+ m_fNoPlayerRadius 0
+ {
+  $grp SCR_Position {
+   {
+    coords 1.218 -0.13 -2.764
+   }
+   {
+    coords 0.432 -0.202 3.427
+   }
   }
  }
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  coords 4694.752 129.632 7771.071
- m_fSpawnRadius 6.7
+ m_fSpawnRadius 1
+ m_fNoPlayerRadius 0
  {
-  SCR_Position {
-   coords -0.045 0.035 1.062
+  $grp SCR_Position {
+   {
+    coords -0.045 0.035 1.062
+   }
+   {
+    coords -3.174 -0.089 1.547
+   }
   }
  }
 }
 SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutManager_USxUSSR.et" {
- coords 4692.993 130.149 7771.683
+ coords 4692.993 129.544 7770.564
+ m_aPlayerLoadouts {
+  SCR_FactionPlayerLoadout "{56B2B4613581570A}" {
+  }
+  SCR_FactionPlayerLoadout "{59695621E8E36FF8}" {
+   m_sLoadoutName "FIA Rifleman"
+   m_sLoadoutResource "{84B40583F4D1B7A3}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Rifleman.et"
+   m_sLoadoutImage "{6601A3AE17EA976D}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_Rifleman.edds"
+   m_sAffiliatedFaction "FIA"
+  }
+  SCR_FactionPlayerLoadout "{59695621C0F2256E}" {
+   m_sLoadoutName "FIA AT"
+   m_sLoadoutResource "{D25BC9815A9F9E8D}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_AT.et"
+   m_sLoadoutImage "{D8CD3A9B019B8CD2}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_AT.edds"
+   m_sAffiliatedFaction "FIA"
+  }
+  SCR_FactionPlayerLoadout "{59695621B779A70D}" {
+   m_sLoadoutName "FIA PL"
+   m_sLoadoutResource "{FE65E8C60C751352}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_PL.et"
+   m_sLoadoutImage "{CA3D80DC1CD6D721}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_PL.edds"
+   m_sAffiliatedFaction "FIJA"
+  }
+  SCR_FactionPlayerLoadout "{596956219D9CD3E1}" {
+   m_sLoadoutName "FIA MG"
+   m_sLoadoutResource "{58E47E5A4D599432}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_MG.et"
+   m_sLoadoutImage "{F070A39D537A2555}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_MG.edds"
+   m_sAffiliatedFaction "FIA"
+  }
+  SCR_FactionPlayerLoadout "{596956218303341A}" {
+   m_sLoadoutName "FIA Sniper"
+   m_sLoadoutResource "{CE33AB22F61F3365}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Sharpshooter.et"
+   m_sLoadoutImage "{8EFE184F9A90211B}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_Sharpshooter.edds"
+   m_sAffiliatedFaction "FIA"
+  }
+ }
 }
