@@ -1,0 +1,14 @@
+KOTH_ZoneTriggerEntity {
+ ID "59695A60CD1FDDE4"
+ components {
+  RplComponent "{596911609ADB3657}" {
+  }
+ }
+ coords 4696.72 130.608 7753.441
+ TriggerShapeType Sphere
+ SphereRadius 15
+ DrawShape 1
+ TriggerActivationType "Every query"
+ PeriodicQueries 1
+ UpdatePeriod 0.1
+}

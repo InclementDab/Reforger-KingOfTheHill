@@ -33,58 +33,54 @@ KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_
 SCR_FactionManager SCR_FactionManager1 : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
  coords 4692.271 130.159 7761.14
 }
-KOTH_ZoneTriggerEntity {
- components {
-  RplComponent "{596911609ADB3657}" {
-  }
- }
- coords 4696.72 130.608 7753.441
- TriggerShapeType Sphere
- SphereRadius 15
- DrawShape 1
- TriggerActivationType "Every query"
- PeriodicQueries 1
- UpdatePeriod 0.1
+GarbageManager {
+ coords 4776.713 130.867 7743.142
+ CharacterLifetime 240
+ VehicleLifetime 240
+ ItemLifetime 240
+}
+HitRegistrationManager HitRegistrationManager1 {
+ coords 4760.456 131.355 7777.755
 }
 SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
- coords 4723.391 133.456 7743.081
+ coords 4792.815 163.744 7239.087
  {
   $grp SCR_Position {
    {
-    coords 2.531 0.286 -1.02
+    coords 2.534 -0.014 -1.02
    }
    {
-    coords -0.13 -0.044 1.869
+    coords -0.127 0.057 1.871
    }
   }
  }
 }
 SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
- coords 4695.77 131.976 7728.992
+ coords 4588.815 156.473 6998.171
  m_fSpawnRadius 1
  m_fNoPlayerRadius 0
  {
   $grp SCR_Position {
    {
-    coords 1.218 -0.13 -2.764
+    coords 1.222 0.244 -2.763
    }
    {
-    coords 0.432 -0.202 3.427
+    coords 0.437 -0.223 3.428
    }
   }
  }
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
- coords 4694.752 129.632 7771.071
+ coords 4957.535 171.433 6958.596
  m_fSpawnRadius 1
  m_fNoPlayerRadius 0
  {
   $grp SCR_Position {
    {
-    coords -0.045 0.035 1.062
+    coords -0.037 -0.002 1.063
    }
    {
-    coords -3.174 -0.089 1.547
+    coords -3.165 -0.222 1.548
    }
   }
  }
@@ -110,7 +106,7 @@ SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutMana
    m_sLoadoutName "FIA PL"
    m_sLoadoutResource "{FE65E8C60C751352}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_PL.et"
    m_sLoadoutImage "{CA3D80DC1CD6D721}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_PL.edds"
-   m_sAffiliatedFaction "FIJA"
+   m_sAffiliatedFaction "FIA"
   }
   SCR_FactionPlayerLoadout "{596956219D9CD3E1}" {
    m_sLoadoutName "FIA MG"
@@ -125,4 +121,15 @@ SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutMana
    m_sAffiliatedFaction "FIA"
   }
  }
+}
+KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
+ components {
+  MapDescriptorComponent "{59695A60A5A18EEA}" {
+   DisplayName "The Hill"
+   MainType "Name Generic"
+  }
+ }
+ coords 4792.414 166.772 7051.898
+ SphereRadius 100
+ DrawShape 0
 }
