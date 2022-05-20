@@ -116,10 +116,10 @@ class KOTH_ZoneManagerClass: GenericComponentClass
 class KOTH_ZoneManager: GenericComponent
 {
 	[Attribute("100", desc: "Amount of tickets required by a team to win the game.")]
-	protected int m_TicketCountToWin;
+	protected int m_TicketCountToWin = 100;
 	
 	[Attribute("10", desc: "Update rate of tickets, in seconds.")]
-	protected float m_TicketUpdateInterval;
+	protected float m_TicketUpdateInterval = 10.0;
 	
 	protected KOTH_ZoneTriggerEntity m_Zone;
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();

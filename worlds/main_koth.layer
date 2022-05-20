@@ -11,6 +11,10 @@ ScriptedChatEntity {
 }
 KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
  components {
+  KOTH_ZoneManager "{59692D07CCA0E69E}" {
+   m_TicketCountToWin 10
+   m_TicketUpdateInterval 5
+  }
   SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
    m_Info SCR_UIInfo "{5969440545013477}" {
     Description "help me"
