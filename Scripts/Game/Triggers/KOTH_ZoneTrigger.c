@@ -115,18 +115,21 @@ class KOTH_ZoneManagerClass: GenericComponentClass
 
 class KOTH_ZoneManager: GenericComponent
 {
-	static const int TICKET_COUNT_TO_WIN = 5;
-	static const float TICKET_UPDATE_INTERVAL = 3;
+	[Attribute("100", desc: "Amount of tickets required by a team to win the game.")]
+	protected int m_TicketCountToWin;
+	
+	[Attribute("10", desc: "Update rate of tickets, in seconds.")]
+	protected float m_TicketUpdateInterval;
 	
 	protected KOTH_ZoneTriggerEntity m_Zone;
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
 	protected KOTHZoneContestType m_KOTHZoneContestType;
-	
+		
 	void SetZone(KOTH_ZoneTriggerEntity zone)
 	{
 		m_Zone = zone;
-		GetGame().GetCallqueue().CallLater(DoTicketUpdate, TICKET_UPDATE_INTERVAL * 1000, true);
+		GetGame().GetCallqueue().CallLater(DoTicketUpdate, m_TicketUpdateInterval * 1000, true);
 	}
 		
 	void DoTicketUpdate()
@@ -152,7 +155,6 @@ class KOTH_ZoneManager: GenericComponent
 		if (most_populated_factions.Count() == 0) {
 			m_KOTHZoneContestType = KOTHZoneContestType.EMPTY;
 			Print("Zone is empty");
-			return;
 		}
 		
 		if (most_populated_factions.Count() == 1) {
@@ -161,7 +163,6 @@ class KOTH_ZoneManager: GenericComponent
 			Print("Zone is owned by " + owned_faction.GetFactionName());
 			m_Tickets[owned_faction] = m_Tickets[owned_faction] + 1;
 			OnFactionTicketChangedScript.Invoke(owned_faction, m_Tickets[owned_faction]);
-			return;
 		}
 		
 		// contested!
@@ -169,6 +170,16 @@ class KOTH_ZoneManager: GenericComponent
 			m_KOTHZoneContestType = KOTHZoneContestType.TIE;
 			Print("Zone is contested by..");
 			most_populated_factions.Debug();
+		}
+		
+		// check our ticket counts
+		foreach (Faction faction, int ticket_count: m_Tickets) {
+			if (ticket_count >= m_TicketCountToWin) {
+				KOTH_GameModeBase koth_game_mode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
+				if (koth_game_mode) {
+					koth_game_mode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: GetGame().GetFactionManager().GetFactionIndex(faction)));
+				}
+			}
 		}
 	}
 	
