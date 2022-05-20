@@ -1,0 +1,8 @@
+GameProject {
+ ID "KOTH"
+ GUID "5968FE6DF3F3853B"
+ TITLE "KOTH"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+}

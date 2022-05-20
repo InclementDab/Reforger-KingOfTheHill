@@ -1,0 +1,17 @@
+SCR_FactionManager {
+ ID "5968FE6E2BF616AB"
+ components {
+  SCR_DelegateFactionManagerComponent "{5968FE6C22722FD8}" {
+   m_FactionDelegatePrefab "{94D481BAEC3B8573}PrefabsEditable/System/E_FactionDelegate.et"
+  }
+ }
+ coords 4691.493 130.171 7760.945
+ Factions {
+  SCR_CampaignFaction "{596906B2F7523690}" : "{ADFDBDA163950168}Configs/Factions/US_Campaign.conf" {
+  }
+  SCR_CampaignFaction "{596906B2EAEA6D99}" : "{15B582F8FA0B0940}Configs/Factions/USSR_Campaign.conf" {
+  }
+  SCR_Faction "{596906B2EDDEA2B3}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
+  }
+ }
+}

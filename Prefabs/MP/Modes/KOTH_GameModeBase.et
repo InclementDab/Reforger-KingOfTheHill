@@ -1,0 +1,38 @@
+KOTH_GameModeBase {
+ ID "5969440691154B3A"
+ components {
+  DamageManagerComponent "{59692D0798616CD0}" {
+  }
+  KOTH_ZoneManager "{59692D07CCA0E69E}" {
+  }
+  Hierarchy "{59692D07A48CDCA1}" {
+  }
+  SCR_FactionControlComponent "{59692D07900AA860}" {
+  }
+  SCR_PossessingManagerComponent "{5969310FEE2A5010}" {
+  }
+  SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
+   m_Info SCR_UIInfo "{5969440545013477}" {
+    Name "Test"
+   }
+   m_aWinConditions {
+    SCR_BriefingVictoryCondition "{596944054C0A6553}" {
+     victoryCondition MOVE
+     name "acquire cock"
+    }
+   }
+  }
+  SCR_RespawnMenuHandlerComponent "{5969440516D47C96}" {
+  }
+  SCR_RespawnSystemComponent "{59692D07C30E8982}" {
+  }
+  SCR_RespawnTimerComponent "{59692D07C13904D3}" {
+   m_fRespawnTime 1
+  }
+  SCR_SaveLoadComponent "{5969310FE1453199}" {
+  }
+  RplComponent "{59692D07A66DC1D4}" {
+  }
+ }
+ coords 4694.512 129.397 7775.764
+}

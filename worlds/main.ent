@@ -1,0 +1,6 @@
+SubScene {
+ Parent "worlds/Eden/Eden.ent"
+}
+Layer koth {
+ Index 1
+}

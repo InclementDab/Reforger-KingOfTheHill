@@ -1,0 +1,68 @@
+SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
+ coords 4696.497 129.478 7774.028
+}
+ScriptedChatEntity {
+ coords 4688.153 130.19 7760.011
+ Channels {
+  ServerChatChannel "{5968FE6CB3B7E1CE}" {
+   "Channel name" "Global"
+  }
+ }
+}
+KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
+ components {
+  SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
+   m_Info SCR_UIInfo "{5969440545013477}" {
+    Description "help me"
+    Icon "{17ECBAD93B9C7156}Common/Textures/bis_klan_BCR.edds"
+   }
+   m_aWinConditions {
+    SCR_BriefingVictoryCondition "{596944054C0A6553}" {
+     description "please"
+    }
+   }
+  }
+  SCR_RespawnTimerComponent "{59692D07C13904D3}" {
+  }
+  SCR_SaveLoadComponent "{5969310FE1453199}" {
+   Enabled 0
+  }
+ }
+ coords 4694.86 129.293 7777.492
+}
+SCR_FactionManager SCR_FactionManager1 : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
+ coords 4692.271 130.159 7761.14
+}
+KOTH_ZoneTriggerEntity {
+ components {
+  RplComponent "{596911609ADB3657}" {
+  }
+ }
+ coords 4696.72 130.608 7753.441
+ TriggerShapeType Sphere
+ SphereRadius 15
+ DrawShape 1
+ TriggerActivationType "Every query"
+ PeriodicQueries 1
+ UpdatePeriod 0.1
+}
+SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
+ coords 4695.77 129.354 7776.513
+ {
+  SCR_Position {
+   coords 1.218 0.118 -2.353
+  }
+ }
+}
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ coords 4694.752 129.632 7771.071
+ m_fSpawnRadius 6.7
+ {
+  SCR_Position {
+   coords -0.045 0.035 1.062
+  }
+ }
+}
+SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutManager_USxUSSR.et" {
+ coords 4692.993 130.149 7771.683
+}
