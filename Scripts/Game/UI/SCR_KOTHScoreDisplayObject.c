@@ -57,17 +57,8 @@ class KOTH_TeamScoreDisplayObject
 	}
 		
 	void DoBlink(float speed)
-	{
-		Color color;
-		if (speed > 0) {
-			color = Color.FromRGBA(46, 204, 113, 140);
-			m_BackgroundImage.SetColor(color);
-		}
-		else if (speed <= 0) {
-			color = Color.FromRGBA(0, 0, 0, 0);
-			m_BackgroundImage.SetColor(color);
-		}
-		
+	{		
+		m_BackgroundImage.SetColor(Color.FromRGBA(46 * speed > 0, 204 * speed > 0, 113 * speed > 0, 140 * speed > 0));
 		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, speed, 0, true));
 	}
 	
