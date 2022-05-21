@@ -419,6 +419,17 @@ KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et
    DisplayName "The Hill"
    MainType "Name Generic"
   }
+  SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
+   m_EntityType COMMENT
+   m_UIInfo SCR_EditableDescriptorUIInfo "{596B0DC1D36EC791}" {
+    Name "THE FUCKING HILL"
+    Description "(hill)"
+   }
+   m_bAutoRegister ALWAYS
+   m_fMaxDrawDistance 14.4
+   m_fSizeCoef 2
+   m_bBold 1
+  }
  }
  coords 4792.414 166.772 7051.898
  SphereRadius 100
