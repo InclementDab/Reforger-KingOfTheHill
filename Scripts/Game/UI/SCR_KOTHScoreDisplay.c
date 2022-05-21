@@ -30,7 +30,6 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	//! Speed used to fade areas hud when hints are shown
 	protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 
-	//------------------------------------------------------------------------------------------------
 	/*!
 		Checks the prerequisites for this InfoDisplay.
 	*/
@@ -50,17 +49,12 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		return true;
 	}
 
-	//------------------------------------------------------------------------------------------------
 	/*!
 		Creates individual hud elements.
 	*/
 	override void DisplayStartDraw(IEntity owner)
 	{
-		if (!m_wRoot) {
-			return;
-		}
-		
-		if (!m_KOTHManager) {
+		if (!m_wRoot || !m_KOTHManager) {
 			return;
 		}
 		
@@ -71,33 +65,26 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		}
 	}
 
-	//------------------------------------------------------------------------------------------------
 	/*!
 		Clears all hud elements.
 	*/
 	override void DisplayStopDraw(IEntity owner)
 	{
-		//DebugPrint("::DisplayStopDraw - Start");
 		super.DisplayStopDraw(owner);
 		m_ScoringElements.Clear();
-		
-		//DebugPrint("::DisplayStopDraw - End");
 	}
 
-	//------------------------------------------------------------------------------------------------
 	/*!
 		Updates the progress and state of all available scoring elements.
 	*/
 	override void DisplayUpdate(IEntity owner, float timeSlice)
-	{
-		//DebugPrint("::DisplayUpdate - Start");
-		
-		Widget scoring_root = m_wRoot.FindAnyWidget("Score_Root");
+	{		
+		Widget scoring_root = m_wRoot.FindAnyWidget("Score_Frame");
 		
 		// Reposition scoring UI based on whether it is in a map or not
 		if (scoring_root) {
-			SCR_EditorManagerEntity editorManager = SCR_EditorManagerEntity.GetInstance();
-			if (editorManager && editorManager.IsOpened()) {
+			SCR_EditorManagerEntity editor_manager = SCR_EditorManagerEntity.GetInstance();
+			if (editor_manager && editor_manager.IsOpened()) {
 				FrameSlot.SetPos(scoring_root, 0.0, 72.0);
 			} else {
 				FrameSlot.SetPos(scoring_root, 0.0, 32.0);
@@ -107,21 +94,19 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		// Fade out points when a hint is shown to prevent clipping
 		if (m_wAreaLayoutWidget) {
 			SCR_PopUpNotification notifications = SCR_PopUpNotification.GetInstance();
-			float targetOpacity = 1.0;
-			if (notifications && notifications.IsShowing())
-				targetOpacity = 0.0;
+			float target_opacity = 1.0;
+			if (notifications && notifications.IsShowing()) {
+				target_opacity = 0.0;
+			}
 
-			if (m_wAreaLayoutWidget.GetOpacity() != targetOpacity)
-				m_wAreaLayoutWidget.SetOpacity(Math.Lerp(m_wAreaLayoutWidget.GetOpacity(), targetOpacity, timeSlice * POINTS_LAYOUT_FADE_SPEED));
+			if (m_wAreaLayoutWidget.GetOpacity() != target_opacity) {
+				m_wAreaLayoutWidget.SetOpacity(Math.Lerp(m_wAreaLayoutWidget.GetOpacity(), target_opacity, timeSlice * POINTS_LAYOUT_FADE_SPEED));
+			}
 		}
 
 		// Update scoring
 		foreach (Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
-			if (!scoring_object) {
-				continue;
-			}
-
-			if (!m_KOTHManager) {
+			if (!scoring_object || !m_KOTHManager) {
 				continue;
 			}
 						
