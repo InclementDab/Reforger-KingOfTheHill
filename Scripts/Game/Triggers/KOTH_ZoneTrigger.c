@@ -97,6 +97,16 @@ class KOTH_GameModeBaseClass: SCR_BaseGameModeClass
 
 class KOTH_GameModeBase: SCR_BaseGameMode
 {
+	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
+	{
+		super.OnPlayerSpawned(playerId, controlledEntity);
+		
+		// start game
+		if (GetState() == SCR_EGameModeState.PREGAME) {
+			StartGameMode();
+		}
+	}
+	
 	KOTH_ZoneManager GetKOTHZoneManager()
 	{
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
@@ -123,7 +133,7 @@ class KOTH_ZoneManager: GenericComponent
 	protected int m_TicketCountToWin;
 	
 	[Attribute("10", desc: "Update rate of tickets, in seconds.")]
-	protected float m_TicketUpdateInterval ;
+	protected float m_TicketUpdateInterval;
 	
 	protected KOTH_ZoneTriggerEntity m_Zone;
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
@@ -131,33 +141,56 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTHZoneContestType m_KOTHZoneContestType;
 	protected Faction m_ZoneOwner;
 	
-	protected KOTH_GameModeBase m_pGameMode;
+	protected KOTH_GameModeBase m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
 			
 	void KOTH_ZoneManager()
 	{
-		if (!m_pGameMode)
-			m_pGameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());		
+		if (!m_GameMode) {
+			m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());		
+		}
 		
-		if (!m_ScoreDisplay)	
-			m_ScoreDisplay = SCR_KOTHTeamScoreDisplay.Cast(m_pGameMode.FindComponent(SCR_KOTHTeamScoreDisplay));
+		if (!m_ScoreDisplay) {
+			m_ScoreDisplay = SCR_KOTHTeamScoreDisplay.Cast(m_GameMode.FindComponent(SCR_KOTHTeamScoreDisplay));
+		}
+		
+		m_GameMode.GetOnGameStart().Insert(OnGameStart);
+		m_GameMode.GetOnGameEnd().Insert(OnGameEnd);
 	}
 	
 	void SetZone(KOTH_ZoneTriggerEntity zone)
 	{
 		m_Zone = zone;
+	}
+	
+	void OnGameStart()
+	{
 		GetGame().GetCallqueue().CallLater(DoTicketUpdate, m_TicketUpdateInterval * 1000, true);
 	}
-		
+	
+	void OnGameEnd()
+	{
+		GetGame().GetCallqueue().Remove(DoTicketUpdate);
+	}
+			
 	void DoTicketUpdate()
 	{
 		if (!m_Zone) {
 			return;
 		}
 		
+		// todo plz fix
+		if (m_GameMode.GetState() != SCR_EGameModeState.GAME) {
+			return;
+		}
+		
 		array<Faction> most_populated_factions = new array<Faction>();
 		int max_fact_count;
 		foreach (Faction faction, set<ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
+			if (characters.Count() == 0) { // dont want a tie with 0's
+				continue;
+			}
+			
 			if (characters.Count() >= max_fact_count) {
 				if (characters.Count() > max_fact_count) {
 					most_populated_factions.Clear();
@@ -173,13 +206,11 @@ class KOTH_ZoneManager: GenericComponent
 		// no ticket updates, no one is in zone
 		if (most_populated_factions.Count() == 0) {
 			m_KOTHZoneContestType = KOTHZoneContestType.EMPTY;
-			Print("Zone is empty");
 		}
 		
 		if (most_populated_factions.Count() == 1) {
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
 			m_ZoneOwner = most_populated_factions[0];
-			Print("Zone is owned by " + m_ZoneOwner.GetFactionName());
 			m_Tickets[m_ZoneOwner] = m_Tickets[m_ZoneOwner] + 1;
 			OnFactionTicketChangedScript.Invoke(m_ZoneOwner, m_Tickets[m_ZoneOwner]);
 		}
@@ -187,8 +218,6 @@ class KOTH_ZoneManager: GenericComponent
 		// contested!
 		if (most_populated_factions.Count() > 1) {
 			m_KOTHZoneContestType = KOTHZoneContestType.TIE;
-			Print("Zone is contested by..");
-			most_populated_factions.Debug();
 		}
 		
 		// check our ticket counts
