@@ -118,9 +118,9 @@ void OnFactionTicketChanged(Faction faction, int tickets);
 
 enum KOTHZoneContestType
 {
-	OWNED,
+	EMPTY,
 	TIE,
-	EMPTY
+	OWNED,
 }
 
 class KOTH_ZoneManagerClass: GenericComponentClass
@@ -139,7 +139,7 @@ class KOTH_ZoneManager: GenericComponent
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
 	protected KOTHZoneContestType m_KOTHZoneContestType;
-	protected Faction m_ZoneOwner;
+	protected ref array<Faction> m_ZoneOwners = {};
 	
 	protected KOTH_GameModeBase m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
@@ -184,7 +184,7 @@ class KOTH_ZoneManager: GenericComponent
 			return;
 		}
 		
-		array<Faction> most_populated_factions = new array<Faction>();
+		m_ZoneOwners.Clear();
 		int max_fact_count;
 		foreach (Faction faction, set<ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
 			if (characters.Count() == 0) { // dont want a tie with 0's
@@ -193,30 +193,28 @@ class KOTH_ZoneManager: GenericComponent
 			
 			if (characters.Count() >= max_fact_count) {
 				if (characters.Count() > max_fact_count) {
-					most_populated_factions.Clear();
+					m_ZoneOwners.Clear();
 					max_fact_count = characters.Count();
 				}
 				
-				most_populated_factions.Insert(faction);
+				m_ZoneOwners.Insert(faction);
 			}
 		}
-		
-		m_ZoneOwner = null;
-		
+				
 		// no ticket updates, no one is in zone
-		if (most_populated_factions.Count() == 0) {
+		if (m_ZoneOwners.Count() == 0) {
 			m_KOTHZoneContestType = KOTHZoneContestType.EMPTY;
 		}
 		
-		if (most_populated_factions.Count() == 1) {
+		if (m_ZoneOwners.Count() == 1) {
+			Faction zone_owner = m_ZoneOwners[0];
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
-			m_ZoneOwner = most_populated_factions[0];
-			m_Tickets[m_ZoneOwner] = m_Tickets[m_ZoneOwner] + 1;
-			OnFactionTicketChangedScript.Invoke(m_ZoneOwner, m_Tickets[m_ZoneOwner]);
+			m_Tickets[zone_owner] = m_Tickets[zone_owner] + 1;
+			OnFactionTicketChangedScript.Invoke(zone_owner, m_Tickets[zone_owner]);
 		}
 		
 		// contested!
-		if (most_populated_factions.Count() > 1) {
+		if (m_ZoneOwners.Count() > 1) {
 			m_KOTHZoneContestType = KOTHZoneContestType.TIE;
 		}
 		
@@ -233,7 +231,16 @@ class KOTH_ZoneManager: GenericComponent
 	
 	Faction GetZoneOwner()
 	{
-		return m_ZoneOwner;
+		if (m_KOTHZoneContestType != KOTHZoneContestType.OWNED) {
+			return null;
+		}
+		
+		return m_ZoneOwners[0];
+	}
+	
+	array<Faction> GetZoneOwners()
+	{
+		return m_ZoneOwners;
 	}
 	
 	KOTHZoneContestType GetZoneContestType()

@@ -1,4 +1,3 @@
-//------------------------------------------------------------------------------------------------
 /*!
 	This object serves as a wrapper for individual HUD team score widgets.
 */

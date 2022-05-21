@@ -1,6 +1,3 @@
-SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
- coords 4696.497 129.478 7774.028
-}
 ScriptedChatEntity {
  coords 4688.153 130.19 7760.011
  Channels {
@@ -12,8 +9,9 @@ ScriptedChatEntity {
 KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
  components {
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
-   m_TicketCountToWin 10
-   m_TicketUpdateInterval 5
+   m_TicketUpdateInterval 15
+  }
+  SCR_ChatComponent "{596B46E44FAAD167}" {
   }
   SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
    m_Info SCR_UIInfo "{5969440545013477}" {
@@ -347,34 +345,62 @@ SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
  }
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
- coords 4969.123 172.266 6959.645
- angleX 3.072
+ coords 5277.023 83.129 6356.981
  angleY 1.493
- angleZ -1.357
  m_fSpawnRadius 1
  m_fNoPlayerRadius 0
  {
   $grp SCR_Position {
    {
-    coords 2.222 -0.053 6.66
+    coords 4.511 -6.089 5.406
     angleX -2.159
     angleY -1.902
     angleZ -3.015
    }
    {
-    coords 2.369 0.061 -1.871
+    coords -10.117 -6.079 -3.375
     angleX -1.271
     angleY -1.897
     angleZ -3.908
+   }
+   {
+    coords -1.027 -6.041 -10.641
+    angleX -5.143
+    angleY -3.53
+    angleZ -1.472
+   }
+   {
+    coords -5.956 -6.167 5.381
+    angleX -8.082
+    angleY -5.248
+    angleZ 0.165
+   }
+   {
+    coords -2 -6.059 7.069
+    angleX -8.082
+    angleY -5.248
+    angleZ 0.165
+   }
+   {
+    coords 4.782 -6.098 -5.969
+    angleX -8.082
+    angleY -5.248
+    angleZ 0.165
+   }
+   {
+    coords 6.118 -6.168 1.54
+    angleX -8.082
+    angleY -5.248
+    angleZ 0.165
    }
   }
  }
 }
 GenericEntity : "{781A5361CCEA95FC}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_US_01.et" {
- coords 4968.357 172.105 6957.766
- angleX 2.673
- angleY -0.167
- angleZ -3.58
+ coords 5276.258 76.956 6355.103
+ angleX -0.897
+ angleY -0.111
+ angleZ -0.893
 }
 SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutManager_USxUSSR.et" {
  coords 4692.993 129.544 7770.564

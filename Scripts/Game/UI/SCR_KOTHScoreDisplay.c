@@ -117,7 +117,7 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		
 		// do blinking for zone owners
 		if (m_KOTHManager.GetZoneContestType() == KOTHZoneContestType.OWNED) {
-			m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0);
+			m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0);	
 		}
 	}
 }
