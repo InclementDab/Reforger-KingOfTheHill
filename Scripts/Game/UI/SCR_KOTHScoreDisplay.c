@@ -179,21 +179,27 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 					{
 						DebugPrint("::DisplayUpdate - Update USA Tickets");
 						int usTickets = m_pKOTHManager.GetTicketsForFaction(us);
-						scoringObject.Update(usTickets);
+						int usPlayerCount = m_pKOTHManager.GetUSAPlayerCount();
+						scoringObject.UpdateScore(usTickets);
+						scoringObject.UpdatePlayerCount(usPlayerCount);
 						break;
 					}
 					case ussr:
 					{
 						DebugPrint("::DisplayUpdate - Update USSR Tickets");
 						int ussrTickets = m_pKOTHManager.GetTicketsForFaction(ussr);
-						scoringObject.Update(ussrTickets);
+						int ussrPlayerCount = m_pKOTHManager.GetUSSRPlayerCount();
+						scoringObject.UpdateScore(ussrTickets);
+						scoringObject.UpdatePlayerCount(ussrPlayerCount);
 						break;
 					}
 					case ussr:
 					{
 						DebugPrint("::DisplayUpdate - Update FIA Tickets");
 						int fiaTickets = m_pKOTHManager.GetTicketsForFaction(fia);
-						scoringObject.Update(fiaTickets);
+						int fiaPlayerCount = m_pKOTHManager.GetFIAPlayerCount();
+						scoringObject.UpdateScore(fiaTickets);
+						scoringObject.UpdatePlayerCount(fiaPlayerCount);
 						break;
 					}
 				}

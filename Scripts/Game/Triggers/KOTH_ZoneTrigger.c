@@ -129,6 +129,10 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTH_GameModeBase m_pGameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
 	
+	protected int m_USAPlayerCount;
+	protected int m_USSRPlayerCount;
+	protected int m_FIAPlayerCount;
+	
 	void KOTH_ZoneManager()
 	{
 		if (!m_pGameMode)
@@ -208,5 +212,20 @@ class KOTH_ZoneManager: GenericComponent
 	int GetTicketCountToWin()
 	{
 		return m_TicketCountToWin;
+	}
+	
+	int GetUSAPlayerCount()
+	{
+		return m_USAPlayerCount;
+	}
+	
+	int GetUSSRPlayerCount()
+	{
+		return m_USSRPlayerCount;
+	}
+	
+	int GetFIAPlayerCount()
+	{
+		return m_FIAPlayerCount;
 	}
 }

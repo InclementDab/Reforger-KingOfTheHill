@@ -7,6 +7,9 @@ class SCR_KOTHTeamScoreDisplayObject
 	//! Topmost frame of this object
 	protected Widget m_wRoot;
 
+	//! Reference to text widget that displays player count
+	protected TextWidget m_wPlayerCountText;
+	
 	//! Reference to fillable bar widget
 	protected ImageWidget m_wFactionImage;
 
@@ -50,6 +53,7 @@ class SCR_KOTHTeamScoreDisplayObject
 		m_wRoot = root;
 		m_wFactionImage = ImageWidget.Cast(FindScoreWidget(root, "Icon_Faction"));
 		m_wScoreText = TextWidget.Cast(FindScoreWidget(root, "ScoreBar_Text"));
+		m_wPlayerCountText = TextWidget.Cast(FindScoreWidget(root, "ScoreBar_PlayerCount")); 
 
 		m_pAffiliatedFaction = faction;
 
@@ -87,11 +91,20 @@ class SCR_KOTHTeamScoreDisplayObject
 
 	//------------------------------------------------------------------------------------------------
 	/*!
-		Updates state of this object.
+		Updates displayed tickets value of affiliated faction
 	*/
-	void Update(int score)
+	void UpdateScore(int score)
 	{
 		m_wScoreText.SetText(score.ToString());
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	/*!
+		Updates displayed player count value of affiliated faction
+	*/	
+	void UpdatePlayerCount(int count)
+	{
+		m_wPlayerCountText.SetText(count.ToString());
 	}
 
 	//------------------------------------------------------------------------------------------------
