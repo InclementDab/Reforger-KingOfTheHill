@@ -11,9 +11,9 @@ KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
    m_TicketUpdateInterval 15
   }
-  SCR_ChatComponent "{596B453B13CFE62B}" {
-  }
   SCR_ChatComponent "{596B46E44FAAD167}" {
+  }
+  SCR_GroupsManagerComponent "{596B4A8BDCBF5C28}" {
   }
   SCR_HintManagerComponent "{596B453A361472AB}" {
   }
@@ -82,35 +82,99 @@ TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
 }
 GarbageManager {
  coords 4776.713 130.867 7743.142
- CharacterLifetime 240
- VehicleLifetime 240
- ItemLifetime 240
+ CharacterLifetime 30
+ ItemLifetime 60
 }
 HitRegistrationManager HitRegistrationManager1 {
  coords 4760.456 131.355 7777.755
 }
+$grp SCR_VehicleSpawn {
+ {
+  coords 4621.872 121.791 8057.906
+  angleY 173.747
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 4618.883 121.704 8050.425
+  angleY 173.747
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 4624.883 121.468 8037.331
+  angleY 173.747
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 4623.148 121.2 8022.185
+  angleY 173.747
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 5301.155 80.827 6390.289
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 5296.497 80.971 6403.586
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 5283.386 81.302 6413.479
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 5271.562 82.684 6431.797
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3949.538 53.434 7144.384
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3959.935 54.516 7142.856
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3971.092 55.723 7147.954
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3981.373 56.691 7146.744
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+}
 GenericEntity : "{2A3B53114DEAA60A}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_USSR_01.et" {
- coords 4594.424 150.598 7063.353
- angleX 4.118
- angleY 99.551
- angleZ -2.927
+ coords 3967.557 53.201 7170.718
+ angleX 5.615
+ angleY 170.171
+ angleZ 6.238
 }
 SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
- coords 4812.038 164.937 7258.253
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   DisplayName "FIA Spawn (Safezone)"
+   VisibleOnMap 1
+   MapItemDescriptor 1
+  }
+ }
+ coords 4652.709 124.051 8050.436
+ angleZ -2.684
+ m_fSpawnRadius 15
+ m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "US Spawn (Safe Zone)"
+ }
  {
-  $grp SCR_Position {
-   {
-    coords 0.846 0.066 -0.999
-    angleX 2.504
-    angleY -0.256
-    angleZ -5.838
-   }
-   {
-    coords -0.83 -0.095 -0.494
-    angleX 1.758
-    angleY -0.169
-    angleZ -5.496
-   }
+  SCR_Position {
+   coords 0 0 0
+   angleY -154.234
   }
  }
 }
@@ -149,10 +213,10 @@ GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.
    m_eLeaningType LEFT
   }
  }
- coords 4811.557 164.793 7257.357
- angleX -3.701
- angleY -146.568
- angleZ 3.975
+ coords 4647.792 123.629 8038.892
+ angleX -2.227
+ angleY -146.523
+ angleZ 1.745
  {
   $grp GenericEntity : "{62B2ADC4243454F9}Prefabs/Props/Civilian/Jerrycan_01.et" {
    {
@@ -370,69 +434,42 @@ GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.
  }
 }
 SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
- coords 4594.431 150.66 7063.542
- m_fSpawnRadius 1
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   DisplayName "USSR Spawn (Safe Zone)"
+   VisibleOnMap 1
+   MapItemDescriptor 1
+  }
+ }
+ coords 3954.344 51.819 7168.468
+ angleY 70.456
+ m_fSpawnRadius 15
  m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "USSR Spawn (Safe Zone)"
+ }
  {
-  $grp SCR_Position {
-   {
-    coords -0.005 0.067 -1.051
-   }
-   {
-    coords 0.437 0.029 0.055
-   }
+  SCR_Position {
   }
  }
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
- coords 5277.023 83.129 6356.981
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   DisplayName "US Spawn (Safe Zone)"
+   VisibleOnMap 1
+   MapItemDescriptor 1
+  }
+ }
+ coords 5289.981 77.358 6363.663
  angleY 1.493
- m_fSpawnRadius 1
+ m_fSpawnRadius 10
  m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "US Spawn (Safe Zone)"
+ }
  {
-  $grp SCR_Position {
-   {
-    coords 4.511 -6.089 5.406
-    angleX -2.159
-    angleY -1.902
-    angleZ -3.015
-   }
-   {
-    coords -10.117 -6.079 -3.375
-    angleX -1.271
-    angleY -1.897
-    angleZ -3.908
-   }
-   {
-    coords -1.027 -6.041 -10.641
-    angleX -5.143
-    angleY -3.53
-    angleZ -1.472
-   }
-   {
-    coords -5.956 -6.167 5.381
-    angleX -8.082
-    angleY -5.248
-    angleZ 0.165
-   }
-   {
-    coords -2 -6.059 7.069
-    angleX -8.082
-    angleY -5.248
-    angleZ 0.165
-   }
-   {
-    coords 4.782 -6.098 -5.969
-    angleX -8.082
-    angleY -5.248
-    angleZ 0.165
-   }
-   {
-    coords 6.118 -6.168 1.54
-    angleX -8.082
-    angleY -5.248
-    angleZ 0.165
-   }
+  SCR_Position {
   }
  }
 }
@@ -483,7 +520,9 @@ KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et
  components {
   MapDescriptorComponent "{59695A60A5A18EEA}" {
    DisplayName "The Hill"
-   MainType "Name Generic"
+   MapItemDescriptor 1
+   MainType Hill
+   Scale 13.6
   }
   SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
    m_EntityType COMMENT
