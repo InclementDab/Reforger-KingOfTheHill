@@ -25,9 +25,6 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	//! Parent frame that holds all scoring widgets
 	protected Widget m_wScoringFrame;
 
-	//! Used to display remaining time (if any).
-	protected TextWidget m_wRemainingTimeWidget;
-
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_pKOTHManager;
 	//! Game mode instance
@@ -47,9 +44,6 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		if (!m_pGameMode)
 			return false;
 
-		if (!m_pGameMode.GetScoringSystemComponent())
-			return false;
-
 		m_pKOTHManager = KOTH_ZoneManager.Cast(m_pGameMode.FindComponent(KOTH_ZoneManager));
 		if (!m_pKOTHManager)
 			return false;
@@ -63,6 +57,8 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	*/
 	override void DisplayStartDraw(IEntity owner)
 	{
+		DebugPrint("::DisplayStartDraw - Start");
+		
 		if (m_wRoot)
 		{
 			// Root frame
@@ -94,14 +90,13 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 				ref SCR_KOTHTeamScoreDisplayObject fiaObj = new SCR_KOTHTeamScoreDisplayObject(fiaParent, fia);
 				m_aScoringElements.Insert(fiaObj);
 			}
-
-			// Remaining time text in middle
-			m_wRemainingTimeWidget = TextWidget.Cast(m_wRoot.FindAnyWidget("RemainingTime"));
 		}
 		else
 		{
-			Print("SCR_KOTHTeamScoreDisplay could not create scoring layout!");
+			Print(ToString() + "::DisplayStartDraw - Could not create scoring layout!");
 		}
+		
+		DebugPrint("::DisplayStartDraw - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -110,22 +105,26 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	*/
 	override void DisplayStopDraw(IEntity owner)
 	{
+		DebugPrint("::DisplayStopDraw - Start");
+		
 		// Clear all scoring elements
 		for (int i = m_aScoringElements.Count() - 1; i >= 0; i--)
 		{
 			m_aScoringElements[i] = null;
 			m_aScoringElements.Remove(i);
 		}
+		
+		DebugPrint("::DisplayStopDraw - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
 	/*!
-		Updates the progress and state of all available elements.
+		Updates the progress and state of all available scoring elements.
 	*/
 	override void DisplayUpdate(IEntity owner, float timeSlice)
 	{
-		SCR_BaseScoringSystemComponent scoringSystem = m_pGameMode.GetScoringSystemComponent();
-
+		DebugPrint("::DisplayUpdate - Start");
+		
 		// Reposition scoring UI based on whether it is in a map or not
 		if (m_wScoringFrame)
 		{
@@ -157,34 +156,55 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		{
 			SCR_KOTHTeamScoreDisplayObject scoringObject = m_aScoringElements[i];
 			if (!scoringObject)
+			{
+				DebugPrint("::DisplayUpdate - Big FFFFF");
 				continue;
-
-			int score = 0;
-			int maxScore = 0;
-			if (scoringSystem)
-			{
-				score = scoringSystem.GetFactionScore(scoringObject.GetFaction());
-				maxScore = scoringSystem.GetScoreLimit();
 			}
 
-			scoringObject.Update(score, maxScore);
-		}
-
-		// Update remaining time widget if any
-		if (m_wRemainingTimeWidget)
-		{
-			if (m_pGameMode.GetTimeLimit() <= 0.0) // Disable showing if no time limit is set
-				m_wRemainingTimeWidget.SetVisible(false);
-			else
-			{
-				// Enable if time limit is set, clamp to 0
-				float remainingTime = m_pGameMode.GetRemainingTime();
-				if (remainingTime < 0.0)
-					remainingTime = 0.0;
-
-				m_wRemainingTimeWidget.SetVisible(true);
-				m_wRemainingTimeWidget.SetText(SCR_FormatHelper.FormatTime(remainingTime));
+			if (m_pKOTHManager)
+			{				
+				DebugPrint("::DisplayUpdate - Big POG");
+				
+				Faction us = GetGame().GetFactionManager().GetFactionByKey("US");				
+				Faction ussr = GetGame().GetFactionManager().GetFactionByKey("USSR");				
+				Faction fia = GetGame().GetFactionManager().GetFactionByKey("FIA");
+				
+				Faction elementFaction = scoringObject.GetFaction();
+				DebugPrint("::DisplayUpdate - Element related faction:" + elementFaction);
+				DebugPrint("::DisplayUpdate - Ticket max:" + m_pKOTHManager.GetTicketCountToWin());
+				
+				switch (elementFaction)
+				{
+					case us:
+					{
+						DebugPrint("::DisplayUpdate - Update USA Tickets");
+						int usTickets = m_pKOTHManager.GetTicketsForFaction(us);
+						scoringObject.Update(usTickets, m_pKOTHManager.GetTicketCountToWin());
+						break;
+					}
+					case ussr:
+					{
+						DebugPrint("::DisplayUpdate - Update USSR Tickets");
+						int ussrTickets = m_pKOTHManager.GetTicketsForFaction(ussr);
+						scoringObject.Update(ussrTickets, m_pKOTHManager.GetTicketCountToWin());
+						break;
+					}
+					case ussr:
+					{
+						DebugPrint("::DisplayUpdate - Update FIA Tickets");
+						int fiaTickets = m_pKOTHManager.GetTicketsForFaction(fia);
+						scoringObject.Update(fiaTickets, m_pKOTHManager.GetTicketCountToWin());
+						break;
+					}
+				}
 			}
 		}
+		
+		DebugPrint("::DisplayUpdate - Start");
+	}
+	
+	void DebugPrint(string text)
+	{
+		Print(ToString() + text)
 	}
 }

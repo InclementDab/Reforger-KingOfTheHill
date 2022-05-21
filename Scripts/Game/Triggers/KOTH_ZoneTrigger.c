@@ -125,7 +125,19 @@ class KOTH_ZoneManager: GenericComponent
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
 	protected KOTHZoneContestType m_KOTHZoneContestType;
+	
+	protected KOTH_GameModeBase m_pGameMode;
+	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
+	
+	void KOTH_ZoneManager()
+	{
+		if (!m_pGameMode)
+			m_pGameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());		
 		
+		if (!m_ScoreDisplay)	
+			m_ScoreDisplay = SCR_KOTHTeamScoreDisplay.Cast(m_pGameMode.FindComponent(SCR_KOTHTeamScoreDisplay));
+	}
+	
 	void SetZone(KOTH_ZoneTriggerEntity zone)
 	{
 		m_Zone = zone;
@@ -191,5 +203,10 @@ class KOTH_ZoneManager: GenericComponent
 	int GetTicketsForFaction(Faction faction)
 	{
 		return m_Tickets[faction];
+	}
+	
+	int GetTicketCountToWin()
+	{
+		return m_TicketCountToWin;
 	}
 }

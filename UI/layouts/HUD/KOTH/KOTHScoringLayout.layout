@@ -17,7 +17,7 @@ FrameWidgetClass {
     Alignment 0.5 0
    }
    {
-    FrameWidgetClass "{59695DB6D42B5E09}" : "{045ACEAF0632D7FB}UI/Layouts/HUD/CaptureAndHold/KOTHScoreUSSR.layout" {
+    FrameWidgetClass "{59695DB6D42B5E09}" : "{045ACEAF0632D7FB}UI/layouts/HUD/KOTH/KOTHScoreUSSR.layout" {
      Name "Score_USSR"
      Slot FrameWidgetSlot "{59695DB6C548A96B}" {
       PositionX 0
@@ -30,9 +30,25 @@ FrameWidgetClass {
       OffsetBottom -30
      }
      {
+      VerticalLayoutWidgetClass "{59695DB0BE734300}" {
+       Prefab "{59695DB0BE734300}"
+       {
+        OverlayWidgetClass "{59695DB2D096D232}" {
+         Prefab "{59695DB2D096D232}"
+         {
+          ImageWidgetClass "{59695DB2D09660FC}" {
+           Prefab "{59695DB2D09660FC}"
+           "Is Enabled" 0
+           "Is Visible" 0
+           Image ""
+          }
+         }
+        }
+       }
+      }
      }
     }
-    FrameWidgetClass "{59695DB6E13CE9A8}" : "{7A2A01CC1C7D5685}UI/Layouts/HUD/CaptureAndHold/KOTHScoreUSA.layout" {
+    FrameWidgetClass "{59695DB6E13CE9A8}" : "{7A2A01CC1C7D5685}UI/layouts/HUD/KOTH/KOTHScoreUSA.layout" {
      Name "Score_USA"
      Slot FrameWidgetSlot "{59695DB6E13CE9BF}" {
       PositionX 65
@@ -45,9 +61,25 @@ FrameWidgetClass {
       OffsetBottom -30
      }
      {
+      VerticalLayoutWidgetClass "{59695DB7ACD019F5}" {
+       Prefab "{59695DB7ACD019F5}"
+       {
+        OverlayWidgetClass "{59695DB7ACD019EB}" {
+         Prefab "{59695DB7ACD019EB}"
+         {
+          ImageWidgetClass "{59695DB7ACD019E8}" {
+           Prefab "{59695DB7ACD019E8}"
+           "Is Enabled" 0
+           "Is Visible" 0
+           Image ""
+          }
+         }
+        }
+       }
+      }
      }
     }
-    FrameWidgetClass "{59695DB67AB57662}" : "{BD83098B2EA3F56A}UI/Layouts/HUD/CaptureAndHold/KOTHScoreFIA.layout" {
+    FrameWidgetClass "{59695DB67AB57662}" : "{BD83098B2EA3F56A}UI/layouts/HUD/KOTH/KOTHScoreFIA.layout" {
      Name "Score_FIA"
      Slot FrameWidgetSlot "{59695DB67AB57656}" {
       PositionX 130
@@ -60,6 +92,22 @@ FrameWidgetClass {
       OffsetBottom -30
      }
      {
+      VerticalLayoutWidgetClass "{59695DB6B52CB9C6}" {
+       Prefab "{59695DB6B52CB9C6}"
+       {
+        OverlayWidgetClass "{59695DB6B52CB9C4}" {
+         Prefab "{59695DB6B52CB9C4}"
+         {
+          ImageWidgetClass "{59695DB6B52CB9C5}" {
+           Prefab "{59695DB6B52CB9C5}"
+           "Is Enabled" 0
+           "Is Visible" 0
+           Image ""
+          }
+         }
+        }
+       }
+      }
      }
     }
    }

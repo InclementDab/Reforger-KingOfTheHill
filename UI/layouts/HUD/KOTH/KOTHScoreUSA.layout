@@ -59,6 +59,8 @@ FrameWidgetClass {
         VerticalAlign 3
         Padding 0 0 0 0
        }
+       "Is Enabled" 0
+       "Is Visible" 0
        Clipping False
        Color 1 1 1 1
        "Inherit Color" 1

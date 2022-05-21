@@ -94,7 +94,7 @@ class SCR_KOTHTeamScoreDisplayObject
 		Updates state of this object.
 	*/
 	void Update(int score, int maxScore)
-	{
+	{	
 		float progress01;
 		if (maxScore <= 0)
 			progress01 = 0.0;

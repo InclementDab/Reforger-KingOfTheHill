@@ -31,17 +31,6 @@ KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_
   SCR_SaveLoadComponent "{5969310FE1453199}" {
    Enabled 0
   }
-  SCR_ScoringSystemComponent "{596AA5045A086C1D}" {
-   m_aActions {
-    IScoringAction "{596AA50457342DE2}" {
-     m_eScoringMode SLM_Faction
-    }
-    EndGameAction "{596AA5044C61397D}" {
-     m_eScoringMode SLM_Faction
-     m_iScoreLimit 4000
-    }
-   }
-  }
   RplComponent "{59692D07A66DC1D4}" {
    "Rpl State Override" Static
   }
