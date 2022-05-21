@@ -60,7 +60,7 @@ class KOTH_TeamScoreDisplayObject
 	{
 		Color color;
 		if (speed > 0) {
-			color = Color.FromRGBA(140, 46, 204, 113);
+			color = Color.FromRGBA(46, 204, 113, 140);
 			m_BackgroundImage.SetColor(color);
 		}
 		else if (speed <= 0) {
