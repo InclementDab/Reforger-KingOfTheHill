@@ -52,7 +52,7 @@ FrameWidgetClass {
        Name "Icon_Background"
        Slot OverlayWidgetSlot "{596B2B7081DBF993}" {
        }
-       Color 0.027 0.604 0.165 0.51
+       Color 0.027 0.604 0.165 0
        Size 60 35
       }
       ImageWidgetClass "{596B0DDA6BF7A4BD}" {

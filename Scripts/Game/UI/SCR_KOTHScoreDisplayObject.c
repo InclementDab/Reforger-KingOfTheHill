@@ -12,6 +12,9 @@ class KOTH_TeamScoreDisplayObject
 	
 	//! Reference to fillable bar widget
 	protected ImageWidget m_FactionImage;
+	
+	//! Reference to fillable bar widget
+	protected ImageWidget m_BackgroundImage;	
 
 	//! Reference to text widget that displays score
 	protected TextWidget m_ScoreText;
@@ -25,6 +28,7 @@ class KOTH_TeamScoreDisplayObject
 		m_Faction = faction;
 		
 		m_FactionImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Faction"));
+		m_BackgroundImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Background"));
 		m_ScoreText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_Text"));
 		m_PlayerCountText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_PlayerCount")); 
 
@@ -54,7 +58,17 @@ class KOTH_TeamScoreDisplayObject
 		
 	void DoBlink(float speed)
 	{
-		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_FactionImage, speed, 0, true));
+		Color color;
+		if (speed > 0) {
+			color = Color.FromRGBA(140, 46, 204, 113);
+			m_BackgroundImage.SetColor(color);
+		}
+		else if (speed <= 0) {
+			color = Color.FromRGBA(0, 0, 0, 0);
+			m_BackgroundImage.SetColor(color);
+		}
+		
+		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, speed, 0, true));
 	}
 	
 	void UpdateScore(int score)
