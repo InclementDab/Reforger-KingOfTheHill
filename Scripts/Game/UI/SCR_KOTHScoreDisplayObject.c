@@ -10,9 +10,6 @@ class SCR_KOTHTeamScoreDisplayObject
 	//! Reference to fillable bar widget
 	protected ImageWidget m_wFactionImage;
 
-	//! Reference to fillable bar widget
-	protected ImageWidget m_wBarImage;
-
 	//! Reference to text widget that displays score
 	protected TextWidget m_wScoreText;
 
@@ -52,7 +49,6 @@ class SCR_KOTHTeamScoreDisplayObject
 	{
 		m_wRoot = root;
 		m_wFactionImage = ImageWidget.Cast(FindScoreWidget(root, "Icon_Faction"));
-		m_wBarImage = ImageWidget.Cast(FindScoreWidget(root, "ScoreBar_Fill"));
 		m_wScoreText = TextWidget.Cast(FindScoreWidget(root, "ScoreBar_Text"));
 
 		m_pAffiliatedFaction = faction;
@@ -93,15 +89,8 @@ class SCR_KOTHTeamScoreDisplayObject
 	/*!
 		Updates state of this object.
 	*/
-	void Update(int score, int maxScore)
-	{	
-		float progress01;
-		if (maxScore <= 0)
-			progress01 = 0.0;
-		else
-			progress01 = score / (float)maxScore;
-
-		m_wBarImage.SetMaskProgress(progress01);
+	void Update(int score)
+	{
 		m_wScoreText.SetText(score.ToString());
 	}
 

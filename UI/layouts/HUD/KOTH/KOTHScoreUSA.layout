@@ -37,41 +37,6 @@ FrameWidgetClass {
      Clipping False
      "Inherit Color" 1
      {
-      ImageWidgetClass "{59695DB7ACD019E8}" {
-       Name "ScoreBar_Background_USA"
-       Slot OverlayWidgetSlot "{5946C48CF170BEDB}" {
-        HorizontalAlign 3
-        VerticalAlign 3
-        Padding 0 0 0 0
-       }
-       Clipping False
-       Color 0 0 0 0.196
-       Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
-       Image "CAH_SCORE_BACKGROUND"
-       Size 100 28
-       "Shadow Offset" 1 1
-       "Shadow Color" 0 0 0 0.502
-      }
-      ImageWidgetClass "{59695DB7ACD019E9}" {
-       Name "ScoreBar_Fill_USA"
-       Slot OverlayWidgetSlot "{5946C48CF170BEDB}" {
-        HorizontalAlign 3
-        VerticalAlign 3
-        Padding 0 0 0 0
-       }
-       "Is Enabled" 0
-       "Is Visible" 0
-       Clipping False
-       Color 1 1 1 1
-       "Inherit Color" 1
-       Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
-       Image "CAH_SCORE_FILL"
-       Size 100 28
-       Mask "{40ADF497CD7DD34A}UI/Textures/HUD/CaptureAndHoldProgressMaskLeft.edds"
-       "Transition width" 0.01
-       Progress 0
-       "Shadow Offset" 0 0
-      }
       TextWidgetClass "{59695DB7ACD035F9}" {
        Name "ScoreBar_Text_USA"
        Slot OverlayWidgetSlot "{5946C48B5B143729}" {
