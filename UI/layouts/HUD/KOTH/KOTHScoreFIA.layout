@@ -1,0 +1,97 @@
+FrameWidgetClass {
+ Name "TeamScore_FIA"
+ {
+  VerticalLayoutWidgetClass "{59695DB6B52CB9C6}" {
+   Name "VerticalLayout"
+   Slot FrameWidgetSlot "{59695DB0BE7343DA}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 60
+    OffsetRight -60
+    SizeY 30
+    OffsetBottom -30
+   }
+   {
+    ImageWidgetClass "{59695DB6B52CB9C7}" {
+     Name "Icon_Faction_FIA"
+     Slot LayoutSlot "{5626D0F19F5A6DB1}" {
+      HorizontalAlign 1
+      VerticalAlign 1
+      Padding 0 0 0 0
+     }
+     Clipping False
+     Color 1 1 1 1
+     Texture "{B784E694BA4A7D40}UI/Textures/Flags/Everon-flag-base-3it.edds"
+     Image ""
+     Size 52 28
+     "Shadow Offset" 1 1
+     "Shadow Color" 0 0 0 0.502
+    }
+    OverlayWidgetClass "{59695DB6B52CB9C4}" {
+     Name "ScoreBar_Overlay_FIA"
+     Slot LayoutSlot "{5946C48CE4AAF96F}" {
+      Padding 0 0 0 0
+     }
+     Clipping False
+     "Inherit Color" 1
+     {
+      ImageWidgetClass "{59695DB6B52CB9C5}" {
+       Name "ScoreBar_Background_FIA"
+       Slot OverlayWidgetSlot "{5946C48CF170BEDB}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Color 0 0 0 0.196
+       Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
+       Image "CAH_SCORE_BACKGROUND"
+       Size 100 28
+       "Shadow Offset" 1 1
+       "Shadow Color" 0 0 0 0.502
+      }
+      ImageWidgetClass "{59695DB6B52F23F0}" {
+       Name "ScoreBar_Fill_FIA"
+       Slot OverlayWidgetSlot "{5946C48CF170BEDB}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Color 1 1 1 1
+       "Inherit Color" 1
+       Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
+       Image "CAH_SCORE_FILL"
+       Size 100 28
+       Mask "{40ADF497CD7DD34A}UI/Textures/HUD/CaptureAndHoldProgressMaskLeft.edds"
+       "Transition width" 0.01
+       Progress 0
+       "Shadow Offset" 0 0
+      }
+      TextWidgetClass "{59695DB6B52F23EF}" {
+       Name "ScoreBar_Text_FIA"
+       Slot OverlayWidgetSlot "{5946C48B5B143729}" {
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Text "0"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+       FontProperties FontProperties "{5946C48E9B1B0FFF}" {
+        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+        ShadowSize 4
+        ShadowOffset 5 5
+        ShadowOpacity 0.5
+       }
+       Offset -0.5 0
+      }
+     }
+    }
+   }
+  }
+ }
+}

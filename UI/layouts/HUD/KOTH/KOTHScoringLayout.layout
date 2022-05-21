@@ -1,0 +1,68 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ "Z Order" 1000
+ {
+  FrameWidgetClass "{59695DB3FBAC4B28}" {
+   Name "Score_Root"
+   Slot FrameWidgetSlot "{5626D0F364797B4C}" {
+    Anchor 0.5 0 0.5 0
+    PositionX 1
+    OffsetLeft 1
+    PositionY 0
+    OffsetTop 0
+    SizeX 190
+    OffsetRight -191
+    SizeY 28
+    OffsetBottom -28
+    Alignment 0.5 0
+   }
+   {
+    FrameWidgetClass "{59695DB6D42B5E09}" : "{045ACEAF0632D7FB}UI/Layouts/HUD/CaptureAndHold/KOTHScoreUSSR.layout" {
+     Name "Score_USSR"
+     Slot FrameWidgetSlot "{59695DB6C548A96B}" {
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 60
+      OffsetRight -60
+      SizeY 30
+      OffsetBottom -30
+     }
+     {
+     }
+    }
+    FrameWidgetClass "{59695DB6E13CE9A8}" : "{7A2A01CC1C7D5685}UI/Layouts/HUD/CaptureAndHold/KOTHScoreUSA.layout" {
+     Name "Score_USA"
+     Slot FrameWidgetSlot "{59695DB6E13CE9BF}" {
+      PositionX 65
+      OffsetLeft 65
+      PositionY 0
+      OffsetTop 0
+      SizeX 60
+      OffsetRight -125
+      SizeY 30
+      OffsetBottom -30
+     }
+     {
+     }
+    }
+    FrameWidgetClass "{59695DB67AB57662}" : "{BD83098B2EA3F56A}UI/Layouts/HUD/CaptureAndHold/KOTHScoreFIA.layout" {
+     Name "Score_FIA"
+     Slot FrameWidgetSlot "{59695DB67AB57656}" {
+      PositionX 130
+      OffsetLeft 130
+      PositionY 0
+      OffsetTop 0
+      SizeX 60
+      OffsetRight -190
+      SizeY 30
+      OffsetBottom -30
+     }
+     {
+     }
+    }
+   }
+  }
+ }
+}

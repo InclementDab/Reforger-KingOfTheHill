@@ -1,0 +1,97 @@
+FrameWidgetClass {
+ Name "TeamScore_USSR"
+ {
+  VerticalLayoutWidgetClass "{59695DB0BE734300}" {
+   Name "VerticalLayout"
+   Slot FrameWidgetSlot "{59695DB0BE7343DA}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 60
+    OffsetRight -60
+    SizeY 30
+    OffsetBottom -30
+   }
+   {
+    ImageWidgetClass "{59695DB2D096D231}" {
+     Name "Icon_Faction_USSR"
+     Slot LayoutSlot "{5626D0F19F5A6DB1}" {
+      HorizontalAlign 1
+      VerticalAlign 1
+      Padding 0 0 0 0
+     }
+     Clipping False
+     Color 1 1 1 1
+     Texture "{53395E04A4D442C0}UI/Textures/Flags/flag_cccp_ca.edds"
+     Image ""
+     Size 52 28
+     "Shadow Offset" 1 1
+     "Shadow Color" 0 0 0 0.502
+    }
+    OverlayWidgetClass "{59695DB2D096D232}" {
+     Name "ScoreBar_Overlay_USSR"
+     Slot LayoutSlot "{5946C48CE4AAF96F}" {
+      Padding 0 0 0 0
+     }
+     Clipping False
+     "Inherit Color" 1
+     {
+      ImageWidgetClass "{59695DB2D09660FC}" {
+       Name "ScoreBar_Background_USSR"
+       Slot OverlayWidgetSlot "{5946C48CF170BEDB}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Color 0 0 0 0.196
+       Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
+       Image "CAH_SCORE_BACKGROUND"
+       Size 100 28
+       "Shadow Offset" 1 1
+       "Shadow Color" 0 0 0 0.502
+      }
+      ImageWidgetClass "{59695DB2D09660F3}" {
+       Name "ScoreBar_Fill_USSR"
+       Slot OverlayWidgetSlot "{5946C48CF170BEDB}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Color 1 1 1 1
+       "Inherit Color" 1
+       Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
+       Image "CAH_SCORE_FILL"
+       Size 100 28
+       Mask "{40ADF497CD7DD34A}UI/Textures/HUD/CaptureAndHoldProgressMaskLeft.edds"
+       "Transition width" 0.01
+       Progress 0
+       "Shadow Offset" 0 0
+      }
+      TextWidgetClass "{59695DB2D09660F0}" {
+       Name "ScoreBar_Text_USSR"
+       Slot OverlayWidgetSlot "{5946C48B5B143729}" {
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Text "0"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+       FontProperties FontProperties "{5946C48E9B1B0FFF}" {
+        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+        ShadowSize 4
+        ShadowOffset 5 5
+        ShadowOpacity 0.5
+       }
+       Offset -0.5 0
+      }
+     }
+    }
+   }
+  }
+ }
+}

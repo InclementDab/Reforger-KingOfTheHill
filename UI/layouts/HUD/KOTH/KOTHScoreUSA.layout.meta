@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7A2A01CC1C7D5685}UI/Layouts/HUD/KOTH/KOTHScoreUSA.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

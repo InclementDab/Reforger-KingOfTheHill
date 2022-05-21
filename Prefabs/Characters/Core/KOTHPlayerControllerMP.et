@@ -1,0 +1,27 @@
+SCR_PlayerController : "{6E2BB64764E3BE9B}Prefabs/Characters/Core/DefaultPlayerController.et" {
+ ID "1A9BA6BEFA06E3B1"
+ components {
+  RadioHandlerComponent "{59697398C4187B34}" {
+  }
+  SCR_ChatComponent "{59697398C4187B37}" {
+  }
+  SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
+   InfoDisplays {
+    SCR_KOTHTeamScoreDisplay "{59697398F4C849F9}" {
+     m_LayoutPath "{D57619881C83AA34}UI/layouts/HUD/KOTH/KOTHScoringLayout.layout"
+     m_eLayer OVERLAY
+    }
+   }
+  }
+  SCR_RespawnComponent "{59697398C4187B31}" {
+  }
+  SCR_TaskNetworkComponent "{59697398C4187B33}" {
+  }
+  RplComponent "{59697398C4187B3C}" {
+   "Self Insert" 0
+   Streamable Disabled
+  }
+ }
+ coords 0 0 0
+ SelfRegister 0
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D57619881C83AA34}UI/Layouts/HUD/KOTH/KOTHScoringLayout.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}
