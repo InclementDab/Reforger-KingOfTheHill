@@ -223,7 +223,7 @@ class KOTH_ZoneManager: GenericComponent
 	array<Faction> GetCurrentFactions()
 	{
 		return {
-			GetGame().GetFactionManager().GetFactionByKey("USA"),
+			GetGame().GetFactionManager().GetFactionByKey("US"),
 			GetGame().GetFactionManager().GetFactionByKey("USSR"),
 			GetGame().GetFactionManager().GetFactionByKey("FIA"),
 		};

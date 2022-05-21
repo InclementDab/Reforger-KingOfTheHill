@@ -1,0 +1,93 @@
+FrameWidgetClass {
+ Name "TeamScore"
+ {
+  VerticalLayoutWidgetClass "{596B0DDA6BF7A4B8}" {
+   Name "VerticalLayout"
+   Slot FrameWidgetSlot "{59695DB0BE7343DA}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 60
+    OffsetRight -60
+    SizeY 60
+    OffsetBottom -60
+   }
+   {
+    OverlayWidgetClass "{596B0DDA6BF7A4BB}" {
+     Name "ScoreBar_PlayerCount_Overlay"
+     Slot LayoutSlot "{5946C48CE4AAF96F}" {
+      Padding 0 0 0 0
+     }
+     Clipping False
+     "Inherit Color" 1
+     {
+      TextWidgetClass "{596B0DDA6BF7A4BA}" {
+       Name "ScoreBar_PlayerCount"
+       Slot OverlayWidgetSlot "{5946C48B5B143729}" {
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Text "0"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+       FontProperties FontProperties "{5946C48E9B1B0FFF}" {
+        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+        ShadowSize 4
+        ShadowOffset 5 5
+        ShadowOpacity 0.5
+       }
+       Offset -0.5 0
+      }
+     }
+    }
+    ImageWidgetClass "{596B0DDA6BF7A4BD}" {
+     Name "Icon_Faction"
+     Slot LayoutSlot "{5626D0F19F5A6DB1}" {
+      HorizontalAlign 1
+      VerticalAlign 1
+      Padding 0 0 0 0
+     }
+     Clipping False
+     Color 1 1 1 1
+     Texture "{B784E694BA4A7D40}UI/Textures/Flags/Everon-flag-base-3it.edds"
+     Image ""
+     Size 52 28
+     "Shadow Offset" 1 1
+     "Shadow Color" 0 0 0 0.502
+    }
+    OverlayWidgetClass "{596B0DDA6BF7A4BC}" {
+     Name "ScoreBar_Overlay"
+     Slot LayoutSlot "{5946C48CE4AAF96F}" {
+      Padding 0 0 0 0
+     }
+     Clipping False
+     "Inherit Color" 1
+     {
+      TextWidgetClass "{596B0DDA6BF7A4BF}" {
+       Name "ScoreBar_Text"
+       Slot OverlayWidgetSlot "{5946C48B5B143729}" {
+        Padding 0 0 0 0
+       }
+       Clipping False
+       Text "0"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+       FontProperties FontProperties "{5946C48E9B1B0FFF}" {
+        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+        ShadowSize 4
+        ShadowOffset 5 5
+        ShadowOpacity 0.5
+       }
+       Offset -0.5 0
+      }
+     }
+    }
+   }
+  }
+ }
+}

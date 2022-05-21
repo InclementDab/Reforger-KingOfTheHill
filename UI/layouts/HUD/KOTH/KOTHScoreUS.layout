@@ -1,5 +1,5 @@
 FrameWidgetClass {
- Name "TeamScore_USA"
+ Name "TeamScoreRoot"
  {
   VerticalLayoutWidgetClass "{59695DB7ACD019F5}" {
    Name "VerticalLayout"
@@ -15,7 +15,7 @@ FrameWidgetClass {
    }
    {
     OverlayWidgetClass "{596B0E11B8B1208D}" {
-     Name "ScoreBar_PlayerCount_Overlay_USA"
+     Name "ScoreBar_PlayerCount_Overlay"
      Slot LayoutSlot "{5946C48CE4AAF96F}" {
       Padding 0 0 0 0
      }
@@ -23,7 +23,7 @@ FrameWidgetClass {
      "Inherit Color" 1
      {
       TextWidgetClass "{596B0E11B8B1208E}" {
-       Name "ScoreBar_PlayerCount_USA"
+       Name "ScoreBar_PlayerCount"
        Slot OverlayWidgetSlot "{5946C48B5B143729}" {
         Padding 0 0 0 0
        }
@@ -44,7 +44,7 @@ FrameWidgetClass {
      }
     }
     ImageWidgetClass "{59695DB7ACD019EA}" {
-     Name "Icon_Faction_USA"
+     Name "Icon_Faction"
      Slot LayoutSlot "{5626D0F19F5A6DB1}" {
       HorizontalAlign 1
       VerticalAlign 1
@@ -59,7 +59,7 @@ FrameWidgetClass {
      "Shadow Color" 0 0 0 0.502
     }
     OverlayWidgetClass "{59695DB7ACD019EB}" {
-     Name "ScoreBar_Overlay_USA"
+     Name "ScoreBar_Overlay"
      Slot LayoutSlot "{5946C48CE4AAF96F}" {
       Padding 0 0 0 0
      }
@@ -67,7 +67,7 @@ FrameWidgetClass {
      "Inherit Color" 1
      {
       TextWidgetClass "{59695DB7ACD035F9}" {
-       Name "ScoreBar_Text_USA"
+       Name "ScoreBar_Text"
        Slot OverlayWidgetSlot "{5946C48B5B143729}" {
         Padding 0 0 0 0
        }

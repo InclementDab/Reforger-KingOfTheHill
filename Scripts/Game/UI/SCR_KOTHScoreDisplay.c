@@ -20,7 +20,7 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	protected HorizontalLayoutWidget m_wAreaLayoutWidget;
 
 	//! Array of all wrappers for the individual teams
-	protected ref array<ref SCR_KOTHTeamScoreDisplayObject> m_aScoringElements = {};
+	protected ref map<Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<Faction, ref KOTH_TeamScoreDisplayObject>();
 
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_KOTHManager;
@@ -64,12 +64,10 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 			return;
 		}
 		
-		foreach (Faction faction: m_KOTHManager.GetCurrentFactions()) {
-			if (faction == null) {
-				continue;
-			}
-			
-			//m_aScoringElements.Insert(new SCR_KOTHTeamScoreDisplayObject(m_wRoot.FindAnyWidget("Score_" + faction.GetFactionName()), faction));
+		foreach (Faction faction: m_KOTHManager.GetCurrentFactions()) {		
+			// dynamically load widgets based on teams that are active
+			Widget score_widget = GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root"));
+			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(score_widget, faction)
 		}
 	}
 
@@ -79,16 +77,11 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	*/
 	override void DisplayStopDraw(IEntity owner)
 	{
-		DebugPrint("::DisplayStopDraw - Start");
+		//DebugPrint("::DisplayStopDraw - Start");
+		super.DisplayStopDraw(owner);
+		m_ScoringElements.Clear();
 		
-		// Clear all scoring elements
-		for (int i = m_aScoringElements.Count() - 1; i >= 0; i--)
-		{
-			m_aScoringElements[i] = null;
-			m_aScoringElements.Remove(i);
-		}
-		
-		DebugPrint("::DisplayStopDraw - End");
+		//DebugPrint("::DisplayStopDraw - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -123,7 +116,7 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		}
 
 		// Update scoring
-		foreach (SCR_KOTHTeamScoreDisplayObject scoring_object: m_aScoringElements) {
+		foreach (Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
 			if (!scoring_object) {
 				continue;
 			}
@@ -131,18 +124,9 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 			if (!m_KOTHManager) {
 				continue;
 			}
-			
-			if (!scoring_object.GetFaction()) {
-				continue;
-			}
-			
-			scoring_object.UpdateScore(m_KOTHManager.GetTicketsForFaction(scoring_object.GetFaction()));
-			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(scoring_object.GetFaction()));
+						
+			scoring_object.UpdateScore(m_KOTHManager.GetTicketsForFaction(faction));
+			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction));
 		}
-	}
-	
-	void DebugPrint(string text)
-	{
-		Print(ToString() + text)
 	}
 }

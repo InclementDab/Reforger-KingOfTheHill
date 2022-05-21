@@ -29,10 +29,11 @@ FrameWidgetClass {
       SizeY 60
       OffsetBottom -60
      }
+     "Is Visible" 0
      {
      }
     }
-    FrameWidgetClass "{59695DB6E13CE9A8}" : "{7A2A01CC1C7D5685}UI/layouts/HUD/KOTH/KOTHScoreUSA.layout" {
+    FrameWidgetClass "{59695DB6E13CE9A8}" : "{7A2A01CC1C7D5685}UI/layouts/HUD/KOTH/KOTHScoreUS.layout" {
      Name "Score_USA"
      Slot FrameWidgetSlot "{59695DB6E13CE9BF}" {
       PositionX 65
@@ -44,6 +45,7 @@ FrameWidgetClass {
       SizeY 60
       OffsetBottom -60
      }
+     "Is Visible" 0
      {
      }
     }
@@ -59,6 +61,7 @@ FrameWidgetClass {
       SizeY 60
       OffsetBottom -60
      }
+     "Is Visible" 0
      {
      }
     }
