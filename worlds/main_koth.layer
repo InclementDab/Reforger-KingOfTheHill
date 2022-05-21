@@ -1,12 +1,7 @@
-ScriptedChatEntity {
- coords 4688.153 130.19 7760.011
- Channels {
-  ServerChatChannel "{5968FE6CB3B7E1CE}" {
-   "Channel name" "Global"
-  }
- }
+PerceptionManager PerceptionManager : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
+ coords 4792.388 166.843 7052.14
 }
-KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
+KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
  components {
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
    m_TicketUpdateInterval 15
@@ -73,12 +68,22 @@ KOTH_GameModeBase KOTH_GameModeBase2 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_
  PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
  m_eTestGameFlags SpawnVehicles
 }
-SCR_FactionManager SCR_FactionManager1 : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
+SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
  coords 4692.271 130.159 7761.14
 }
 TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
  coords 4792.418 166.737 7051.905
  "Grid cell size" 1000
+}
+RadioManagerEntity : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
+ coords 4792.389 166.845 7052.057
+}
+ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
+ coords 4792.403 166.801 7051.984
+ Channels {
+  BaseChatChannel "{559077E72C7027BC}" {
+  }
+ }
 }
 GarbageManager {
  coords 4776.713 130.867 7743.142
@@ -86,8 +91,8 @@ GarbageManager {
  VehicleLifetime 240
  ItemLifetime 240
 }
-HitRegistrationManager HitRegistrationManager1 {
- coords 4760.456 131.355 7777.755
+HitRegistrationManager HitRegManager : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
+ coords 4792.417 166.827 7052.041
 }
 GenericEntity : "{2A3B53114DEAA60A}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_USSR_01.et" {
  coords 4594.424 150.598 7063.353
@@ -478,6 +483,9 @@ SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutMana
    m_sAffiliatedFaction "FIA"
   }
  }
+}
+SCR_MPDestructionManager : "{9BB369F2803C6F71}Prefabs/MP/MPDestructionManager.et" {
+ coords 4792.404 166.813 7052.022
 }
 KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
  components {
