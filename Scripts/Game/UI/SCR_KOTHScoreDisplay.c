@@ -1,4 +1,3 @@
-//------------------------------------------------------------------------------------------------
 /*!
 	This InfoDisplay allows drawing of individual HUD scoring elements for individual KOTH factions.
 	In addition it draws all available objectives in the screen space.
@@ -13,8 +12,11 @@
 */
 class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 {
-	[Attribute("{A1EA87A89C5215AC}UI/layouts/HUD/KOTH/KOTHObjectiveLayout.layout", params: "layout")]
-	protected ResourceName m_rObjectiveHUDLayout;
+	[Attribute("{A1EA87A89C5215AC}UI\\layouts\\HUD\\KOTH\\KOTHObjectiveLayout.layout", params: "layout")]
+	protected ResourceName m_ObjectiveHUDLayout;
+	
+	[Attribute("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", params: "layout")]
+	protected ResourceName m_TeamFlagLayout;
 
 	//! Parent frame that holds all area markers
 	protected HorizontalLayoutWidget m_wAreaLayoutWidget;
@@ -60,8 +62,7 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		
 		foreach (Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
-			Widget score_widget = GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root"));
-			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(score_widget, faction)
+			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets(m_TeamFlagLayout, m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
 	}
 
@@ -112,6 +113,11 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 						
 			scoring_object.UpdateScore(m_KOTHManager.GetTicketsForFaction(faction));
 			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction));
+		}
+		
+		// do blinking for zone owners
+		if (m_KOTHManager.GetZoneContestType() == KOTHZoneContestType.OWNED) {
+			m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0);
 		}
 	}
 }

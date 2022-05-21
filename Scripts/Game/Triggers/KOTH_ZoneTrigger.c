@@ -129,6 +129,7 @@ class KOTH_ZoneManager: GenericComponent
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
 	protected KOTHZoneContestType m_KOTHZoneContestType;
+	protected Faction m_ZoneOwner;
 	
 	protected KOTH_GameModeBase m_pGameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
@@ -167,6 +168,8 @@ class KOTH_ZoneManager: GenericComponent
 			}
 		}
 		
+		m_ZoneOwner = null;
+		
 		// no ticket updates, no one is in zone
 		if (most_populated_factions.Count() == 0) {
 			m_KOTHZoneContestType = KOTHZoneContestType.EMPTY;
@@ -175,10 +178,10 @@ class KOTH_ZoneManager: GenericComponent
 		
 		if (most_populated_factions.Count() == 1) {
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
-			Faction owned_faction = most_populated_factions[0];
-			Print("Zone is owned by " + owned_faction.GetFactionName());
-			m_Tickets[owned_faction] = m_Tickets[owned_faction] + 1;
-			OnFactionTicketChangedScript.Invoke(owned_faction, m_Tickets[owned_faction]);
+			m_ZoneOwner = most_populated_factions[0];
+			Print("Zone is owned by " + m_ZoneOwner.GetFactionName());
+			m_Tickets[m_ZoneOwner] = m_Tickets[m_ZoneOwner] + 1;
+			OnFactionTicketChangedScript.Invoke(m_ZoneOwner, m_Tickets[m_ZoneOwner]);
 		}
 		
 		// contested!
@@ -197,6 +200,11 @@ class KOTH_ZoneManager: GenericComponent
 				}
 			}
 		}
+	}
+	
+	Faction GetZoneOwner()
+	{
+		return m_ZoneOwner;
 	}
 	
 	KOTHZoneContestType GetZoneContestType()

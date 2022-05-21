@@ -51,6 +51,11 @@ class KOTH_TeamScoreDisplayObject
 		// Color elements
 		m_Root.SetColor(faction.GetFactionColor());
 	}
+		
+	void DoBlink(float speed)
+	{
+		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_FactionImage, speed, 0, true));
+	}
 	
 	void UpdateScore(int score)
 	{
