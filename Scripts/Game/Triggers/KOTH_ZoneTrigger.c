@@ -78,6 +78,10 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	
 	int GetAmountOfPlayersInZone(Faction faction)
 	{
+		if (!m_CharactersInZone[faction]) {
+			return 0;
+		}
+		
 		return m_CharactersInZone[faction].Count();
 	}
 	
@@ -116,10 +120,10 @@ class KOTH_ZoneManagerClass: GenericComponentClass
 class KOTH_ZoneManager: GenericComponent
 {
 	[Attribute("100", desc: "Amount of tickets required by a team to win the game.")]
-	protected int m_TicketCountToWin = 100;
+	protected int m_TicketCountToWin;
 	
 	[Attribute("10", desc: "Update rate of tickets, in seconds.")]
-	protected float m_TicketUpdateInterval = 10.0;
+	protected float m_TicketUpdateInterval ;
 	
 	protected KOTH_ZoneTriggerEntity m_Zone;
 	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
@@ -128,11 +132,7 @@ class KOTH_ZoneManager: GenericComponent
 	
 	protected KOTH_GameModeBase m_pGameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
-	
-	protected int m_USAPlayerCount;
-	protected int m_USSRPlayerCount;
-	protected int m_FIAPlayerCount;
-	
+			
 	void KOTH_ZoneManager()
 	{
 		if (!m_pGameMode)
@@ -209,23 +209,23 @@ class KOTH_ZoneManager: GenericComponent
 		return m_Tickets[faction];
 	}
 	
+	int GetAmountOfPlayersInZone(Faction faction)
+	{
+		return m_Zone.GetAmountOfPlayersInZone(faction);
+	}
+	
 	int GetTicketCountToWin()
 	{
 		return m_TicketCountToWin;
 	}
 	
-	int GetUSAPlayerCount()
+	// TODO: dynamically generate these based on the mission loaded
+	array<Faction> GetCurrentFactions()
 	{
-		return m_USAPlayerCount;
-	}
-	
-	int GetUSSRPlayerCount()
-	{
-		return m_USSRPlayerCount;
-	}
-	
-	int GetFIAPlayerCount()
-	{
-		return m_FIAPlayerCount;
+		return {
+			GetGame().GetFactionManager().GetFactionByKey("USA"),
+			GetGame().GetFactionManager().GetFactionByKey("USSR"),
+			GetGame().GetFactionManager().GetFactionByKey("FIA"),
+		};
 	}
 }
