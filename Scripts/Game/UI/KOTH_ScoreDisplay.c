@@ -120,69 +120,27 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 						
 			scoring_object.UpdateScore(faction.GetTickets());
 			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction));
+			scoring_object.SetBlinkState(ScoreDiplayObjectBlinkState.OFF);
 		}
 		
-		foreach (KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
-			element.StopBlink();
-		}
-		
-		switch(m_KOTHManager.GetZoneContestType()) {
-			//! If zone is owned
-			case KOTHZoneContestType.OWNED: {
-				//! If the zone was empty before
-				if (m_PreviousContestType == KOTHZoneContestType.EMPTY) {
-					m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(false);
-				}
-				//! If the zone was owned before
-				else if (m_PreviousContestType == KOTHZoneContestType.OWNED || m_PreviousContestType == KOTHZoneContestType.TIE) {		
-					foreach (KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
-						if (faction == m_KOTHManager.GetZoneOwner()) element.DoBlink(false);
+		// update blinking on hud
+		foreach (KOTH_Faction faction, KOTH_TeamScoreDisplayObject score_display: m_ScoringElements) {
+			switch (m_KOTHManager.GetZoneContestType()) {
+				case KOTHZoneContestType.OWNED: {
+					if (faction == m_KOTHManager.GetZoneOwner()) {
+						score_display.SetBlinkState(ScoreDiplayObjectBlinkState.OWNED);
 					}
+							
+					break;
 				}
-								
-				m_LastZoneOwner = m_KOTHManager.GetZoneOwner();				
-				m_PreviousContestType = KOTHZoneContestType.OWNED;
-				break;
-			}
-			//! If zone is contested
-			case KOTHZoneContestType.TIE: {
-				//! If the zone was empty before
-				if (m_PreviousContestType == KOTHZoneContestType.EMPTY) {
-					foreach (KOTH_Faction faction : m_KOTHManager.GetZoneOwners()) {
-						m_ScoringElements[faction].DoBlink(true);
+
+				case KOTHZoneContestType.TIE: {
+					if (m_KOTHManager.IsZoneOwner(faction)) {
+						score_display.SetBlinkState(ScoreDiplayObjectBlinkState.TIE);
 					}
+					
+					break;
 				}
-				//! If the zone was owned before
-				else if (m_PreviousContestType == KOTHZoneContestType.OWNED || m_PreviousContestType == KOTHZoneContestType.TIE)
-				{
-					foreach (KOTH_Faction faction : m_KOTHManager.GetZoneOwners()) {
-						if (m_LastZoneOwner && faction != m_LastZoneOwner) {
-							m_ScoringElements[faction].DoBlink(true);
-						}
-						else if (m_LastZoneOwner && faction == m_LastZoneOwner) {
-							m_ScoringElements[faction].DoBlink(false);
-						} else if (!m_LastZoneOwner) {
-							m_ScoringElements[faction].DoBlink(true);
-						}
-					}
-				}
-				
-				m_PreviousContestType = KOTHZoneContestType.TIE;
-				m_LastZoneOwner = NULL;
-				break;
-			}
-			case KOTHZoneContestType.EMPTY: {
-				if (m_LastZoneOwner) {
-					m_ScoringElements[m_LastZoneOwner].StopBlink(); 
-				} else {
-					foreach (KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
-						element.StopBlink();
-					}
-				}	
-				
-				m_PreviousContestType = KOTHZoneContestType.EMPTY;
-				m_LastZoneOwner = NULL;
-				break;
 			}
 		}
 	}

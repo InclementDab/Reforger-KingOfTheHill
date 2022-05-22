@@ -1,6 +1,14 @@
 /*!
 	This object serves as a wrapper for individual HUD team score widgets.
 */
+
+enum ScoreDiplayObjectBlinkState
+{
+	OFF,
+	TIE,
+	OWNED
+}
+
 class KOTH_TeamScoreDisplayObject
 {
 	//! Topmost frame of this object
@@ -20,6 +28,8 @@ class KOTH_TeamScoreDisplayObject
 
 	//! Faction this object represents
 	protected KOTH_Faction m_Faction;
+	
+	protected ScoreDiplayObjectBlinkState m_BlinkState;
 
 	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull KOTH_Faction faction)
 	{
@@ -44,27 +54,36 @@ class KOTH_TeamScoreDisplayObject
 		m_Root.SetColor(faction.GetFactionColor());
 	}
 		
-	void DoBlink(bool tie)
+	void SetBlinkState(ScoreDiplayObjectBlinkState blink_state)
 	{
-		WidgetAnimator.StopAllAnimations(m_BackgroundImage);
+		m_BlinkState = blink_state;
 		
+		switch (m_BlinkState) {
+			case ScoreDiplayObjectBlinkState.OFF: {
+				m_BackgroundImage.SetVisible(false);
+				//m_BackgroundImage.SetColor(Color.FromRGBA(0, 0, 0, 255));
+				WidgetAnimator.StopAnimation(m_BackgroundImage, WidgetAnimationType.Opacity);
+				break;
+			}
+			
+			case ScoreDiplayObjectBlinkState.TIE: {
+				WidgetAnimator.StopAllAnimations(m_BackgroundImage);
+				m_BackgroundImage.SetVisible(true);
+				m_BackgroundImage.SetColor(Color.FromRGBA(231, 76, 113, 255));
+				//WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, speed, 0, true, false));
+				WidgetAnimator.PlayAnimation(m_BackgroundImage, WidgetAnimationType.Opacity, 1, 0, true);
+				break;
+			}
+			
+			case ScoreDiplayObjectBlinkState.OWNED: {
+				WidgetAnimator.StopAllAnimations(m_BackgroundImage);
+				m_BackgroundImage.SetVisible(true);
+				m_BackgroundImage.SetColor(Color.FromRGBA(46, 204, 113, 255));
+				WidgetAnimator.PlayAnimation(m_BackgroundImage, WidgetAnimationType.Opacity, 1, 0, true);
+			}
+		}
+	}
 		
-		Color color;
-		m_BackgroundImage.SetVisible(true);
-		if (!tie) color = Color.FromRGBA(46, 204, 113, 255);
-		else color = Color.FromRGBA(231, 76, 113, 255);
-		m_BackgroundImage.SetColor(color);
-		//WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, speed, 0, true, false));
-		WidgetAnimator.PlayAnimation(m_BackgroundImage, WidgetAnimationType.Opacity, 1, 0, true);
-	}
-	
-	void StopBlink()
-	{
-		m_BackgroundImage.SetVisible(false);
-		//m_BackgroundImage.SetColor(Color.FromRGBA(0, 0, 0, 255));
-		WidgetAnimator.StopAnimation(m_BackgroundImage, WidgetAnimationType.Opacity);
-	}
-	
 	void UpdateScore(int score)
 	{
 		m_ScoreText.SetText(score.ToString());
@@ -97,8 +116,7 @@ class KOTH_ObjectiveDisplayObject
 	
 	void KOTH_ObjectiveDisplayObject(notnull Widget root)
 	{
-		m_Root = root;
-				
+		m_Root = root;				
 		m_DistanceText = TextWidget.Cast(m_Root.FindAnyWidget("Distance"));
 		m_OutlinesImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Outlines"));
 		m_ControlledImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Controlled"));

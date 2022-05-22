@@ -223,6 +223,11 @@ class KOTH_ZoneManager: GenericComponent
 		}
 	}
 
+	bool IsZoneOwner(KOTH_Faction faction)
+	{
+		return (m_ZoneOwners.Find(faction) != -1);
+	}
+	
 	KOTH_Faction GetZoneOwner()
 	{
 		if (m_KOTHZoneContestType != KOTHZoneContestType.OWNED) {
@@ -321,11 +326,5 @@ class KOTH_Faction: SCR_Faction
 		}
 		
 		m_Tickets = tickets;
-	}
-	
-	void OnTicketsChanged()
-	{
-		Print("Tickets changed");
-		Print(m_Tickets);
 	}
 }
