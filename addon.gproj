@@ -5,4 +5,21 @@ GameProject {
  Dependencies {
   "58D0FB3206B6F859"
  }
+ Configurations {
+  GameProjectConfig PC {
+   MenuManagerSettings MenuManagerSettings "{50C890C996B0A6FC}" {
+    MenuConfigs {
+     "{05092A408993C44B}Configs/System/chimeraMenus.conf"
+    }
+   }
+  }
+  GameProjectConfig XBOX_ONE {
+  }
+  GameProjectConfig XBOX_SERIES {
+  }
+  GameProjectConfig PS4 {
+  }
+  GameProjectConfig HEADLESS {
+  }
+ }
 }
