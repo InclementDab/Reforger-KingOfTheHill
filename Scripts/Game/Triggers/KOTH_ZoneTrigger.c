@@ -99,6 +99,17 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	{
 		return m_CharactersInZone;
 	}
+	
+	bool IsInZone(ChimeraCharacter character)
+	{
+		foreach (KOTH_Faction faction, set<ChimeraCharacter> characters: m_CharactersInZone) {
+			if (characters.Find(character) != -1) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
 
 typedef func OnFactionTicketChanged;
@@ -256,6 +267,11 @@ class KOTH_ZoneManager: GenericComponent
 	{
 		return m_TicketCountToWin;
 	}
+	
+	bool IsInZone(ChimeraCharacter character)
+	{
+		return (m_Zone.IsInZone(character));
+	}
 
 	// TODO: dynamically generate these based on the mission loaded
 	array<KOTH_Faction> GetCurrentFactions()
@@ -328,3 +344,22 @@ class KOTH_Faction: SCR_Faction
 		m_Tickets = tickets;
 	}
 }
+
+class KOTH_MapModule: SCR_MapModuleBase
+{
+	override void OnMapOpen(MapConfiguration config)
+	{
+		super.OnMapOpen(config);
+		
+		//m_MapEntity
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! SCR_MapEntity event
+	override void OnMapClose(MapConfiguration config)
+	{
+		super.OnMapClose(config);
+	}
+}
+
+ref array<ref CanvasWidgetCommand> debug_commands = {};

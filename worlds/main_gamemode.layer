@@ -19,12 +19,20 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   }
   SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
    m_Info SCR_UIInfo "{5969440545013477}" {
-    Description "help me"
-    Icon "{17ECBAD93B9C7156}Common/Textures/bis_klan_BCR.edds"
+    Name "King Of The Hill"
+    Description "King the Hill! Created by InclementDab"
+    Icon "{4DB6DBE133252C84}Missions/emoji.edds"
    }
    m_aWinConditions {
     SCR_BriefingVictoryCondition "{596944054C0A6553}" {
-     description "please"
+     victoryCondition SEIZE
+     name "King Of The Hill"
+     description "Control the town of Chotain and gain tickets."
+    }
+    SCR_BriefingVictoryCondition "{596D489ABA634C1C}" {
+     victoryCondition CUSTOM
+     name "Acquire Tickets"
+     description "First team to 100 tickets wins."
     }
    }
   }

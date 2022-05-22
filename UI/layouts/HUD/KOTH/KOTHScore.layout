@@ -84,18 +84,20 @@ FrameWidgetClass {
      "Inherit Color" 1
      {
       ImageWidgetClass "{596D232894C96A54}" {
-       Name "Image0"
-       Slot LayoutSlot {
+       Name "ScoreBar_PlayerImage"
+       Slot LayoutSlot "{596D4895E19E6D12}" {
         HorizontalAlign 3
         VerticalAlign 3
        }
        Texture "{D17288006833490F}UI/Textures/Icons/icons_wrapperUI-32.imageset"
        Image "player"
        Size 22 22
+       "Shadow Offset" 0.5 0.5
+       "Shadow Size Increase" 0.5 0.5
       }
       TextWidgetClass "{596B0DDA6BF7A4BA}" {
        Name "ScoreBar_PlayerCount"
-       Slot LayoutSlot {
+       Slot LayoutSlot "{596D4895E19E6D6B}" {
        }
        Clipping False
        Text "0"
@@ -106,10 +108,9 @@ FrameWidgetClass {
        FontProperties FontProperties "{5946C48E9B1B0FFF}" {
         Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
         ShadowSize 4
-        ShadowOffset 5 5
-        ShadowOpacity 0.5
+        ShadowOffset 8 8
        }
-       Offset -0.5 0
+       Offset 0 0
       }
      }
     }

@@ -2,26 +2,17 @@ KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_2 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/
  components {
   MapDescriptorComponent "{59695A60A5A18EEA}" {
    Enabled 0
-   DisplayName "The Hill"
-   MapItemDescriptor 1
-   MainType Hill
-   Scale 13.6
+   Scale 100
   }
-  Hierarchy "{596CF7DC6B137476}" {
-  }
-  SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
-   m_EntityType COMMENT
-   m_UIInfo SCR_EditableDescriptorUIInfo "{596B0DC1D36EC791}" {
-    Name "Zone"
-    Description "(hill)"
-   }
-   m_bAutoRegister ALWAYS
-   m_bStatic 1
-   m_fMaxDrawDistance 14.4
-   m_fSizeCoef 2
-   m_bBold 1
+  SCR_MapDescriptorComponent "{596D489F22A05302}" {
+   DisplayName "Hill"
+   MainType "Icon (generic)"
+   Scale 33.9
   }
  }
  coords 7059.178 119.015 6016.292
- SphereRadius 110
+ {
+  SCR_Position {
+  }
+ }
 }

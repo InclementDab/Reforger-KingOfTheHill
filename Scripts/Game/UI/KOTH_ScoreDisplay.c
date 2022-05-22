@@ -116,7 +116,9 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 			}
 						
 			scoring_object.UpdateScore(faction.GetTickets());
-			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction));
+			
+			SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(GetGame().GetPlayerController().GetControlledEntity());
+			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction), character && character.GetFaction() == faction && m_KOTHManager.IsInZone(character));
 			scoring_object.SetBlinkState(ScoreDiplayObjectBlinkState.OFF);
 		}
 		

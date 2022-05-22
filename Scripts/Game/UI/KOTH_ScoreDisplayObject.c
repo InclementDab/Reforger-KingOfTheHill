@@ -22,6 +22,9 @@ class KOTH_TeamScoreDisplayObject
 	
 	//! Reference to fillable bar widget
 	protected ImageWidget m_BackgroundImage;	
+	
+	//! Reference to the player icon next to player count
+	protected ImageWidget m_PlayerImage;
 
 	//! Reference to text widget that displays score
 	protected TextWidget m_ScoreText;
@@ -40,6 +43,7 @@ class KOTH_TeamScoreDisplayObject
 		m_BackgroundImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Background"));
 		m_ScoreText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_Text"));
 		m_PlayerCountText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_PlayerCount")); 
+		m_PlayerImage = ImageWidget.Cast(m_Root.FindAnyWidget("ScoreBar_PlayerImage")); 
 
 		ResourceName icon_resource = faction.GetFactionFlag();
 		if (!icon_resource.IsEmpty()) {
@@ -89,9 +93,10 @@ class KOTH_TeamScoreDisplayObject
 		m_ScoreText.SetText(score.ToString());
 	}
 	
-	void UpdatePlayerCount(int count)
+	void UpdatePlayerCount(int count, bool in_zone)
 	{
 		m_PlayerCountText.SetText(count.ToString());
+		m_PlayerImage.SetColor(Color.FromRGBA(255 * !in_zone, 255, 255 * !in_zone, 255));
 	}
 
 	KOTH_Faction GetFaction()
