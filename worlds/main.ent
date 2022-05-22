@@ -10,3 +10,6 @@ Layer Faction_USSR {
 Layer Faction_US {
  Index 2
 }
+Layer Faction_FIA {
+ Index 3
+}

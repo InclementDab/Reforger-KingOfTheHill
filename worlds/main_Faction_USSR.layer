@@ -20,7 +20,7 @@ $grp SCR_VehicleSpawn {
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
  }
 }
-GenericEntity : "{2A3B53114DEAA60A}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_USSR_01.et" {
+GenericEntity USSR_Base : "{2A3B53114DEAA60A}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_USSR_01.et" {
  coords 3965.27 52.948 7170.296
  angleX 5.615
  angleY 170.171
