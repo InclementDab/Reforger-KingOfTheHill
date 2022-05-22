@@ -1,4 +1,4 @@
-KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_1 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
+KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_2 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
  components {
   MapDescriptorComponent "{59695A60A5A18EEA}" {
    Enabled 0
@@ -22,6 +22,6 @@ KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_1 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/
    m_bBold 1
   }
  }
- coords 7059.179 119.015 6016.292
+ coords 7059.178 119.015 6016.292
  SphereRadius 110
 }

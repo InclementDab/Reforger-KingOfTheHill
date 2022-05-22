@@ -22,3 +22,6 @@ Layer gamemode {
 Layer probs {
  Index 6
 }
+Layer debugging {
+ Index 7
+}
