@@ -545,6 +545,13 @@ $grp SCR_VehicleSpawn {
   angleX -13.08
   angleY -8.784
   angleZ 36.054
+  m_rnPrefab "{3E431E672D6D63AB}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command_spawn_ussr.et"
+ }
+ USSR_VSpawn_5 {
+  coords 7412.757 110.934 5674.62
+  angleX -1.813
+  angleY 0.488
+  angleZ 2.667
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
  }
 }

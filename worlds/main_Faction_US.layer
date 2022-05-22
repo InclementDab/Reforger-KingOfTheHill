@@ -538,11 +538,16 @@ $grp SCR_VehicleSpawn {
  US_VSpawn_4 {
   coords 6420.892 83.144 5640.529
   angleY 129.7
-  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+  m_rnPrefab "{19F7FBCD35665C4E}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command_spawn_us.et"
  }
  US_VSpawn_3 {
   coords 6439.943 82.004 5633.679
   angleY 129.7
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ US_VSpawn_5 {
+  coords 6482.836 79.516 5590.31
+  angleY -38.931
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
  }
 }

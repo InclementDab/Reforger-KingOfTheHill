@@ -528,9 +528,14 @@ $grp SCR_VehicleSpawn {
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
  }
  FIA_VSpawn_4 {
-  coords 6852.469 124.322 6601.464
+  coords 6853.458 124.322 6604.807
   angleY -160.177
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ FIA_VSpawn_5 {
+  coords 6833.272 126.71 6587.827
+  angleY 128.338
+  m_rnPrefab "{E3D868E2577F3D94}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command_spawn_fia.et"
  }
 }
 SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
@@ -548,7 +553,7 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
  m_fSpawnRadius 15
  m_fNoPlayerRadius 0
  m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
-  Name "US Spawn (Safe Zone)"
+  Name "FIA Spawn (Safe Zone)"
  }
  {
   SCR_Position {
