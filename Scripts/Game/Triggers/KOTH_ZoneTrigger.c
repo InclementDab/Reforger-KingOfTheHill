@@ -136,23 +136,23 @@ class KOTH_ZoneManager: GenericComponent
 	protected float m_TicketUpdateInterval;
 	
 	protected KOTH_ZoneTriggerEntity m_Zone;
-	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
+	
+	[RplProp()]
 	protected KOTHZoneContestType m_KOTHZoneContestType;
+	
 	protected ref array<Faction> m_ZoneOwners = {};
+	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
 	
 	protected KOTH_GameModeBase m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
+	protected SCR_FactionManager m_FactionManager;
 			
 	void KOTH_ZoneManager()
 	{
-		if (!m_GameMode) {
-			m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());		
-		}
-		
-		if (!m_ScoreDisplay) {
-			m_ScoreDisplay = SCR_KOTHTeamScoreDisplay.Cast(m_GameMode.FindComponent(SCR_KOTHTeamScoreDisplay));
-		}
+		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());		
+		m_ScoreDisplay = SCR_KOTHTeamScoreDisplay.Cast(m_GameMode.FindComponent(SCR_KOTHTeamScoreDisplay));
+		m_FactionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 		
 		m_GameMode.GetOnGameStart().Insert(OnGameStart);
 		m_GameMode.GetOnGameEnd().Insert(OnGameEnd);
@@ -165,14 +165,19 @@ class KOTH_ZoneManager: GenericComponent
 	
 	void OnGameStart()
 	{
-		GetGame().GetCallqueue().CallLater(DoTicketUpdate, m_TicketUpdateInterval * 1000, true);
+		if (Replication.IsServer()) {
+			GetGame().GetCallqueue().CallLater(DoTicketUpdate, m_TicketUpdateInterval * 1000, true);
+		}
 	}
 	
 	void OnGameEnd()
 	{
-		GetGame().GetCallqueue().Remove(DoTicketUpdate);
+		if (Replication.IsServer()) {
+			GetGame().GetCallqueue().Remove(DoTicketUpdate);
+		}
 	}
-			
+	
+	//! Server Only		
 	void DoTicketUpdate()
 	{
 		if (!m_Zone) {
@@ -221,10 +226,7 @@ class KOTH_ZoneManager: GenericComponent
 		// check our ticket counts
 		foreach (Faction faction, int ticket_count: m_Tickets) {
 			if (ticket_count >= m_TicketCountToWin) {
-				KOTH_GameModeBase koth_game_mode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
-				if (koth_game_mode) {
-					koth_game_mode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: GetGame().GetFactionManager().GetFactionIndex(faction)));
-				}
+				m_GameMode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: m_FactionManager.GetFactionIndex(faction)));
 			}
 		}
 	}
