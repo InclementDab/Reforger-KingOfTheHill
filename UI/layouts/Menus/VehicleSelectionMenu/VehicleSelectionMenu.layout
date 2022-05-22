@@ -1,0 +1,4 @@
+FrameWidgetClass {
+ Name "VehicleSelectionMenuRoot"
+ "Ignore Cursor" 0
+}
