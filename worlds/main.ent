@@ -4,3 +4,9 @@ SubScene {
 Layer koth {
  Index 1
 }
+Layer Faction_USSR {
+ Index 0
+}
+Layer Faction_US {
+ Index 2
+}

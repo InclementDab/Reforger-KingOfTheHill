@@ -1,0 +1,48 @@
+$grp SCR_VehicleSpawn {
+ {
+  coords 3949.538 53.434 7144.384
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3959.935 54.516 7142.856
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3971.092 55.723 7147.954
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ {
+  coords 3981.373 56.691 7146.744
+  angleY 93.523
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+}
+GenericEntity : "{2A3B53114DEAA60A}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_USSR_01.et" {
+ coords 3967.557 53.201 7170.718
+ angleX 5.615
+ angleY 170.171
+ angleZ 6.238
+}
+SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   DisplayName "USSR Spawn (Safe Zone)"
+   VisibleOnMap 1
+   MapItemDescriptor 1
+  }
+ }
+ coords 3954.344 51.819 7168.468
+ angleY 70.456
+ m_fSpawnRadius 15
+ m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "USSR Spawn (Safe Zone)"
+ }
+ {
+  SCR_Position {
+  }
+ }
+}
