@@ -1,6 +1,3 @@
-SCR_BaseGameMode KOTHGameMode1 : "{639FD8AD6C911192}Prefabs/MP/Modes/KOTHGameMode.et" {
- coords 4792.408 166.782 7051.896
-}
 KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
  components {
   MapDescriptorComponent "{59695A60A5A18EEA}" {

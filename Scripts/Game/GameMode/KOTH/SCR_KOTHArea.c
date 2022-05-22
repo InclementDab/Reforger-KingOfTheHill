@@ -1,3 +1,4 @@
+/*
 [EntityEditorProps(category: "GameScripted/GameMode/KOTH", description: "Area that awards score points when captured.")]
 class KOTH_AreaClass : SCR_CaptureAreaClass
 {
@@ -8,11 +9,6 @@ void CaptureAreaTickEventDelegate(KOTH_Area area, Faction currentOwner, int scor
 typedef func CaptureAreaTickEventDelegate;
 typedef ScriptInvokerBase<CaptureAreaTickEventDelegate> CaptureAreaTickEvent;
 
-//------------------------------------------------------------------------------------------------
-/*!
-	This area awards score to the faction which controls the area periodically.
-	Area registers and unregisters from the KOTH_ZoneManager.
-*/
 class KOTH_Area : SCR_CaptureArea
 {
 	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the objective in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
@@ -45,37 +41,21 @@ class KOTH_Area : SCR_CaptureArea
 	//! The faction that currently attacking/contesting this point in relation to the owner faction.
 	protected Faction m_pContestingFaction;
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns the faction that currently owns the area or null if none.
-	*/
 	Faction GetContestingFaction()
 	{
 		return m_pContestingFaction;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns true if this area is being contested.
-	*/
 	bool IsContested()
 	{
 		return GetContestingFaction() != null;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns true if this area is marked as a major objective.
-	*/
 	bool IsMajor()
 	{
 		return m_bIsMajor;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Called when Item is initialized from replication stream. Carries the data from Master.
-	*/
 	protected override bool RplLoad(ScriptBitReader reader)
 	{
 		super.RplLoad(reader);
@@ -95,11 +75,6 @@ class KOTH_Area : SCR_CaptureArea
 		return true;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Called when Item is getting replicated from Master to Slave connection. The data will be
-		delivered to Slave using RplInit method.
-	*/
 	protected override bool RplSave(ScriptBitWriter writer)
 	{
 		super.RplSave(writer);
@@ -112,21 +87,13 @@ class KOTH_Area : SCR_CaptureArea
 		return true;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Sets internal owner faction and raises corresponding callback.
-	*/
 	protected void SetContestingFactionInternal(Faction previousFaction, Faction newFaction)
 	{
 		m_pContestingFaction = newFaction;
 		OnContestingFactionChanged(previousFaction, newFaction);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Notifies all clients of the owning faction change.
-		Index of faction is -1 if null.
-	*/
+
 	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
 	protected void Rpc_SetContestingFaction_BC(int previousFactionIndex, int newFactionIndex)
 	{
@@ -143,64 +110,36 @@ class KOTH_Area : SCR_CaptureArea
 		SetContestingFactionInternal(previousFaction, newFaction);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns invoker that is invoked when this area ticks (awards score).
-	*/
 	CaptureAreaTickEvent GetOnTickInvoker()
 	{
 		return m_pOnTickEvent;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns score awarded per area tick.
-	*/
 	int GetScorePerTick()
 	{
 		return m_iScorePerTick;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns objective center in local space relative to the area.
-	*/
 	vector GetLocalObjectiveCenter()
 	{
 		return m_vObjectiveCenter;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns objective center in world space.
-	*/
 	vector GetWorldObjectiveCenter()
 	{
 		return CoordToParent(m_vObjectiveCenter);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Utility method - returns current scripted game mode.
-	*/
 	protected SCR_BaseGameMode GetGameMode()
 	{
 		return SCR_BaseGameMode.Cast(GetGame().GetGameMode());
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns scoring system attached to current gamemode (if any) or null otherwise.
-	*/
 	protected SCR_BaseScoringSystemComponent GetScoringSystemComponent()
 	{
 		return GetGameMode().GetScoringSystemComponent();
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Initialize this area and register it to parent manager.
-	*/
 	protected override void OnInit(IEntity owner)
 	{
 		super.OnInit(owner);
@@ -232,11 +171,6 @@ class KOTH_Area : SCR_CaptureArea
 		}
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Initializes objective map descriptor for this area.
-		\param target Target map descriptor to initialize as this area
-	*/
 	protected void InitializeMapDescriptor(SCR_MapDescriptorComponent target)
 	{
 		MapItem item = target.Item();
@@ -260,11 +194,6 @@ class KOTH_Area : SCR_CaptureArea
 		item.SetVisible(true);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Updates objective map descriptor for this area with current state.
-		\param target Target map descriptor to initialize as this area
-	*/
 	protected void UpdateMapDescriptor(SCR_MapDescriptorComponent target)
 	{
 		if (!target)
@@ -293,10 +222,6 @@ class KOTH_Area : SCR_CaptureArea
 		target.Item().SetProps(props);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Updates the area and awards points if held.
-	*/
 	protected override void OnFrame(IEntity owner, float timeSlice)
 	{
 		super.OnFrame(owner, timeSlice);
@@ -330,11 +255,6 @@ class KOTH_Area : SCR_CaptureArea
 		}
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Called when point ticks, ie. when score should be awarded
-		Authority only.
-	*/
 	protected void OnTick()
 	{
 		// Callback is fired, if a faction is owning this point
@@ -378,11 +298,6 @@ class KOTH_Area : SCR_CaptureArea
 		}
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Sets the Faction (or none) that currently contests this area.
-		Authority only setter, replicated to clients.
-	*/
 	protected void DoSetContestingFaction(Faction previousFaction, Faction newFaction)
 	{
 		// For the authority, this is fired straight away above,
@@ -397,10 +312,6 @@ class KOTH_Area : SCR_CaptureArea
 		Rpc(Rpc_SetContestingFaction_BC, previousIndex, newIndex);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Handles owning and contesting changes based on defined parameters.
-	*/
 	protected override Faction EvaluateOwnerFaction()
 	{
 		Faction owningFaction = super.EvaluateOwnerFaction();
@@ -458,11 +369,6 @@ class KOTH_Area : SCR_CaptureArea
 		return owningFaction;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Returns true if provided character is in this area.
-		A character must have an affiliated faction using the FactionAffiliationComponent.
-	*/
 	bool IsCharacterInside(SCR_ChimeraCharacter character)
 	{
 		if (!character)
@@ -476,24 +382,12 @@ class KOTH_Area : SCR_CaptureArea
 		return indexOf != -1;
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Occurs on change of contesting faction of the area.
-	 	\param previousFaction Faction which contested the point prior to this change or null if none.
-		\param newFaction Faction that contests the point after this change or null if none.
-	*/
 	protected event void OnContestingFactionChanged(Faction previousFaction, Faction newFaction)
 	{
 		if (m_pMapDescriptor)
 			UpdateMapDescriptor(m_pMapDescriptor);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Occurs on change of owning faction of the area.
-	 	\param previousFaction Faction which held the point prior to this change or null if none.
-		\param newFaction Faction that holds the point after this change or null if none.
-	*/
 	protected override void OnOwningFactionChanged(Faction previousFaction, Faction newFaction)
 	{
 		super.OnOwningFactionChanged(previousFaction, newFaction);
@@ -502,10 +396,6 @@ class KOTH_Area : SCR_CaptureArea
 			UpdateMapDescriptor(m_pMapDescriptor);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	/*!
-		Unregisters self from parent manager.
-	*/
 	protected void ~KOTH_Area()
 	{
 		// Far from ideal, OnDelete would be better
@@ -518,4 +408,4 @@ class KOTH_Area : SCR_CaptureArea
 
 		zone_manager.UnregisterArea(this);
 	}
-}
+}*/

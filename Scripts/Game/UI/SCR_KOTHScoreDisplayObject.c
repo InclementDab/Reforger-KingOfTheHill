@@ -80,7 +80,7 @@ class KOTH_ObjectiveDisplayObject
 	//! Reference to outline image widget
 	protected ImageWidget m_ControlledImage;
 	
-	void KOTH_TeamScoreDisplayObject(notnull Widget root)
+	void KOTH_ObjectiveDisplayObject(notnull Widget root)
 	{
 		m_Root = root;
 				

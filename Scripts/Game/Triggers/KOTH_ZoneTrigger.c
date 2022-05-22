@@ -7,8 +7,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 {
 	protected ref map<KOTH_Faction, ref set<ChimeraCharacter>> m_CharactersInZone = new map<KOTH_Faction, ref set<ChimeraCharacter>>();
 
-	protected SCR_BaseGameMode m_GameMode;
-	protected KOTH_GameModeBase m_KOTHGameMode;
+	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_ZoneManager m_ZoneManager;
 	protected FactionManager m_FactionManager;
 
@@ -16,13 +15,13 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	{
 		super.EOnInit(owner);
 		m_FactionManager = GetGame().GetFactionManager();
-		m_GameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		if (!m_GameMode) {
 			Print("Could not find game mode!", LogLevel.ERROR);
 			return;
 		}
-		m_KOTHGameMode = KOTH_GameModeBase.Cast(m_GameMode.FindComponent(KOTH_GameModeBase));
-		m_ZoneManager = m_KOTHGameMode.GetKOTHZoneManager();
+		
+		m_ZoneManager = m_GameMode.GetKOTHZoneManager();
 		if (!m_ZoneManager) {
 			Print("Could not find zone manager!", LogLevel.ERROR);
 			return;
@@ -126,18 +125,18 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTHZoneContestType m_KOTHZoneContestType;
 
 	protected ref array<KOTH_Faction> m_ZoneOwners = {};
-	protected SCR_BaseGameMode m_GameMode;
-	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
+	protected KOTH_GameModeBase m_GameMode;
+	protected KOTH_TeamScoreDisplay m_ScoreDisplay;
 	protected SCR_FactionManager m_FactionManager;
 
 	void KOTH_ZoneManager()
 	{
 		if (!m_GameMode) {
-			m_GameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+			m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		}
 
 		if (!m_ScoreDisplay) {
-			m_ScoreDisplay = SCR_KOTHTeamScoreDisplay.Cast(m_GameMode.FindComponent(SCR_KOTHTeamScoreDisplay));
+			m_ScoreDisplay = KOTH_TeamScoreDisplay.Cast(m_GameMode.FindComponent(KOTH_TeamScoreDisplay));
 		}
 
 		m_GameMode.GetOnGameStart().Insert(OnGameStart);
@@ -261,16 +260,6 @@ class KOTH_ZoneManager: GenericComponent
 	static KOTH_ZoneManager GetInstance()
 	{
 		return KOTH_ZoneManager.Cast(GetGame().GetGameMode().FindComponent(KOTH_ZoneManager));
-	}
-
-	void RegisterArea(KOTH_Area area)
-	{
-
-	}
-
-	void UnregisterArea(KOTH_Area area)
-	{
-
 	}
 }
 

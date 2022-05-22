@@ -10,7 +10,7 @@
 		Similar approach can be taken, but a list of elements or any other
 		dynamically filled element would be a much more preferable choice.
 */
-class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
+class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 {
 	[Attribute("{A1EA87A89C5215AC}UI\\layouts\\HUD\\KOTH\\KOTHObjectiveLayout.layout", params: "layout")]
 	protected ResourceName m_ObjectiveHUDLayout;

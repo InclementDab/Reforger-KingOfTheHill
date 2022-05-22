@@ -1,10 +1,9 @@
 [ComponentEditorProps(category: "GameScripted/GameMode/KOTH", description: "Manager component allowing access and API over CaptureAndHold areas.")]
-class KOTH_GameModeBaseClass : SCR_BaseGameModeComponentClass
+class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 {
 }
 
-
-class KOTH_GameModeBase: SCR_BaseGameModeComponent
+class KOTH_GameModeBase: SCR_BaseGameMode
 {
 	//! If enabled custom weather Id will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "CaptureAndHold: Environment")]
@@ -21,23 +20,14 @@ class KOTH_GameModeBase: SCR_BaseGameModeComponent
 	//! Time of the day set on game start. Authority only.
 	[Attribute(defvalue: "12", desc: "Time of the day set on game start. Authority only.", category: "CaptureAndHold: Environment", params: "0 24 0.01")]
 	protected float m_fCustomTimeOfTheDay;
-	
-	protected SCR_BaseGameMode m_GameMode;
-	
-	protected KOTH_Area m_Area;
-
-	void KOTH_GameModeBase(IEntityComponentSource src, IEntity ent, IEntity parent)
-	{
-		m_GameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
-	}
 
 	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
 	{
 		super.OnPlayerSpawned(playerId, controlledEntity);
 
 		// start game
-		if (m_GameMode.GetState() == SCR_EGameModeState.PREGAME) {
-			m_GameMode.StartGameMode();
+		if (GetState() == SCR_EGameModeState.PREGAME) {
+			StartGameMode();
 		}
 	}
 
@@ -46,6 +36,7 @@ class KOTH_GameModeBase: SCR_BaseGameModeComponent
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
 	}
 
+	/*
 	protected override void OnPostInit(IEntity owner)
 	{
 		super.OnPostInit(owner);
@@ -54,8 +45,9 @@ class KOTH_GameModeBase: SCR_BaseGameModeComponent
 		// This is not the best way of solving this problem,
 		// but for a small game mode like this it's completely fine.
 		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
-		if (onMapOpenInvoker)
+		if (onMapOpenInvoker) {
 			onMapOpenInvoker.Insert(OnMapOpen);
+		}
 	}
 
 	protected override void OnDelete(IEntity owner)
@@ -143,5 +135,5 @@ class KOTH_GameModeBase: SCR_BaseGameModeComponent
 
 		if (m_bUseCustomWeather)
 			SetWeather(m_sCustomWeatherId);
-	}
+	}*/
 }
