@@ -1,10 +1,10 @@
 [EntityEditorProps(category: "GameScripted/GameMode/KOTH", description: "Area that awards score points when captured.")]
-class SCR_KOTHAreaClass : SCR_CaptureAreaClass
+class KOTH_AreaClass : SCR_CaptureAreaClass
 {
 }
 
 //! Callback delegate used by events regarding faction ownership in SCR_CaptureArea.
-void CaptureAreaTickEventDelegate(SCR_KOTHArea area, Faction currentOwner, int score);
+void CaptureAreaTickEventDelegate(KOTH_Area area, Faction currentOwner, int score);
 typedef func CaptureAreaTickEventDelegate;
 typedef ScriptInvokerBase<CaptureAreaTickEventDelegate> CaptureAreaTickEvent;
 
@@ -13,7 +13,7 @@ typedef ScriptInvokerBase<CaptureAreaTickEventDelegate> CaptureAreaTickEvent;
 	This area awards score to the faction which controls the area periodically.
 	Area registers and unregisters from the KOTH_ZoneManager.
 */
-class SCR_KOTHArea : SCR_CaptureArea
+class KOTH_Area : SCR_CaptureArea
 {
 	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the objective in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
 	protected vector m_vObjectiveCenter;
@@ -506,7 +506,7 @@ class SCR_KOTHArea : SCR_CaptureArea
 	/*!
 		Unregisters self from parent manager.
 	*/
-	protected void ~SCR_KOTHArea()
+	protected void ~KOTH_Area()
 	{
 		// Far from ideal, OnDelete would be better
 

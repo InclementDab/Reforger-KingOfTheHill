@@ -1,9 +1,10 @@
-SCR_KOTHArea : "{B0446F0A7E2D1027}Prefabs/MP/Modes/Areas/KOTHMajorArea.et" {
- coords 4792.405 166.794 7051.905
+SCR_BaseGameMode KOTHGameMode1 : "{639FD8AD6C911192}Prefabs/MP/Modes/KOTHGameMode.et" {
+ coords 4792.408 166.782 7051.896
 }
 KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
  components {
   MapDescriptorComponent "{59695A60A5A18EEA}" {
+   Enabled 0
    DisplayName "The Hill"
    MapItemDescriptor 1
    MainType Hill
@@ -12,15 +13,17 @@ KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et
   SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
    m_EntityType COMMENT
    m_UIInfo SCR_EditableDescriptorUIInfo "{596B0DC1D36EC791}" {
-    Name "THE FUCKING HILL"
+    Name "Zone"
     Description "(hill)"
    }
    m_bAutoRegister ALWAYS
+   m_bStatic 1
    m_fMaxDrawDistance 14.4
    m_fSizeCoef 2
    m_bBold 1
   }
  }
  coords 4792.414 166.772 7051.898
- SphereRadius 100
+ SphereRadius 225
+ DrawShape 0
 }
