@@ -126,8 +126,6 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTHZoneContestType m_KOTHZoneContestType;
 
 	protected ref array<KOTH_Faction> m_ZoneOwners = {};
-	protected ref map<KOTH_Faction, int> m_Tickets = new map<KOTH_Faction, int>();
-
 	protected SCR_BaseGameMode m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
 	protected SCR_FactionManager m_FactionManager;
@@ -204,7 +202,7 @@ class KOTH_ZoneManager: GenericComponent
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
 			zone_owner.SetTickets(zone_owner.GetTickets() + 1);
 			//m_Tickets[zone_owner] = m_Tickets[zone_owner] + 1;
-			OnFactionTicketChangedScript.Invoke(zone_owner, m_Tickets[zone_owner]);
+			OnFactionTicketChangedScript.Invoke(zone_owner, zone_owner.GetTickets());
 		}
 
 		// contested!
@@ -213,10 +211,8 @@ class KOTH_ZoneManager: GenericComponent
 		}
 
 		// check our ticket counts
-		foreach (Faction faction, int ticket_count: m_Tickets) {
-			if (ticket_count >= m_TicketCountToWin) {
-				//KOTH_GameModeBase koth_game_mode = KOTH_GameModeBase.Cast(m_GameMode.FindComponent(KOTH_GameModeBase));
-				//KOTH_GameModeBase koth_game_mode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
+		foreach (KOTH_Faction faction: GetCurrentFactions()) {
+			if (faction.GetTickets() >= m_TicketCountToWin) {
 				if (m_GameMode) {
 					m_GameMode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: GetGame().GetFactionManager().GetFactionIndex(faction)));
 				}
