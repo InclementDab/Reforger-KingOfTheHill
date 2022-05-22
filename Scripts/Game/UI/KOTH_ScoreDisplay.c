@@ -129,7 +129,6 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 		switch(m_KOTHManager.GetZoneContestType()) {
 			//! If zone is owned
 			case KOTHZoneContestType.OWNED: {
-				Print(ToString() + "::DisplayUpdate - OWNED");
 				//! If the zone was empty before
 				if (m_PreviousContestType == KOTHZoneContestType.EMPTY) {
 					m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(false);
@@ -147,7 +146,6 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 			}
 			//! If zone is contested
 			case KOTHZoneContestType.TIE: {
-				Print(ToString() + "::DisplayUpdate - TIE");
 				//! If the zone was empty before
 				if (m_PreviousContestType == KOTHZoneContestType.EMPTY) {
 					foreach (KOTH_Faction faction : m_KOTHManager.GetZoneOwners()) {
@@ -174,7 +172,6 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 				break;
 			}
 			case KOTHZoneContestType.EMPTY: {
-				Print(ToString() + "::DisplayUpdate - EMPTY");
 				if (m_LastZoneOwner) {
 					m_ScoringElements[m_LastZoneOwner].StopBlink(); 
 				} else {
