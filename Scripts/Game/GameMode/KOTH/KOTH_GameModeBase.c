@@ -80,6 +80,8 @@ class KOTH_GameModeBase: SCR_BaseGameModeComponent
 	protected void OnMapOpen(MapConfiguration config)
 	{
 		// Get average of all positions
+		if (!m_Area) return;
+		
 		float x;
 		float z;
 		vector worldPos = m_Area.GetWorldObjectiveCenter();
