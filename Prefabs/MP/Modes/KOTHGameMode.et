@@ -1,0 +1,89 @@
+SCR_BaseGameMode {
+ ID "596C161BE6992EA9"
+ components {
+  KOTH_BriefingComponent "{596C0E4EC5A65954}" {
+   m_Info SCR_UIInfo "{596C0E4EF5FCD987}" {
+   }
+   m_aGameModeHints {
+    SCR_UIInfo "{596C0E4E9139800F}" {
+     Name "PLACEHOLDER"
+     Description "PLACEHOLDER"
+     Icon "{3C50D67D082BA322}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_2_UI.edds"
+    }
+   }
+  }
+  KOTH_GameModeBase "{596C0E4E5C6FD0A0}" {
+   m_bUseCustomWeather 1
+   m_sCustomWeatherId "Rainy"
+   m_bUseCustomTime 1
+  }
+  SCR_CallsignManagerComponent "{596C0E4C557EDEE8}" {
+  }
+  SCR_DestructionManagerComponent "{596C161942E6B21B}" {
+  }
+  SCR_GameOverScreenManagerComponent "{596C16197F1C6D88}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{596C161977EAD0A5}" {
+   }
+  }
+  SCR_GroupsManagerComponent "{596C16190FAA5FAC}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
+  }
+  SCR_HintManagerComponent "{596C1618864D9964}" {
+  }
+  SCR_NametagConfigComponent "{596C1618B1FBA228}" {
+   m_sConfigPath "{2C54289741D01AB5}Configs/NameTags/NametagFriendlies.conf"
+  }
+  SCR_NotificationSenderComponent "{596C1618AD0EF1FA}" {
+   m_iKillFeedType FULL
+   m_iReceiveKillFeedType ALL
+  }
+  SCR_PlayerProfileManagerComponent "{596C1618524CEDE3}" {
+  }
+  SCR_PlayerRestrictionZoneWarningComponent "{596C16184CAD9AB7}" {
+  }
+  SCR_PossessingManagerComponent "{596C161843ABAD61}" {
+  }
+  SCR_RespawnMenuHandlerComponent "{596C16187587124E}" {
+  }
+  SCR_RespawnSystemComponent "{596C161819D0D1CC}" {
+  }
+  SCR_SaveLoadComponent "{596C16181C432BDD}" {
+  }
+  SCR_ScoringSystemComponent "{596C161812A0BC0F}" {
+   m_aActions {
+    EndGameAction "{596C16180DB23A4B}" {
+     m_eScoringMode SLM_Faction
+    }
+   }
+  }
+  SCR_VotingManagerComponent "{596C16183A72800D}" {
+   m_aVotingTemplates {
+    SCR_VotingKick "{596C1618321FB0BC}" {
+     m_Info SCR_VotingUIInfo "{596C1618294D6C02}" {
+      Name "#AR-Voting_KICK_AddVoteName"
+      m_sStartVotingName "#AR-Voting_KICK_StartVotingName"
+      m_sStickyNotificationText "#AR-Notification_Sticky_VoteKickPlayer"
+      m_iStartNotificationId VOTING_KICK_START
+      m_iSucceededNotificationId VOTING_KICK_SUCCEED
+      m_iFailedNotificationId VOTING_KICK_FAIL
+     }
+    }
+    SCR_VotingKick "{596C161BCB9FC067}" {
+     m_Info SCR_VotingUIInfo "{596C161BCFC82BAC}" {
+      m_iStartNotificationId VOTING_KICK_START
+      m_iSucceededNotificationId VOTING_KICK_SUCCEED
+      m_iFailedNotificationId VOTING_KICK_FAIL
+     }
+    }
+   }
+  }
+  SCR_WaveRespawnTimerComponent "{596C161BFA2B4EBD}" {
+  }
+  RplComponent "{596C161BF31DC2A5}" {
+   "Rpl State Override" Static
+   Streamable Disabled
+  }
+ }
+ coords 4792.396 166.811 7051.994
+}

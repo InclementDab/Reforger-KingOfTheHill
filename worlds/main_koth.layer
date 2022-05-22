@@ -1,5 +1,5 @@
-SCR_KOTHArea : "{B0446F0A7E2D1027}Prefabs/MP/Modes/Areas/KOTHMajorArea.et" {
- coords 4792.405 166.794 7051.905
+SCR_BaseGameMode KOTHGameMode1 : "{639FD8AD6C911192}Prefabs/MP/Modes/KOTHGameMode.et" {
+ coords 4792.377 166.787 7052.002
 }
 KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
  components {

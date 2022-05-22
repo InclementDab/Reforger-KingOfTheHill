@@ -26,8 +26,12 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_KOTHManager;
-	//! Game mode instance
-	protected KOTH_GameModeBase m_GameMode;
+	
+	//! Base Game mode instance
+	protected SCR_BaseGameMode m_GameMode;
+	
+	//! KOTH Game mode instance
+	protected KOTH_GameModeBase m_KOTHGameMode;
 
 	//! Speed used to fade areas hud when hints are shown
 	protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
@@ -38,12 +42,17 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	override bool DisplayStartDrawInit(IEntity owner)
 	{
 		// No ui can be drawn without necessary items
-		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
+		m_GameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
 		if (!m_GameMode) {
 			return false;
 		}
 	
-		m_KOTHManager = m_GameMode.GetKOTHZoneManager();
+		m_KOTHGameMode = KOTH_GameModeBase.Cast(m_GameMode.FindComponent(KOTH_GameModeBase));
+		if (!m_KOTHGameMode) {
+			return false;
+		}
+		
+		m_KOTHManager = m_KOTHGameMode.GetKOTHZoneManager();
 		if (!m_KOTHManager) {
 			return false;
 		}
