@@ -1,0 +1,21 @@
+SCR_KOTHArea {
+ ID "596B7B8F5B4F3EE9"
+ components {
+  Hierarchy "{596B7B8C860CB833}" {
+  }
+  SCR_MapDescriptorComponent "{596B7B8CBF546F62}" {
+   ImagesetQuadElement "FIA_Relay_Select"
+   MainType "Icon (generic)"
+  }
+  RplComponent "{596B7B8CA5E160EE}" {
+   "Rpl State Override" Static
+   Streamable Disabled
+  }
+ }
+ coords 4792.368 166.786 7051.971
+ TriggerShapeType Sphere
+ SphereRadius 100
+ TriggerActivationType "All changes"
+ PeriodicQueries 1
+ m_bIsMajor 1
+}

@@ -4,3 +4,18 @@ SubScene {
 Layer koth {
  Index 1
 }
+Layer Faction_USSR {
+ Index 0
+}
+Layer Faction_US {
+ Index 2
+}
+Layer Faction_FIA {
+ Index 3
+}
+Layer managers {
+ Index 4
+}
+Layer gamemode {
+ Index 5
+}

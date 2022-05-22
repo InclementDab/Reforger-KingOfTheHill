@@ -1,0 +1,48 @@
+$grp SCR_VehicleSpawn {
+ US_VSpawn_01 {
+  coords 5301.155 80.827 6390.289
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ US_VSpawn_02 {
+  coords 5296.497 80.971 6403.586
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ US_VSpawn_03 {
+  coords 5283.386 81.302 6413.479
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+ US_VSpawn_04 {
+  coords 5271.562 82.684 6431.797
+  angleY -35.843
+  m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
+ }
+}
+SCR_SpawnPoint US_Spawnpoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   DisplayName "US Spawn (Safe Zone)"
+   VisibleOnMap 1
+   MapItemDescriptor 1
+  }
+ }
+ coords 5289.981 77.358 6363.663
+ angleY 1.493
+ m_fSpawnRadius 10
+ m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "US Spawn (Safe Zone)"
+ }
+ {
+  SCR_Position {
+  }
+ }
+}
+GenericEntity US_Base : "{781A5361CCEA95FC}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_US_01.et" {
+ coords 5276.258 76.956 6355.103
+ angleX -0.897
+ angleY -0.111
+ angleZ -0.893
+}
