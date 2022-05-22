@@ -33,6 +33,10 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	//! Speed used to fade areas hud when hints are shown
 	protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 
+	protected KOTHZoneContestType m_CurrentContestType = KOTHZoneContestType.EMPTY;
+	protected KOTHZoneContestType m_PreviousContestType = KOTHZoneContestType.EMPTY;
+	protected ref KOTH_Faction m_LastZoneOwner;
+	
 	/*!
 		Checks the prerequisites for this InfoDisplay.
 	*/
@@ -119,13 +123,14 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 		}
 		
 		// do blinking for zone owners
-		if (m_KOTHManager.GetZoneContestType() == KOTHZoneContestType.OWNED) {
+		m_CurrentContestType = m_KOTHManager.GetZoneContestType();
+		if (m_CurrentContestType == KOTHZoneContestType.OWNED) {
+			m_LastZoneOwner = m_KOTHManager.GetZoneOwner();
+			m_PreviousContestType = m_CurrentContestType;
 			m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0);	
-		}
-		else if (m_KOTHManager.GetZoneContestType() == KOTHZoneContestType.EMPTY) {
-			foreach(KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
-				element.StopBlink();
-			}
+		} else if (m_CurrentContestType == KOTHZoneContestType.EMPTY && m_PreviousContestType == KOTHZoneContestType.OWNED) {
+			m_PreviousContestType = m_CurrentContestType;
+			m_ScoringElements[m_LastZoneOwner].StopBlink();
 		}
 	}
 }

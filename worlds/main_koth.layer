@@ -21,6 +21,5 @@ KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et
   }
  }
  coords 4792.414 166.772 7051.898
- SphereRadius 225
- DrawShape 0
+ SphereRadius 50
 }

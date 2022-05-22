@@ -19,3 +19,6 @@ Layer managers {
 Layer gamemode {
  Index 5
 }
+Layer probs {
+ Index 6
+}

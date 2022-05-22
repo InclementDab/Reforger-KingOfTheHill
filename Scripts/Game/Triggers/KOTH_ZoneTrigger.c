@@ -11,6 +11,11 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	protected KOTH_ZoneManager m_ZoneManager;
 	protected FactionManager m_FactionManager;
 
+	void KOTH_ZoneTriggerEntity(IEntitySource src, IEntity parent)
+	{
+		SetEventMask(EntityEvent.INIT);
+	}
+	
 	override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
