@@ -1,4 +1,4 @@
-KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
+KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_1 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
  components {
   MapDescriptorComponent "{59695A60A5A18EEA}" {
    Enabled 0
@@ -6,6 +6,8 @@ KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et
    MapItemDescriptor 1
    MainType Hill
    Scale 13.6
+  }
+  Hierarchy "{596CF7DC6B137476}" {
   }
   SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
    m_EntityType COMMENT
@@ -20,6 +22,6 @@ KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et
    m_bBold 1
   }
  }
- coords 4792.414 166.772 7051.898
- SphereRadius 50
+ coords 7059.179 119.015 6016.292
+ SphereRadius 110
 }

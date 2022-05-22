@@ -1,0 +1,46 @@
+PolylineShapeEntity {
+ ID "596CF7D9B15D7BB2"
+ components {
+  MapDescriptorComponent "{596CF7DC874D7D79}" {
+   DisplayName "ZONE"
+   MainType Powerlines
+  }
+  Hierarchy "{596CF7DC79973701}" {
+  }
+ }
+ coords 7168.158 116.358 6071.974
+ Points {
+  ShapePoint "{596CF7DD7E02A7F7}" {
+   Position -44.702 6.356 47.654
+  }
+  ShapePoint "{596CF7DD42E2E2AE}" {
+   Position -115.674 0 50.156
+  }
+  ShapePoint "{596CF7DD41ADA202}" {
+   Position -196.408 0 -50.969
+  }
+  ShapePoint "{596CF7DD461D6027}" {
+   Position -250.491 0 -99.342
+  }
+  ShapePoint "{596CF7DD47FD204D}" {
+   Position -170.096 0 -178.315
+  }
+  ShapePoint "{596CF7DD44A883C9}" {
+   Position -122.883 0 -148.641
+  }
+  ShapePoint "{596CF7DD4BA073CC}" {
+   Position -66.537 0 -123.068
+  }
+  ShapePoint "{596CF7DD49E1398B}" {
+   Position -10.739 0 -103.819
+  }
+  ShapePoint "{596CF7DD4FAC53A5}" {
+   Position 16.079 -0.454 -52.651
+  }
+  ShapePoint "{596CF7DD7E02A594}" {
+   Position 5 -0.712 0
+  }
+ }
+ IsClosed 1
+ LineColor 0.13 0.476 0.93 1
+}
