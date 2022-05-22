@@ -1,0 +1,233 @@
+FrameWidgetClass {
+ Name "Objective"
+ Slot FrameWidgetSlot "{5918F96B575887E9}" {
+  Anchor 0 0 0 0
+  PositionX 0
+  OffsetLeft 0
+  PositionY 0
+  OffsetTop 0
+  SizeX 64
+  OffsetRight -64
+  SizeY 64
+  OffsetBottom -64
+  SizeToContent 1
+ }
+ Color 1 1 1 1
+ {
+  VerticalLayoutWidgetClass "{596B08D2FAA416A5}" {
+   Name "VerticalLayout"
+   Slot FrameWidgetSlot "{51C4C0A5BAFB2375}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 44
+    OffsetRight -44
+    SizeY 60
+    OffsetBottom -60
+    Alignment 0.5 0.425
+   }
+   "Inherit Color" 1
+   {
+    OverlayWidgetClass "{596B08D2FAA416A7}" {
+     Name "Overlay"
+     Slot LayoutSlot "{5918F5A863DC44D2}" {
+      HorizontalAlign 1
+      VerticalAlign 0
+      Padding 4 4 4 4
+      SizeMode Fill
+     }
+     "Inherit Color" 1
+     {
+      ScaleWidgetClass "{596B08D2FAA4CE4D}" {
+       Name "Scale_Faction"
+       Slot OverlayWidgetSlot "{59487BB185456FA5}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding 10 10 10 10
+       }
+       "Inherit Color" 1
+       {
+        ImageWidgetClass "{596B08D2FAA4CE4E}" {
+         Name "Icon_Flag"
+         Slot OverlayWidgetSlot "{5918F5A860F8F00E}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding -6 -6 -7 -7
+         }
+         IsPixelPerfect 0
+         Color 1 1 1 1
+         "Inherit Color" 1
+         Rotation 0
+         Texture "{9B4E9C3052267850}UI/imagesets/atlas_imageset.imageset"
+         Image "flag"
+         Size 50 50
+         "Shadow Offset" 1 1
+         "Shadow Size Increase" 0 0
+         "Shadow Color" 0.002 0 0 0.502
+        }
+       }
+      }
+      ScaleWidgetClass "{596B08D2FAA416A2}" {
+       Name "Scale_MajorMark"
+       Slot OverlayWidgetSlot "{59487BB19764D80F}" {
+        Padding 3 3 3 3
+       }
+       "Is Visible" 0
+       "Inherit Color" 1
+       {
+        ImageWidgetClass "{596B08D2FAA416A3}" {
+         Name "Icon_MajorMark"
+         Slot OverlayWidgetSlot "{5918F5A860F8F00E}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding -6 -6 -7.2 -7
+         }
+         IsPixelPerfect 0
+         Color 1 1 1 1
+         "Inherit Color" 1
+         Rotation 0
+         Texture "{225B7CAD5CEC4AE3}UI/Imagesets/CaptureAndHold/CaptureAndHoldAtlas.imageset"
+         Image "CAH_AREA_MAJOR"
+         Size 96 96
+         "Shadow Offset" 1 1
+         "Shadow Color" 0 0 0 0.502
+        }
+       }
+      }
+      ScaleWidgetClass "{596B08D2FAA416A0}" {
+       Name "Scale_Backdrop"
+       Slot OverlayWidgetSlot "{59487BB185456FA5}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding 0 0 0 0
+       }
+       "Inherit Color" 1
+       {
+        ImageWidgetClass "{596B08D2FAA416A1}" {
+         Name "Icon_Backdrop"
+         Slot OverlayWidgetSlot "{5918F5A860F8F00E}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding -6 -6 -7 -7
+         }
+         IsPixelPerfect 0
+         Color 0 0 0 0.118
+         Rotation 0
+         Texture "{9B4E9C3052267850}UI/imagesets/atlas_imageset.imageset"
+         Image "outlines"
+         Size 96 96
+         "Shadow Offset" 0 0
+         "Shadow Size Increase" 0 0
+         "Shadow Color" 0.002 0 0 0.502
+        }
+       }
+      }
+      TextWidgetClass "{596B08D2FAA4CE4F}" {
+       Name "Name"
+       Slot OverlayWidgetSlot "{5918F5A878F797BF}" {
+        Padding 0 0 0 0
+       }
+       "Is Enabled" 0
+       "Is Visible" 0
+       IsPixelPerfect 0
+       "Inherit Color" 1
+       Pivot 0.5 0.5
+       Text "A"
+       "Font Size" 15
+       "Min Font Size" 15
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+       FontProperties FontProperties "{51D0F5FA95A61812}" {
+        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+        DisabledColor 0.198 0.198 0.198 1
+        OutlineColor 0.305 0.305 0.305 1
+        ShadowSize 4
+        ShadowOffset 4 4
+        ShadowOpacity 0.7
+       }
+       Offset 0 0
+       "Line Spacing" 0
+      }
+      ScaleWidgetClass "{596B08D2FAA416AC}" {
+       Name "Scale_Controlled"
+       Slot OverlayWidgetSlot "{59487BB19764D80F}" {
+        Padding 0 0 0 0
+       }
+       "Inherit Color" 1
+       {
+        ImageWidgetClass "{596B08D2FAA4CE4C}" {
+         Name "Icon_Controlled"
+         Slot OverlayWidgetSlot "{5918F5A860F8F00E}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding 0 0 0 0
+         }
+         "Is Visible" 0
+         IsPixelPerfect 0
+         Color 1 1 1 1
+         Rotation 45
+         Texture "{9B4E9C3052267850}UI/imagesets/atlas_imageset.imageset"
+         Image "attacked"
+         Size 65 65
+         "Shadow Offset" 1 1
+         "Shadow Color" 0 0 0 0.502
+        }
+       }
+      }
+      ScaleWidgetClass "{596B4E8FAA8AE8A9}" {
+       Name "Scale_Outlines"
+       Slot OverlayWidgetSlot "{59487BB19764D80F}" {
+        Padding 0 0 0 0
+       }
+       "Inherit Color" 1
+       {
+        ImageWidgetClass "{596B4E8FAA8AE8AA}" {
+         Name "Icon_Outlines"
+         Slot OverlayWidgetSlot "{5918F5A860F8F00E}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding 0 0 0 0
+         }
+         IsPixelPerfect 0
+         Color 1 1 1 1
+         Rotation 45
+         Texture "{9B4E9C3052267850}UI/imagesets/atlas_imageset.imageset"
+         Image "outline"
+         Size 120 120
+         "Shadow Offset" 1 1
+         "Shadow Color" 0 0 0 0.502
+        }
+       }
+      }
+     }
+    }
+    TextWidgetClass "{596B08D2FAA4CE48}" {
+     Name "Distance"
+     Slot LayoutSlot "{5918F1DD31F22351}" {
+      VerticalAlign 0
+      Padding 0 4 0 0
+      FillWeight 0.4
+     }
+     Color 1 1 1 1
+     Text ""
+     "Font Size" 14
+     "Min Font Size" 14
+     "Horizontal Alignment" Center
+     "Vertical Alignment" Center
+     FontProperties FontProperties "{51D0F5FA95A61812}" {
+      Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+      DisabledColor 0.198 0.198 0.198 1
+      OutlineSize 0
+      OutlineColor 0.305 0.305 0.305 1
+      ShadowSize 6
+      ShadowOffset 6 6
+      ShadowOpacity 0.5
+     }
+     Offset 0 0
+    }
+   }
+  }
+ }
+}

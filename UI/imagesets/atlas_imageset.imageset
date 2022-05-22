@@ -1,0 +1,29 @@
+ImageSetClass {
+ RefSize 540 960
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{BAAAD7AFD2BEE514}UI/imagesets/atlas_imageset.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass flag {
+   Name "flag"
+   Pos 13 14
+   Size 100 100
+   Flags 0
+  }
+  ImageSetDefClass attacked {
+   Name "attacked"
+   Pos 121 1
+   Size 128 128
+   Flags 0
+  }
+  ImageSetDefClass outline {
+   Name "outline"
+   Pos 251 10
+   Size 112 112
+   Flags 0
+  }
+ }
+}

@@ -90,8 +90,25 @@ GarbageManager {
  CharacterLifetime 30
  ItemLifetime 60
 }
-HitRegistrationManager HitRegManager : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
- coords 4792.417 166.827 7052.041
+SCR_KOTHArea {
+ components {
+  Hierarchy "{596B7B8C860CB833}" {
+  }
+  SCR_MapDescriptorComponent "{596B7B8CBF546F62}" {
+   ImagesetQuadElement "FIA_Relay_Select"
+   MainType "Icon (generic)"
+  }
+  RplComponent "{596B7B8CA5E160EE}" {
+   "Rpl State Override" Static
+   Streamable Disabled
+  }
+ }
+ coords 4792.368 166.786 7051.971
+ TriggerShapeType Sphere
+ SphereRadius 100
+ TriggerActivationType "All changes"
+ PeriodicQueries 1
+ m_bIsMajor 1
 }
 $grp SCR_VehicleSpawn {
  {
@@ -154,6 +171,9 @@ $grp SCR_VehicleSpawn {
   angleY 93.523
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
  }
+}
+HitRegistrationManager HitRegManager : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
+ coords 4792.417 166.827 7052.041
 }
 GenericEntity : "{2A3B53114DEAA60A}Prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_S_USSR_01.et" {
  coords 3967.557 53.201 7170.718

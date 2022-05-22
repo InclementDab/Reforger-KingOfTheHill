@@ -143,6 +143,8 @@ class KOTH_ZoneManager: GenericComponent
 	
 	protected KOTH_GameModeBase m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
+	
+	private static KOTH_ZoneManager s_Instance;
 			
 	void KOTH_ZoneManager()
 	{
@@ -272,11 +274,33 @@ class KOTH_ZoneManager: GenericComponent
 			GetGame().GetFactionManager().GetFactionByKey("FIA"),
 		};
 	}
+	
+	static KOTH_ZoneManager GetKOTHZoneManager()
+	{
+		BaseGameMode gameMode = GetGame().GetGameMode();
+		if (!gameMode)
+			return null;
+
+		if (!s_Instance)
+			s_Instance = KOTH_ZoneManager.Cast(gameMode.FindComponent(KOTH_ZoneManager));
+
+		return s_Instance;
+	}
+	
+	void RegisterArea(SCR_KOTHArea area)
+	{
+		
+	}
+	
+	void UnregisterArea(SCR_KOTHArea area)
+	{
+		
+	}
 }
 
 class KOTH_VehicleSpawnerClass: ScriptedGameTriggerEntityClass
 {
-}	
+}
 
 class KOTH_VehicleSpawner: ScriptedGameTriggerEntity
 {
