@@ -548,6 +548,16 @@ $grp SCR_VehicleSpawn {
   m_rnPrefab "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et"
  }
 }
+$grp GenericEntity : "{34A56AFC3D4FCAE2}Prefabs/Compositions/Slotted/SlotRoadSmall/Checkpoint_S_US_01.et" {
+ {
+  coords 6967.455 114.817 5948.181
+  angleY 64.451
+ }
+ {
+  coords 7116.324 117.028 6125.145
+  angleY -166.092
+ }
+}
 SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
@@ -569,4 +579,10 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
   SCR_Position SCR_Position2 {
   }
  }
+}
+GenericEntity : "{9483333BFD9E2D0E}Prefabs/Compositions/Slotted/SlotRoadSmall/Checkpoint_S_USSR_01.et" {
+ coords 7142.581 116.812 5994.733
+ angleX 2.382
+ angleY -49.127
+ angleZ 0.333
 }
