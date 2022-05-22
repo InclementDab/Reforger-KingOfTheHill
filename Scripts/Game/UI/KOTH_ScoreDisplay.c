@@ -33,9 +33,6 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	//! Speed used to fade areas hud when hints are shown
 	protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 
-	protected KOTHZoneContestType m_CurrentContestType = KOTHZoneContestType.EMPTY;
-	protected KOTHZoneContestType m_PreviousContestType = KOTHZoneContestType.EMPTY;
-	protected ref KOTH_Faction m_LastZoneOwner;
 	
 	/*!
 		Checks the prerequisites for this InfoDisplay.

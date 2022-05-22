@@ -10,24 +10,24 @@ FrameWidgetClass {
     OffsetLeft 1
     PositionY 0
     OffsetTop 0
-    SizeX 190
-    OffsetRight -191
+    SizeX 200
+    OffsetRight -201
     SizeY 60
     OffsetBottom -60
     Alignment 0.5 0
    }
    {
-    WrapLayoutWidgetClass "{596B0DDF54983966}" {
+    HorizontalLayoutWidgetClass "{596B0DDF54983966}" {
      Name "Score_Root"
      Slot FrameWidgetSlot "{596B0DDF54983942}" {
       Anchor 0 0 1 1
-      PositionX -865
+      PositionX 0
       OffsetLeft 0
       PositionY 0
       OffsetTop 0
-      SizeX -90
+      SizeX 0
       OffsetRight 0
-      SizeY -1050
+      SizeY 0
       OffsetBottom 0
      }
     }
