@@ -4,7 +4,11 @@ PerceptionManager PerceptionManager : "{028DAEAD63E056BE}Prefabs/World/Game/Perc
 SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
  coords 4692.271 130.159 7761.14
  Factions {
-  KOTH_Faction "{596C1AC038EC79AB}" {
+  KOTH_Faction "{596906B2F7523690}" {
+  }
+  KOTH_Faction "{596906B2EAEA6D99}" {
+  }
+  KOTH_Faction "{596906B2EDDEA2B3}" {
   }
  }
 }
