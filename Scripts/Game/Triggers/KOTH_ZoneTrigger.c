@@ -201,7 +201,6 @@ class KOTH_ZoneManager: GenericComponent
 			KOTH_Faction zone_owner = m_ZoneOwners[0];
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
 			zone_owner.SetTickets(zone_owner.GetTickets() + 1);
-			//m_Tickets[zone_owner] = m_Tickets[zone_owner] + 1;
 			OnFactionTicketChangedScript.Invoke(zone_owner, zone_owner.GetTickets());
 		}
 
