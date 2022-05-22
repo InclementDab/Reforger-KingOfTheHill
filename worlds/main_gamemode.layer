@@ -6,6 +6,7 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   SCR_ChatComponent "{596B46E44FAAD167}" {
   }
   SCR_GroupsManagerComponent "{596B4A8BDCBF5C28}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
   }
   SCR_HintManagerComponent "{596B453A361472AB}" {
   }

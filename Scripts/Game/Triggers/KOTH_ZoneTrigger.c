@@ -139,6 +139,15 @@ class KOTH_ZoneManager: GenericComponent
 
 	[RplProp()]
 	protected KOTHZoneContestType m_KOTHZoneContestType;
+	
+	[RplProp()]
+	protected int m_Tickets1;
+	
+	[RplProp()]
+	protected int m_Tickets2;
+	
+	[RplProp()]
+	protected int m_Tickets3;
 
 	protected ref array<KOTH_Faction> m_ZoneOwners = {};
 	protected KOTH_GameModeBase m_GameMode;
@@ -215,8 +224,8 @@ class KOTH_ZoneManager: GenericComponent
 		if (m_ZoneOwners.Count() == 1) {
 			KOTH_Faction zone_owner = m_ZoneOwners[0];
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
-			zone_owner.SetTickets(zone_owner.GetTickets() + 1);
-			OnFactionTicketChangedScript.Invoke(zone_owner, zone_owner.GetTickets());
+			SetTickets(zone_owner, GetTickets(zone_owner) + 1);
+			OnFactionTicketChangedScript.Invoke(zone_owner, GetTickets(zone_owner));
 		}
 
 		// contested!
@@ -225,13 +234,58 @@ class KOTH_ZoneManager: GenericComponent
 		}
 
 		// check our ticket counts
-		foreach (KOTH_Faction faction: GetCurrentFactions()) {
-			if (faction.GetTickets() >= m_TicketCountToWin) {
+		array<KOTH_Faction> fctn = GetCurrentFactions();
+		foreach (KOTH_Faction faction: fctn) {
+			if (GetTickets(faction) >= m_TicketCountToWin) {
 				if (m_GameMode) {
 					m_GameMode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: GetGame().GetFactionManager().GetFactionIndex(faction)));
 				}
 			}
 		}
+	}
+	
+	
+	void SetTickets(KOTH_Faction faction, int tickets)
+	{
+		//m_Tickets = tickets << GetFactionId(faction) * 8;
+		switch (faction.GetFactionKey()) {
+			case "US": {
+				m_Tickets1 = tickets;
+				break;
+			}
+			
+			case "USSR": {
+				m_Tickets2 = tickets;
+				break;
+			}
+			
+			case "FIA": {
+				m_Tickets3 = tickets;
+				break;
+			}
+		}
+		
+		Replication.BumpMe();
+	}
+	
+	int GetTickets(KOTH_Faction faction)
+	{
+		switch (faction.GetFactionKey()) {
+			case "US": {
+				return m_Tickets1;
+			}
+			
+			case "USSR": {
+				return m_Tickets2;
+			}
+			
+			case "FIA": {
+				return m_Tickets3;
+			}
+		}
+		
+		return -1;
+		//return (m_Tickets >> 0xFFFFFF00 & (GetFactionId(faction) * 8));  
 	}
 
 	bool IsZoneOwner(KOTH_Faction faction)
@@ -282,6 +336,11 @@ class KOTH_ZoneManager: GenericComponent
 			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("FIA")),
 		};
 	}
+	
+	int GetFactionId(KOTH_Faction faction)
+	{
+		return GetCurrentFactions().Find(faction);
+	}
 
 	static KOTH_ZoneManager GetInstance()
 	{
@@ -325,24 +384,17 @@ modded class SCR_FlushToilet
 
 
 class KOTH_Faction: SCR_Faction
-{
-	[RplProp(onRplName: "OnTicketsChanged")]
-	protected int m_Tickets;
-	
+{	
+	/*
 	int GetTickets()
 	{
-		return m_Tickets;
+		return KOTH_ZoneManager.GetInstance().GetTickets(this);
 	}
 	
 	void SetTickets(int tickets)
 	{
-		// only allow server modification
-		if (!Replication.IsServer()) {
-			return;
-		}
-		
-		m_Tickets = tickets;
-	}
+		KOTH_ZoneManager.GetInstance().SetTickets(this, tickets);
+	}*/
 }
 
 class KOTH_MapModule: SCR_MapModuleBase
