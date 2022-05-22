@@ -1,0 +1,35 @@
+Vehicle : "{49C21BD25CF5ECE0}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command_spawn.et" {
+ ID "BBCBA43A9778AE21"
+ components {
+  SCR_VehicleDamageManagerComponent "{141326E9FD94FE40}" {
+   m_fVehicleDestroyDamage 21809.699
+  }
+ }
+ coords 0 0 0
+ {
+  SCR_SpawnPoint {
+   ID "596D23270EE8B9E8"
+   components {
+    Hierarchy "{596D232712F5B146}" {
+    }
+    RplComponent "{596D232710880930}" {
+    }
+    SCR_MapDescriptorComponent "{596D23263648D90C}" {
+     DisplayName "Mobile Spawn (HQ)"
+     MainType Spawnpoint
+    }
+   }
+   coords 0 0 -5.496
+   angleY 180
+   m_fSpawnRadius 2
+   m_fNoSightRadius 0
+   m_sFaction "US"
+   {
+    SCR_Position {
+     ID "596D23270EE8B9EB"
+     angleY 180
+    }
+   }
+  }
+ }
+}
