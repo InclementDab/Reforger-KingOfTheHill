@@ -45,9 +45,16 @@ class KOTH_TeamScoreDisplayObject
 	}
 		
 	void DoBlink(float speed)
-	{		
-		m_BackgroundImage.SetColor(Color.FromRGBA(46 * speed > 0, 204 * speed > 0, 113 * speed > 0, 140 * speed > 0));
+	{
+		//m_BackgroundImage.SetColor(Color.FromRGBA(46 * speed > 0, 204 * speed > 0, 113 * speed > 0, 140 * speed > 0));
+		m_BackgroundImage.SetColor(Color.FromRGBA(46, 204, 113, 140));
 		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, speed, 0, true));
+	}
+	
+	void StopBlink()
+	{
+		m_BackgroundImage.SetColor(Color.FromRGBA(0, 0, 0, 0));
+		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, 0, 0, true));
 	}
 	
 	void UpdateScore(int score)

@@ -122,5 +122,10 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 		if (m_KOTHManager.GetZoneContestType() == KOTHZoneContestType.OWNED) {
 			m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0);	
 		}
+		else if (m_KOTHManager.GetZoneContestType() == KOTHZoneContestType.EMPTY) {
+			foreach(KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
+				element.StopBlink();
+			}
+		}
 	}
 }
