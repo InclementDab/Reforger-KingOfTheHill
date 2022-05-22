@@ -27,9 +27,6 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_KOTHManager;
 	
-	//! Base Game mode instance
-	protected SCR_BaseGameMode m_GameMode;
-	
 	//! KOTH Game mode instance
 	protected KOTH_GameModeBase m_KOTHGameMode;
 
@@ -41,18 +38,15 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	*/
 	override bool DisplayStartDrawInit(IEntity owner)
 	{
-		// No ui can be drawn without necessary items
-		m_GameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
-		if (!m_GameMode) {
-			return false;
-		}
-	
-		m_KOTHGameMode = KOTH_GameModeBase.Cast(m_GameMode.FindComponent(KOTH_GameModeBase));
+		// No ui can be drawn without necessary items	
+		m_KOTHGameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
+		Print(ToString() + "::DisplayStartDrawInit - m_KOTHGameMode: " + m_KOTHGameMode.ToString());
 		if (!m_KOTHGameMode) {
 			return false;
 		}
 		
 		m_KOTHManager = m_KOTHGameMode.GetKOTHZoneManager();
+		Print(ToString() + "::DisplayStartDrawInit - m_KOTHManager: " + m_KOTHManager.ToString());
 		if (!m_KOTHManager) {
 			return false;
 		}
