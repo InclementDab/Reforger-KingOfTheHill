@@ -36,12 +36,9 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
 	}
 
-	/*
-	protected override void OnPostInit(IEntity owner)
+	
+	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
 	{
-		super.OnPostInit(owner);
-		SetEventMask(owner, EntityEvent.INIT);
-
 		// This is not the best way of solving this problem,
 		// but for a small game mode like this it's completely fine.
 		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
@@ -50,9 +47,8 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		}
 	}
 
-	protected override void OnDelete(IEntity owner)
+	void ~KOTH_GameModeBase()
 	{
-		super.OnDelete(owner);
 
 		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
 		if (onMapOpenInvoker)
@@ -72,7 +68,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	protected void OnMapOpen(MapConfiguration config)
 	{
 		// Get average of all positions
-		if (!m_Area) return;
+		/*if (!m_Area) return;
 		
 		float x;
 		float z;
@@ -90,12 +86,12 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 		// Unfortunately we need to "override" the default respawn menu focus,
 		// currently not aware of a nicer way - perhaps it will begone in some future update :)
-		GetGame().GetCallqueue().CallLater(DoPanZoomMap, 100, false, x, z, zoomVal);
+		GetGame().GetCallqueue().CallLater(DoPanZoomMap, 100, false, x, z, zoomVal);*/
 	}
 	
 	protected void SetWeather(string weatherId)
 	{
-		if (!m_pGameMode.IsMaster())
+		if (!IsMaster())
 			return;
 
 		if (weatherId.IsEmpty())
@@ -113,7 +109,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 	protected void SetTimeOfTheDay(float timeOfTheDay)
 	{
-		if (!m_pGameMode.IsMaster())
+		if (!IsMaster())
 			return;
 
 		TimeAndWeatherManagerEntity weatherManager = GetGame().GetTimeAndWeatherManager();
@@ -135,5 +131,5 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 		if (m_bUseCustomWeather)
 			SetWeather(m_sCustomWeatherId);
-	}*/
+	}
 }

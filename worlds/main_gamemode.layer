@@ -64,6 +64,9 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  coords 4694.86 129.293 7777.492
  PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
  m_eTestGameFlags SpawnVehicles
+ m_bUseCustomWeather 1
+ m_sCustomWeatherId "Cloudy"
+ m_bUseCustomTime 1
 }
 ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
  coords 4792.403 166.801 7051.984
