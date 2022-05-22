@@ -44,9 +44,13 @@ class KOTH_TeamScoreDisplayObject
 		m_Root.SetColor(faction.GetFactionColor());
 	}
 		
-	void DoBlink(float speed)
+	void DoBlink(float speed, bool tie)
 	{
-		m_BackgroundImage.SetColor(Color.FromRGBA(46, 204, 113, 140));
+		Color color;
+		
+		if (!tie) color = Color.FromRGBA(46, 204, 113, 240);
+		else color = Color.FromRGBA(231, 76, 113, 240);
+		m_BackgroundImage.SetColor(color);
 		WidgetAnimator.PlayAnimation(new WidgetAnimationOpacity(m_BackgroundImage, speed, 0, true));
 	}
 	

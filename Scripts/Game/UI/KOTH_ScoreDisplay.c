@@ -86,7 +86,7 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 		Updates the progress and state of all available scoring elements.
 	*/
 	override void DisplayUpdate(IEntity owner, float timeSlice)
-	{		
+	{
 		Widget scoring_root = m_wRoot.FindAnyWidget("Score_Frame");
 		
 		// Reposition scoring UI based on whether it is in a map or not
@@ -122,15 +122,77 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction));
 		}
 		
-		// do blinking for zone owners
-		m_CurrentContestType = m_KOTHManager.GetZoneContestType();
-		if (m_CurrentContestType == KOTHZoneContestType.OWNED) {
-			m_LastZoneOwner = m_KOTHManager.GetZoneOwner();
-			m_PreviousContestType = m_CurrentContestType;
-			m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0);	
-		} else if (m_CurrentContestType == KOTHZoneContestType.EMPTY && m_PreviousContestType == KOTHZoneContestType.OWNED) {
-			m_PreviousContestType = m_CurrentContestType;
-			m_ScoringElements[m_LastZoneOwner].StopBlink();
+		// Do blinking
+		switch(m_KOTHManager.GetZoneContestType()) {
+			//! If zone is owned
+			case KOTHZoneContestType.OWNED: {
+				Print(ToString() + "::DisplayUpdate - OWNED");
+				//! If the zone was empty before
+				if (m_PreviousContestType == KOTHZoneContestType.EMPTY) {
+					m_ScoringElements[m_KOTHManager.GetZoneOwner()].StopBlink();
+					m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0, false);
+				}
+				//! If the zone was owned before
+				else if (m_PreviousContestType == KOTHZoneContestType.OWNED) {
+					//! Check if the owner has changed
+					if (m_LastZoneOwner != m_KOTHManager.GetZoneOwner()) {
+						m_ScoringElements[m_KOTHManager.GetZoneOwner()].StopBlink();
+						m_ScoringElements[m_KOTHManager.GetZoneOwner()].DoBlink(1.0, false);
+						m_ScoringElements[m_LastZoneOwner].StopBlink();
+					}
+				}
+				//! If the zone was cotested before
+				else if (m_PreviousContestType == KOTHZoneContestType.TIE) {					
+					foreach (KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
+						if (faction != m_KOTHManager.GetZoneOwner()) element.StopBlink();
+						else element.DoBlink(1.0, false);
+					}
+				}
+				
+				m_LastZoneOwner = m_KOTHManager.GetZoneOwner();				
+				m_PreviousContestType = KOTHZoneContestType.OWNED;
+				break;
+			}
+			//! If zone is contested
+			case KOTHZoneContestType.TIE: {
+				Print(ToString() + "::DisplayUpdate - TIE");
+				//! If the zone was empty before
+				if (m_PreviousContestType == KOTHZoneContestType.EMPTY) {
+					foreach (KOTH_Faction faction : m_KOTHManager.GetZoneOwners()) {
+						m_ScoringElements[faction].DoBlink(1.0, true);
+					}
+				}
+				//! If the zone was owned before
+				else if (m_PreviousContestType == KOTHZoneContestType.OWNED)
+				{
+					foreach (KOTH_Faction faction : m_KOTHManager.GetZoneOwners()) {
+						if (m_LastZoneOwner && faction != m_LastZoneOwner) {
+							m_ScoringElements[faction].StopBlink();
+							m_ScoringElements[faction].DoBlink(1.0, true);
+						} else if (!m_LastZoneOwner) {
+							m_ScoringElements[faction].StopBlink();
+							m_ScoringElements[faction].DoBlink(1.0, true);
+						}
+					}
+				}
+				
+				m_PreviousContestType = KOTHZoneContestType.TIE;
+				break;
+			}
+			case KOTHZoneContestType.EMPTY: {
+				Print(ToString() + "::DisplayUpdate - EMPTY");
+				if (m_LastZoneOwner) {
+					m_ScoringElements[m_LastZoneOwner].StopBlink(); 
+				} else {
+					foreach (KOTH_Faction faction, ref KOTH_TeamScoreDisplayObject element: m_ScoringElements) {
+						element.StopBlink();
+					}
+				}	
+				
+				m_PreviousContestType = KOTHZoneContestType.EMPTY;
+				m_LastZoneOwner = NULL;
+				break;
+			}
 		}
 	}
 }
