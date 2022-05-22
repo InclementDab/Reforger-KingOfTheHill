@@ -13,3 +13,9 @@ Layer Faction_US {
 Layer Faction_FIA {
  Index 3
 }
+Layer managers {
+ Index 4
+}
+Layer gamemode {
+ Index 5
+}
