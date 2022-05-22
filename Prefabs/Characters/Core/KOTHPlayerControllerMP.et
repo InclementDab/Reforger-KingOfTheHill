@@ -7,7 +7,7 @@ SCR_PlayerController : "{6E2BB64764E3BE9B}Prefabs/Characters/Core/DefaultPlayerC
   }
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
-    SCR_KOTHTeamScoreDisplay "{59697398F4C849F9}" {
+    KOTH_TeamScoreDisplay "{596C64878822F1A1}" {
      m_LayoutPath "{D57619881C83AA34}UI/layouts/HUD/KOTH/KOTHScoringLayout.layout"
      m_eLayer OVERLAY
     }
