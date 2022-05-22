@@ -1,4 +1,23 @@
 FrameWidgetClass {
  Name "VehicleSelectionMenuRoot"
  "Ignore Cursor" 0
+ {
+  TextWidgetClass "{596D2322A54ACDC8}" {
+   Name "Text0"
+   Slot FrameWidgetSlot "{596D2322A54ACC30}" {
+    Anchor 0.5 0 0.5 1
+    PositionX -960
+    OffsetLeft -960
+    PositionY 0
+    OffsetTop 0
+    SizeX 326
+    OffsetRight 634
+    SizeY -1037.6
+    OffsetBottom 1037.6
+   }
+   Text "aaaaaaaaaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAA"
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+  }
+ }
 }
