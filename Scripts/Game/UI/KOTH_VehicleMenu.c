@@ -1,3 +1,8 @@
+enum KOTHDeployScreenType
+{
+	VEHICLES = 0
+};
+
 class KOTH_VehicleSpawnerMenu: SCR_SuperMenuBase
 {
 	//------------------------------------------------------------------------------------------------

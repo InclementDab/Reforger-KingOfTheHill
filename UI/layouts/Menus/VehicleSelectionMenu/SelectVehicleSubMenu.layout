@@ -1,0 +1,45 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ components {
+  SCR_SelectLoadoutSubMenu "{54AE685F22608579}" {
+  }
+ }
+ {
+  HorizontalLayoutWidgetClass "{596D4AC75105B921}" : "{CA8198ABEF2A3486}UI/layouts/Menus/RoleSelection/DeploySubMenuBase.layout" {
+   Name "TileSelection"
+   Slot FrameWidgetSlot "{558462025A51042F}" {
+   }
+   components {
+    SCR_DeployMenuTileSelection "{585687CA6589C165}" {
+     m_sTilePrefab "{C0907ACA0A72069C}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile.layout"
+    }
+   }
+   {
+    VerticalLayoutWidgetClass "{5584621E1C59DEFB}" {
+     Prefab "{5584621E1C59DEFB}"
+     {
+      VerticalLayoutWidgetClass "{5584621936E2935D}" {
+       Prefab "{5584621936E2935D}"
+       {
+        OverlayWidgetClass "{56DEAE87B4227572}" {
+         Prefab "{56DEAE87B4227572}"
+         {
+          VerticalLayoutWidgetClass "{56DE73DD3754FB6B}" {
+           Prefab "{56DE73DD3754FB6B}"
+           components {
+            SCR_GalleryComponent "{56D4A49D514555C0}" {
+            }
+           }
+           {
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
