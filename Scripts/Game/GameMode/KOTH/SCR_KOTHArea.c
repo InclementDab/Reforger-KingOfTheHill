@@ -210,14 +210,13 @@ class SCR_KOTHArea : SCR_CaptureArea
 			return;
 
 		// Register self in manager
-		KOTH_ZoneManager zoneManager = KOTH_ZoneManager.GetKOTHZoneManager();
-		if (!zoneManager)
-		{
+		KOTH_ZoneManager zone_manager = KOTH_ZoneManager.GetInstance();
+		if (!zone_manager) {
 			Print(ToString() + "::SCR_KOTHArea - Cannot find KOTH_ZoneManager! Functionality might be limited!", LogLevel.WARNING);
 			return;
 		}
 
-		zoneManager.RegisterArea(this);
+		zone_manager.RegisterArea(this);
 
 		// If map descriptor is present, initialize it
 		m_pMapDescriptor = SCR_MapDescriptorComponent.Cast(FindComponent(SCR_MapDescriptorComponent));
@@ -512,10 +511,11 @@ class SCR_KOTHArea : SCR_CaptureArea
 		// Far from ideal, OnDelete would be better
 
 		// Register self in manager
-		KOTH_ZoneManager zoneManager = KOTH_ZoneManager.GetKOTHZoneManager();
-		if (!zoneManager)
+		KOTH_ZoneManager zone_manager = KOTH_ZoneManager.GetInstance();
+		if (!zone_manager) {
 			return;
+		}
 
-		zoneManager.UnregisterArea(this);
+		zone_manager.UnregisterArea(this);
 	}
 }

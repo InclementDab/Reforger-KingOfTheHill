@@ -147,9 +147,7 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTH_GameModeBase m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
 	protected SCR_FactionManager m_FactionManager;
-	
-	private static KOTH_ZoneManager s_Instance;
-			
+				
 	void KOTH_ZoneManager()
 	{
 		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());		
@@ -277,16 +275,9 @@ class KOTH_ZoneManager: GenericComponent
 		};
 	}
 	
-	static KOTH_ZoneManager GetKOTHZoneManager()
+	static KOTH_ZoneManager GetInstance()
 	{
-		BaseGameMode gameMode = GetGame().GetGameMode();
-		if (!gameMode)
-			return null;
-
-		if (!s_Instance)
-			s_Instance = KOTH_ZoneManager.Cast(gameMode.FindComponent(KOTH_ZoneManager));
-
-		return s_Instance;
+		return KOTH_ZoneManager.Cast(GetGame().GetGameMode().FindComponent(KOTH_ZoneManager));
 	}
 	
 	void RegisterArea(SCR_KOTHArea area)
