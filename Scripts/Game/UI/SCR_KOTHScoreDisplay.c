@@ -22,7 +22,7 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 	protected HorizontalLayoutWidget m_wAreaLayoutWidget;
 
 	//! Array of all wrappers for the individual teams
-	protected ref map<Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<Faction, ref KOTH_TeamScoreDisplayObject>();
+	protected ref map<KOTH_Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<KOTH_Faction, ref KOTH_TeamScoreDisplayObject>();
 
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_KOTHManager;
@@ -69,7 +69,7 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 			return;
 		}
 		
-		foreach (Faction faction: m_KOTHManager.GetCurrentFactions()) {		
+		foreach (KOTH_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
 			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets(m_TeamFlagLayout, m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
@@ -115,12 +115,12 @@ class SCR_KOTHTeamScoreDisplay : SCR_InfoDisplayExtended
 		}
 
 		// Update scoring
-		foreach (Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
+		foreach (KOTH_Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
 			if (!scoring_object || !m_KOTHManager) {
 				continue;
 			}
 						
-			scoring_object.UpdateScore(m_KOTHManager.GetTicketsForFaction(faction));
+			scoring_object.UpdateScore(faction.GetTickets());
 			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction));
 		}
 		

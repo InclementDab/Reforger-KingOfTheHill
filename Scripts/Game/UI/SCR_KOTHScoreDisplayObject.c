@@ -19,9 +19,9 @@ class KOTH_TeamScoreDisplayObject
 	protected TextWidget m_ScoreText;
 
 	//! Faction this object represents
-	protected Faction m_Faction;
+	protected KOTH_Faction m_Faction;
 
-	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull Faction faction)
+	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull KOTH_Faction faction)
 	{
 		m_Root = root;
 		m_Faction = faction;
@@ -31,18 +31,7 @@ class KOTH_TeamScoreDisplayObject
 		m_ScoreText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_Text"));
 		m_PlayerCountText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_PlayerCount")); 
 
-		ResourceName icon_resource;
-		SCR_Faction script_faction = SCR_Faction.Cast(faction);
-		if (script_faction) {
-			icon_resource = script_faction.GetFactionFlag();
-		} else {
-			// Set icon directly
-			UIInfo faction_info = faction.GetUIInfo();
-			if (faction_info) {
-				icon_resource = faction_info.GetIconPath();
-			}
-		}
-
+		ResourceName icon_resource = faction.GetFactionFlag();
 		if (!icon_resource.IsEmpty()) {
 			m_FactionImage.SetColor(Color.White);
 			m_FactionImage.LoadImageTexture(0, icon_resource);
@@ -71,7 +60,7 @@ class KOTH_TeamScoreDisplayObject
 		m_PlayerCountText.SetText(count.ToString());
 	}
 
-	Faction GetFaction()
+	KOTH_Faction GetFaction()
 	{
 		return m_Faction;
 	}

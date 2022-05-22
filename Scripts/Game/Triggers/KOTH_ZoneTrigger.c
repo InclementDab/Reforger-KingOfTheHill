@@ -5,7 +5,7 @@ class KOTH_ZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
 
 class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 {
-	protected ref map<Faction, ref set<ChimeraCharacter>> m_CharactersInZone = new map<Faction, ref set<ChimeraCharacter>>();
+	protected ref map<KOTH_Faction, ref set<ChimeraCharacter>> m_CharactersInZone = new map<KOTH_Faction, ref set<ChimeraCharacter>>();
 
 	protected SCR_BaseGameMode m_GameMode;
 	protected KOTH_GameModeBase m_KOTHGameMode;
@@ -38,7 +38,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 			return;
 		}
 
-		Faction player_faction = GetFactionFromCharacter(character);
+		KOTH_Faction player_faction = GetFactionFromCharacter(character);
 		if (!m_CharactersInZone[player_faction]) {
 			m_CharactersInZone[player_faction] = new set<ChimeraCharacter>();
 		}
@@ -63,18 +63,18 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		}
 
 		// reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-		Faction faction = GetFactionFromCharacter(character);
+		KOTH_Faction faction = GetFactionFromCharacter(character);
 		m_CharactersInZone[faction].Remove(m_CharactersInZone[faction].Find(character));
 	}
 
-	static Faction GetFactionFromCharacter(ChimeraCharacter character)
+	static KOTH_Faction GetFactionFromCharacter(ChimeraCharacter character)
 	{
 		FactionAffiliationComponent faction_affiliation = FactionAffiliationComponent.Cast(character.FindComponent(FactionAffiliationComponent));
 		if (!faction_affiliation) {
 			return null;
 		}
 
-		return faction_affiliation.GetAffiliatedFaction();
+		return KOTH_Faction.Cast(faction_affiliation.GetAffiliatedFaction());
 	}
 
 	override bool ScriptedEntityFilterForQuery(IEntity ent)
@@ -82,7 +82,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		return ent.IsInherited(ChimeraCharacter);
 	}
 
-	int GetAmountOfPlayersInZone(Faction faction)
+	int GetAmountOfPlayersInZone(KOTH_Faction faction)
 	{
 		if (!m_CharactersInZone[faction]) {
 			return 0;
@@ -91,14 +91,14 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		return m_CharactersInZone[faction].Count();
 	}
 
-	map<Faction, ref set<ChimeraCharacter>> GetCharactersInZone()
+	map<KOTH_Faction, ref set<ChimeraCharacter>> GetCharactersInZone()
 	{
 		return m_CharactersInZone;
 	}
 }
 
 typedef func OnFactionTicketChanged;
-void OnFactionTicketChanged(Faction faction, int tickets);
+void OnFactionTicketChanged(KOTH_Faction faction, int tickets);
 
 enum KOTHZoneContestType
 {
@@ -125,8 +125,8 @@ class KOTH_ZoneManager: GenericComponent
 	[RplProp()]
 	protected KOTHZoneContestType m_KOTHZoneContestType;
 
-	protected ref array<Faction> m_ZoneOwners = {};
-	protected ref map<Faction, int> m_Tickets = new map<Faction, int>();
+	protected ref array<KOTH_Faction> m_ZoneOwners = {};
+	protected ref map<KOTH_Faction, int> m_Tickets = new map<KOTH_Faction, int>();
 
 	protected SCR_BaseGameMode m_GameMode;
 	protected SCR_KOTHTeamScoreDisplay m_ScoreDisplay;
@@ -179,7 +179,7 @@ class KOTH_ZoneManager: GenericComponent
 
 		m_ZoneOwners.Clear();
 		int max_fact_count;
-		foreach (Faction faction, set<ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
+		foreach (KOTH_Faction faction, set<ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
 			if (characters.Count() == 0) { // dont want a tie with 0's
 				continue;
 			}
@@ -200,9 +200,10 @@ class KOTH_ZoneManager: GenericComponent
 		}
 
 		if (m_ZoneOwners.Count() == 1) {
-			Faction zone_owner = m_ZoneOwners[0];
+			KOTH_Faction zone_owner = m_ZoneOwners[0];
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
-			m_Tickets[zone_owner] = m_Tickets[zone_owner] + 1;
+			zone_owner.SetTickets(zone_owner.GetTickets() + 1);
+			//m_Tickets[zone_owner] = m_Tickets[zone_owner] + 1;
 			OnFactionTicketChangedScript.Invoke(zone_owner, m_Tickets[zone_owner]);
 		}
 
@@ -223,7 +224,7 @@ class KOTH_ZoneManager: GenericComponent
 		}
 	}
 
-	Faction GetZoneOwner()
+	KOTH_Faction GetZoneOwner()
 	{
 		if (m_KOTHZoneContestType != KOTHZoneContestType.OWNED) {
 			return null;
@@ -232,7 +233,7 @@ class KOTH_ZoneManager: GenericComponent
 		return m_ZoneOwners[0];
 	}
 
-	array<Faction> GetZoneOwners()
+	array<KOTH_Faction> GetZoneOwners()
 	{
 		return m_ZoneOwners;
 	}
@@ -242,12 +243,7 @@ class KOTH_ZoneManager: GenericComponent
 		return m_KOTHZoneContestType;
 	}
 
-	int GetTicketsForFaction(Faction faction)
-	{
-		return m_Tickets[faction];
-	}
-
-	int GetAmountOfPlayersInZone(Faction faction)
+	int GetAmountOfPlayersInZone(KOTH_Faction faction)
 	{
 		return m_Zone.GetAmountOfPlayersInZone(faction);
 	}
@@ -258,12 +254,12 @@ class KOTH_ZoneManager: GenericComponent
 	}
 
 	// TODO: dynamically generate these based on the mission loaded
-	array<Faction> GetCurrentFactions()
+	array<KOTH_Faction> GetCurrentFactions()
 	{
 		return {
-			GetGame().GetFactionManager().GetFactionByKey("US"),
-			GetGame().GetFactionManager().GetFactionByKey("USSR"),
-			GetGame().GetFactionManager().GetFactionByKey("FIA"),
+			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("US")),
+			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("USSR")),
+			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("FIA")),
 		};
 	}
 
@@ -314,5 +310,33 @@ modded class SCR_FlushToilet
 	{
 		outName = "Drink (Thirsty)";
 		return true;
+	}
+}
+
+
+class KOTH_Faction: SCR_Faction
+{
+	[RplProp(onRplName: "OnTicketsChanged")]
+	protected int m_Tickets;
+	
+	int GetTickets()
+	{
+		return m_Tickets;
+	}
+	
+	void SetTickets(int tickets)
+	{
+		// only allow server modification
+		if (!Replication.IsServer()) {
+			return;
+		}
+		
+		m_Tickets = tickets;
+	}
+	
+	void OnTicketsChanged()
+	{
+		Print("Tickets changed");
+		Print(m_Tickets);
 	}
 }
