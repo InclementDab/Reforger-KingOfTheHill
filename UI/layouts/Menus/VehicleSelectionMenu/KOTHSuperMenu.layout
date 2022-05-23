@@ -1,5 +1,5 @@
 FrameWidgetClass {
- Name "VehicleSelectionMenuRoot"
+ Name "KOTHMenuRoot"
  "Ignore Cursor" 0
  {
   OverlayWidgetClass "{596D4AC4CCB7E922}" {
