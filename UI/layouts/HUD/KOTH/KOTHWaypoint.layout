@@ -36,7 +36,7 @@ FrameWidgetClass {
    Text "999m"
    "Font Size" 16
    "Min Font Size" 16
-   Offset 64 0
+   Offset 46 0
   }
  }
 }
