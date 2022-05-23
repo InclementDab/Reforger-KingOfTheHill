@@ -16,9 +16,10 @@ KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_2 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/
    Scale 33.9
   }
  }
- coords 7059.178 119.015 6016.292
+ coords 7059.178 119.015 6016.226
  {
   SCR_Position {
+   coords 0 0 0
   }
  }
 }

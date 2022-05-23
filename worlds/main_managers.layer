@@ -1,32 +1,32 @@
-SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
- coords 7059.268 118.443 6016.148
+SCR_AIWorld AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
+ coords 7059.268 118.443 6016.082
 }
 PerceptionManager PerceptionManager : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
- coords 4792.388 166.843 7052.14
+ coords 7059.288 118.455 6017.062
 }
-TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
- coords 4792.418 166.737 7051.905
+TagManager TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
+ coords 7059.313 118.349 6016.826
  "Grid cell size" 500
 }
-RadioManagerEntity : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
- coords 4792.389 166.845 7052.057
+RadioManagerEntity RadioManager : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
+ coords 7059.289 118.457 6016.981
 }
-ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
- coords 4792.403 166.801 7051.984
+ScriptedChatEntity ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
+ coords 7059.302 118.413 6016.906
  Channels {
   BaseChatChannel "{559077E72C7027BC}" {
   }
  }
 }
-GarbageManager {
- coords 4776.713 130.867 7743.142
+GarbageManager GarbageManager {
+ coords 7058.644 118.457 6016.596
  CollectorIterations 24
  CharacterLifetime 600
  VehicleLifetime 600
  ItemLifetime 600
 }
 SCR_LoadoutManager KOTH_LoadoutManager {
- coords 0 0 0
+ coords 7058.747 118.455 6016.528
  Flags 0
  m_aPlayerLoadouts {
   SCR_FactionPlayerLoadout "{596C3548C2218554}" {
@@ -121,12 +121,12 @@ SCR_LoadoutManager KOTH_LoadoutManager {
   }
  }
 }
-BasePreloadManager KOTHPreloadManager1 : "{01B78526EB5671B4}Prefabs/MP/KOTHPreloadManager.et" {
- coords 7058.923 119.127 6016.622
+BasePreloadManager KOTHPreloadManager : "{01B78526EB5671B4}Prefabs/MP/KOTHPreloadManager.et" {
+ coords 7058.923 119.127 6016.556
 }
 HitRegistrationManager HitRegManager : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
- coords 4792.417 166.827 7052.041
+ coords 7059.313 118.439 6016.964
 }
-SCR_MPDestructionManager : "{9BB369F2803C6F71}Prefabs/MP/MPDestructionManager.et" {
- coords 4792.404 166.813 7052.022
+SCR_MPDestructionManager MPDestructionManager : "{9BB369F2803C6F71}Prefabs/MP/MPDestructionManager.et" {
+ coords 7059.304 118.425 6016.944
 }
