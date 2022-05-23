@@ -556,6 +556,15 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
   Name "FIA Spawn (Safe Zone)"
  }
  {
+  KOTH_SafeZoneTriggerEntity {
+   TriggerShapeType Sphere
+   SphereRadius 50
+   DrawShape 1
+   TriggerActivationType "Every query"
+   PeriodicQueries 1
+   UpdatePeriod 0.1
+   m_FactionKey "FIA"
+  }
   SCR_Position {
    coords 0 0 0
    angleY -154.234

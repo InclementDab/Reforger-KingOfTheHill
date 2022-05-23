@@ -583,6 +583,15 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
   Name "USSR Spawn (Safe Zone)"
  }
  {
+  KOTH_SafeZoneTriggerEntity {
+   TriggerShapeType Sphere
+   SphereRadius 50
+   DrawShape 1
+   TriggerActivationType "Every query"
+   PeriodicQueries 1
+   UpdatePeriod 0.1
+   m_FactionKey "USSR"
+  }
   SCR_Position SCR_Position2 {
   }
  }

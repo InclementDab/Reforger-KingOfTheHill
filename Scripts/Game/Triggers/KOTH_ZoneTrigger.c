@@ -1,3 +1,24 @@
+// hack
+modded class SCR_DamageManagerComponent// hack
+{// hack
+	// hack
+	protected bool m_GodMode;// hack
+	// hack
+	void SetGodMode(bool god_mode)// hack
+	{// hack
+		m_GodMode = god_mode;// hack
+	}// hack
+	// hack
+	override void OnDamageStateChanged(EDamageState state)// hack
+	{// hack
+		super.OnDamageStateChanged(state);// hack
+		// hack
+		if (m_GodMode) {// hack
+			FullHeal();// hack
+		}// hack
+	}// hack
+}// hack
+
 [EntityEditorProps(category: "GameScripted/Triggers", description: "")]
 class KOTH_SafeZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
 {
@@ -5,23 +26,52 @@ class KOTH_SafeZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
 
 class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 {
+	[Attribute(desc: "Faction to apply safezone to.")]
+	protected string m_FactionKey;
+	
 	override void OnActivate(IEntity ent)
 	{
 		super.OnActivate(ent);
-		DamageManagerComponent damage_manager = DamageManagerComponent.Cast(ent.FindComponent(DamageManagerComponent));
-		Print(damage_manager);
+		if (!Replication.IsServer()) {
+			return;	
+		}
 		
-		damage_manager.EnableDamageHandling(false);
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
+		if (!character || character.GetFactionKey() != m_FactionKey) {
+			return;
+		}
+		
+		SCR_DamageManagerComponent damage_manager = character.GetDamageManager();
+		if (!damage_manager) {
+			return;
+		}
+		
+		damage_manager.SetGodMode(true);
 	}
 	
 	override void OnDeactivate(IEntity ent)
 	{
 		super.OnDeactivate(ent);
+		if (!Replication.IsServer()) {
+			return;	
+		}
 		
-		DamageManagerComponent damage_manager = DamageManagerComponent.Cast(ent.FindComponent(DamageManagerComponent));
-		Print(damage_manager);
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
+		if (!character || character.GetFactionKey() != m_FactionKey) {
+			return;
+		}
 		
-		damage_manager.EnableDamageHandling(true);
+		SCR_DamageManagerComponent damage_manager = character.GetDamageManager();
+		if (!damage_manager) {
+			return;
+		}
+		
+		damage_manager.SetGodMode(false);
+	}
+	
+	override bool ScriptedEntityFilterForQuery(IEntity ent)
+	{
+		return ent.IsInherited(ChimeraCharacter);
 	}
 }
 
