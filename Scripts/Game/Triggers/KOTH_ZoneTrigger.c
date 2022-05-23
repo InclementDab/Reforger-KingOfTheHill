@@ -183,13 +183,12 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the area tigger in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
 	protected vector m_ZoneCenter;
 	
-	protected ref map<KOTH_Faction, ref set<ChimeraCharacter>> m_CharactersInZone = new map<KOTH_Faction, ref set<ChimeraCharacter>>();
+	protected ref map<KOTH_Faction, ref set<SCR_ChimeraCharacter>> m_CharactersInZone = new map<KOTH_Faction, ref set<SCR_ChimeraCharacter>>();
 
 	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_ZoneManager m_ZoneManager;
 	protected FactionManager m_FactionManager;
 	protected SCR_MapDescriptorComponent m_MapDescriptor;
-	protected ref map<Faction, ref array<SCR_ChimeraCharacter>> m_mOccupants = new map<Faction, ref array<SCR_ChimeraCharacter>>();
 	
 	void KOTH_ZoneTriggerEntity(IEntitySource src, IEntity parent)
 	{
@@ -215,16 +214,16 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		m_ZoneManager.SetZone(this);
 	}
 
-	override void OnActivate(IEntity ent)
+	protected override void OnActivate(IEntity ent)
 	{
-		ChimeraCharacter character = ChimeraCharacter.Cast(ent);
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
 		if (!character) {
 			return;
 		}
 
 		KOTH_Faction player_faction = GetFactionFromCharacter(character);
 		if (!m_CharactersInZone[player_faction]) {
-			m_CharactersInZone[player_faction] = new set<ChimeraCharacter>();
+			m_CharactersInZone[player_faction] = new set<SCR_ChimeraCharacter>();
 		}
 
 		// do we need to remove the player from the zone?
@@ -239,9 +238,9 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		m_CharactersInZone[player_faction].Insert(character);
 	}
 
-	override void OnDeactivate(IEntity ent)
+	protected override void OnDeactivate(IEntity ent)
 	{
-		ChimeraCharacter character = ChimeraCharacter.Cast(ent);
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
 		if (!character) {
 			return;
 		}
@@ -250,7 +249,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		KOTH_Faction faction = GetFactionFromCharacter(character);
 		m_CharactersInZone[faction].Remove(m_CharactersInZone[faction].Find(character));
 	}
-
+	
 	static KOTH_Faction GetFactionFromCharacter(ChimeraCharacter character)
 	{
 		FactionAffiliationComponent faction_affiliation = FactionAffiliationComponent.Cast(character.FindComponent(FactionAffiliationComponent));
@@ -275,14 +274,14 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		return m_CharactersInZone[faction].Count();
 	}
 
-	map<KOTH_Faction, ref set<ChimeraCharacter>> GetCharactersInZone()
+	map<KOTH_Faction, ref set<SCR_ChimeraCharacter>> GetCharactersInZone()
 	{
 		return m_CharactersInZone;
 	}
 	
-	bool IsInZone(ChimeraCharacter character)
+	bool IsInZone(SCR_ChimeraCharacter character)
 	{
-		foreach (KOTH_Faction faction, set<ChimeraCharacter> characters: m_CharactersInZone) {
+		foreach (KOTH_Faction faction, set<SCR_ChimeraCharacter> characters: m_CharactersInZone) {
 			if (characters.Find(character) != -1) {
 				return true;
 			}
@@ -356,19 +355,6 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		props.SetTextColor(color);
 		props.Activate(true);
 		target.Item().SetProps(props);
-	}	
-	
-	bool IsCharacterInside(SCR_ChimeraCharacter character)
-	{
-		if (!character)
-			return false;
-
-		Faction faction = character.GetFaction();
-		if (!faction)
-			return false;
-
-		int indexOf = m_mOccupants[faction].Find(character);
-		return indexOf != -1;
 	}
 }
 
@@ -461,7 +447,7 @@ class KOTH_ZoneManager: GenericComponent
 
 		m_ZoneOwners.Clear();
 		int max_fact_count;
-		foreach (KOTH_Faction faction, set<ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
+		foreach (KOTH_Faction faction, set<SCR_ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
 			if (characters.Count() == 0) { // dont want a tie with 0's
 				continue;
 			}
@@ -582,7 +568,7 @@ class KOTH_ZoneManager: GenericComponent
 		return m_TicketCountToWin;
 	}
 	
-	bool IsInZone(ChimeraCharacter character)
+	bool IsInZone(SCR_ChimeraCharacter character)
 	{
 		return (m_Zone.IsInZone(character));
 	}
