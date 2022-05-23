@@ -588,7 +588,6 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
     Hierarchy "{596EA01B91CD795D}" {
     }
     SCR_MapDescriptorComponent "{596EB6908A86AE43}" {
-     DisplayName "USSR Spawn"
      MainType Spawnpoint
     }
     RplComponent "{596EA01B6568F487}" {

@@ -560,6 +560,9 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
    components {
     Hierarchy "{596EA01B82753F91}" {
     }
+    SCR_MapDescriptorComponent "{596EB69BFBCF9C41}" {
+     MainType Spawnpoint
+    }
     RplComponent "{596EA01B7B677B95}" {
      "Rpl State Override" Static
      Streamable Disabled

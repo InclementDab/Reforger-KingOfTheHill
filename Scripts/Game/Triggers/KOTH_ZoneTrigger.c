@@ -31,8 +31,7 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 	
 	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the safe zone in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
 	protected vector m_SafeZoneCenter;
-	
-	//! Attached map descriptor component used for visualization (if any) or null if none.
+
 	protected SCR_MapDescriptorComponent m_MapDescriptor;
 	
 	override void OnActivate(IEntity ent)
@@ -135,11 +134,11 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 			return;
 
 		MapDescriptorProps props = item.GetProps();
+		Color color = Color.FromRGBA(44, 62, 80, 255);
 		props.SetIconSize(0.65, 0.65, 0.65);
 		props.SetTextSize(32, 32, 32);
 		props.SetTextBold();
-		props.SetFrontColor(Color.Red);
-		props.SetTextColor(Color.Red);
+		props.SetTextColor(color);
 		props.SetTextOffsetX(-10);
 		props.SetTextOffsetY(-16.5);
 		props.Activate(true);
@@ -151,7 +150,6 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		item.SetVisible(true);
 	}
 
-	
 	protected string GetAffiliatedFactionName()
 	{
 		FactionManager factionManager = GetGame().GetFactionManager();
@@ -167,37 +165,12 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		if (!target)
 			return;
 
-		Color color = Color.FromRGBA(249, 210, 103, 255);
-		bool friendly = false;
-		/*if (m_pOwnerFaction)
-		{
-			if (IsContested())
-			{
-				float val01 = Math.Sin( GetWorld().GetWorldTime() * 0.01 ) * 0.5 + 0.5;
-				color.Lerp(m_pOwnerFaction.GetFactionColor(), val01);
-			}
-			else
-			{
-				color = m_pOwnerFaction.GetFactionColor();
-			}
-		}*/
-
+		Color color = Color.FromRGBA(44, 62, 80, 255);
 		MapDescriptorProps props = target.Item().GetProps();
-		props.SetFrontColor(color);
 		props.SetTextColor(color);
-
 		props.Activate(true);
 		target.Item().SetProps(props);
 	}
-	
-	/*protected override void OnFrame(IEntity owner, float timeSlice)
-	{
-		super.OnFrame(owner, timeSlice);
-
-		// Update map descriptor
-		if (m_MapDescriptor)
-			UpdateMapDescriptor(m_pMapDescriptor);
-	}*/
 }
 
 [EntityEditorProps(category: "GameScripted/Triggers", description: "")]
@@ -207,11 +180,15 @@ class KOTH_ZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
 
 class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 {
+	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the area tigger in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
+	protected vector m_ZoneCenter;
+	
 	protected ref map<KOTH_Faction, ref set<ChimeraCharacter>> m_CharactersInZone = new map<KOTH_Faction, ref set<ChimeraCharacter>>();
 
 	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_ZoneManager m_ZoneManager;
 	protected FactionManager m_FactionManager;
+	protected SCR_MapDescriptorComponent m_MapDescriptor;
 
 	void KOTH_ZoneTriggerEntity(IEntitySource src, IEntity parent)
 	{
@@ -311,6 +288,73 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		}
 		
 		return false;
+	}
+	
+	vector GetWorldZoneCenter()
+	{
+		return CoordToParent(m_ZoneCenter);
+	}
+	
+	protected override bool RplLoad(ScriptBitReader reader)
+	{
+		super.RplLoad(reader);
+
+		if (m_MapDescriptor)
+			UpdateMapDescriptor(m_MapDescriptor);
+
+		return true;
+	}
+	
+	protected override void OnInit(IEntity owner)
+	{
+		super.OnInit(owner);
+
+		// Supress messages out of playmode, order of things is not quite guaranteed here
+		if (!GetGame().InPlayMode())
+			return;
+		
+		// If map descriptor is present, initialize it
+		m_MapDescriptor = SCR_MapDescriptorComponent.Cast(FindComponent(SCR_MapDescriptorComponent));
+		if (m_MapDescriptor)
+		{
+			InitializeMapDescriptor(m_MapDescriptor);
+			UpdateMapDescriptor(m_MapDescriptor);
+		}
+	}
+
+	protected void InitializeMapDescriptor(SCR_MapDescriptorComponent target)
+	{
+		MapItem item = target.Item();
+		if (!item)
+			return;
+
+		MapDescriptorProps props = item.GetProps();
+		Color color = Color.FromRGBA(192, 57, 43, 255);
+		props.SetIconSize(0.65, 0.65, 0.65);
+		props.SetTextSize(32, 32, 32);
+		props.SetTextBold();
+		props.SetTextColor(color);
+		props.SetTextOffsetX(-10);
+		props.SetTextOffsetY(-16.5);
+		props.Activate(true);
+		props.SetFont("{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt");
+		item.SetProps(props);
+		item.SetDisplayName("KOTH");
+		vector xyz = GetWorldZoneCenter();
+		item.SetPos(xyz[0], xyz[2]);
+		item.SetVisible(true);
+	}
+	
+	protected void UpdateMapDescriptor(SCR_MapDescriptorComponent target)
+	{
+		if (!target)
+			return;
+
+		Color color = Color.FromRGBA(192, 57, 43, 255);
+		MapDescriptorProps props = target.Item().GetProps();
+		props.SetTextColor(color);
+		props.Activate(true);
+		target.Item().SetProps(props);
 	}
 }
 

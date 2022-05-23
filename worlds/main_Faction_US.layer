@@ -571,6 +571,9 @@ SCR_SpawnPoint US_Spawnpoint2 : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoin
    components {
     Hierarchy "{596EA01B88DBC6C6}" {
     }
+    SCR_MapDescriptorComponent "{596EB69BCDF8F108}" {
+     MainType Spawnpoint
+    }
     RplComponent "{596EA01B76153A59}" {
      "Rpl State Override" Static
      Streamable Disabled
