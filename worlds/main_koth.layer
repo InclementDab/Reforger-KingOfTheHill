@@ -11,9 +11,8 @@ KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_2 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/
   SCR_EditableWaypointComponent "{596D61E43710D9B5}" {
   }
   SCR_MapDescriptorComponent "{596D489F22A05302}" {
-   DisplayName "Hill"
-   MainType "Icon (generic)"
-   Scale 33.9
+   MainType Task
+   Scale 1
   }
  }
  coords 7059.178 119.015 6016.226

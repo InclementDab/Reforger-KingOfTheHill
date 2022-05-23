@@ -121,6 +121,9 @@ SCR_LoadoutManager KOTH_LoadoutManager {
   }
  }
 }
+SCR_MapLocator {
+ coords 7058.466 118.384 6015.896
+}
 BasePreloadManager KOTHPreloadManager : "{01B78526EB5671B4}Prefabs/MP/KOTHPreloadManager.et" {
  coords 7058.923 119.127 6016.556
 }

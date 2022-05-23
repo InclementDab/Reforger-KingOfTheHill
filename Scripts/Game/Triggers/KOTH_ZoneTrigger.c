@@ -189,7 +189,8 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	protected KOTH_ZoneManager m_ZoneManager;
 	protected FactionManager m_FactionManager;
 	protected SCR_MapDescriptorComponent m_MapDescriptor;
-
+	protected ref map<Faction, ref array<SCR_ChimeraCharacter>> m_mOccupants = new map<Faction, ref array<SCR_ChimeraCharacter>>();
+	
 	void KOTH_ZoneTriggerEntity(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);
@@ -355,6 +356,19 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		props.SetTextColor(color);
 		props.Activate(true);
 		target.Item().SetProps(props);
+	}	
+	
+	bool IsCharacterInside(SCR_ChimeraCharacter character)
+	{
+		if (!character)
+			return false;
+
+		Faction faction = character.GetFaction();
+		if (!faction)
+			return false;
+
+		int indexOf = m_mOccupants[faction].Find(character);
+		return indexOf != -1;
 	}
 }
 
@@ -591,6 +605,11 @@ class KOTH_ZoneManager: GenericComponent
 	static KOTH_ZoneManager GetInstance()
 	{
 		return KOTH_ZoneManager.Cast(GetGame().GetGameMode().FindComponent(KOTH_ZoneManager));
+	}
+	
+	KOTH_ZoneTriggerEntity GetZone()
+	{
+		return m_Zone;
 	}
 }
 
