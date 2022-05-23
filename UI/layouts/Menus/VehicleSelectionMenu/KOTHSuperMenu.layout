@@ -65,7 +65,6 @@ FrameWidgetClass {
    Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
     SizeToContent 0
    }
-   "Is Visible" 0
    {
     SizeLayoutWidgetClass "{589F093B48C39BEF}" {
      Prefab "{589F093B48C39BEF}"
@@ -97,21 +96,9 @@ FrameWidgetClass {
              m_ElementLayout "{4517634FB88BB42A}UI/layouts/Menus/RoleSelection/RespawnBriefingSubMenu.layout"
              m_sTabButtonContent "#AR-DeployMenu_TabName_Briefing-UC"
             }
-            SCR_TabViewContent "{58A07A786A4640C7}" {
-             m_ElementLayout "{1A8A5586AE112478}UI/layouts/Menus/RoleSelection/SelectFactionSubMenu.layout"
-             m_sTabButtonContent "#ar-deploymenu_tabname_faction-uc"
-            }
-            SCR_TabViewContent "{58A07A786A8E647C}" {
-             m_ElementLayout "{DCE92B63A1B6757A}UI/layouts/Menus/GroupSlection/SelectGroupMenu.layout"
-             m_sTabButtonContent "#AR-DeployMenu_TabName_Group-UC"
-            }
-            SCR_TabViewContent "{58A07A786A98387E}" {
-             m_ElementLayout "{AF1375C5036CD157}UI/layouts/Menus/RoleSelection/SelectLoadoutSubMenu.layout"
-             m_sTabButtonContent "#ar-deploymenu_tabname_loadout-uc"
-            }
-            SCR_TabViewContent "{58A07A798A459800}" {
-             m_ElementLayout "{A71EEE5CFEF28C1C}UI/layouts/Menus/RoleSelection/SelectSpawnPointSubMenu.layout"
-             m_sTabButtonContent "#ar-deploymenu_tabname_map-uc"
+            SCR_TabViewContent "{596F4E519B8B66C8}" {
+             m_ElementLayout "{B7E819173F4D2BC4}UI/layouts/Menus/VehicleSelectionMenu/SelectVehicleSubMenu.layout"
+             m_sTabButtonContent "VEHICLES"
             }
            }
            m_iSelectedTab -1
@@ -296,7 +283,6 @@ FrameWidgetClass {
     SizeY -400
     OffsetBottom 0
    }
-   "Is Visible" 0
    components {
     SCR_NotificationsLogComponent "{5468ED24730EF1AD}" {
      m_fNotificationDisplayTime 15
