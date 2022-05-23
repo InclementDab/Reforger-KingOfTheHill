@@ -127,6 +127,9 @@ SCR_LoadoutManager KOTH_LoadoutManager {
   }
  }
 }
+BasePreloadManager KOTHPreloadManager1 : "{01B78526EB5671B4}Prefabs/MP/KOTHPreloadManager.et" {
+ coords 7058.923 119.127 6016.622
+}
 HitRegistrationManager HitRegManager : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
  coords 4792.417 166.827 7052.041
 }

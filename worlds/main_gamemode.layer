@@ -84,7 +84,7 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
    "Rpl State Override" Static
   }
  }
- coords 4694.86 129.293 7777.492
+ coords 7059.423 118.741 6016.477
  PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
  m_eTestGameFlags SpawnVehicles
  m_bUseCustomWeather 1
