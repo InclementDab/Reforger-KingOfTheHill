@@ -1,7 +1,8 @@
 FrameWidgetClass {
  Name "rootFrame"
  components {
-  SCR_SelectLoadoutSubMenu "{54AE685F22608579}" {
+  KOTH_VehicleSelectionSubMenu "{596F2AE619DB4DE0}" {
+   m_sButtonTextSelectVehicle "Select Vehicle"
   }
  }
  {
@@ -10,7 +11,7 @@ FrameWidgetClass {
    Slot FrameWidgetSlot "{558462025A51042F}" {
    }
    components {
-    SCR_DeployMenuTileSelection "{585687CA6589C165}" {
+    KOTH_VehicleSelectionTileSelection "{596F2AE452A53518}" {
      m_sTilePrefab "{C0907ACA0A72069C}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile.layout"
     }
    }

@@ -65,6 +65,7 @@ FrameWidgetClass {
    Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
     SizeToContent 0
    }
+   "Is Visible" 0
    {
     SizeLayoutWidgetClass "{589F093B48C39BEF}" {
      Prefab "{589F093B48C39BEF}"
@@ -295,7 +296,6 @@ FrameWidgetClass {
     SizeY -400
     OffsetBottom 0
    }
-   "Is Enabled" 0
    "Is Visible" 0
    components {
     SCR_NotificationsLogComponent "{5468ED24730EF1AD}" {
