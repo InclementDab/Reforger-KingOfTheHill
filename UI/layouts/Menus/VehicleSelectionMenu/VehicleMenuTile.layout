@@ -76,6 +76,13 @@ ButtonWidgetClass {
               VerticalAlign 0
              }
              Clipping True
+             {
+              ItemPreviewWidgetClass "{596D4AC029EC6FF6}" {
+               Name "ItemPreview0"
+               Slot OverlayWidgetSlot "{596D4AC029EC6F93}" {
+               }
+              }
+             }
             }
             SizeLayoutWidgetClass "{596D4AC2A23A4FFD}" {
              Name "SizeLayout0"
@@ -85,13 +92,6 @@ ButtonWidgetClass {
              WidthOverride 450
              AllowHeightOverride 1
              HeightOverride 100
-             {
-              ItemPreviewWidgetClass "{596D4AC029EC6FF6}" {
-               Name "ItemPreview0"
-               Slot OverlayWidgetSlot "{596D4AC029EC6F93}" {
-               }
-              }
-             }
             }
            }
           }

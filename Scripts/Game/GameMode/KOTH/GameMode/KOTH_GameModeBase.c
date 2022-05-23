@@ -1,4 +1,4 @@
-[ComponentEditorProps(category: "GameScripted/GameMode/KOTH", description: "Manager component allowing access and API over CaptureAndHold areas.")]
+[ComponentEditorProps(category: "GameScripted/GameMode/KOTH", description: "Manager component allowing access and API over KOTH zones.")]
 class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 {
 }
@@ -6,20 +6,24 @@ class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 class KOTH_GameModeBase: SCR_BaseGameMode
 {
 	//! If enabled custom weather Id will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "CaptureAndHold: Environment")]
+	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "KOTH: Environment")]
 	protected bool m_bUseCustomWeather;
 
 	//! Weather IDs are the same as used in the TimeAndWeatherManager. Weather set on game start. Authority only.
-	[Attribute(defvalue: "", desc: "Weather IDs are the same as used in the TimeAndWeatherManager. Weather set on game start. Authority only.", category: "CaptureAndHold: Environment")]
+	[Attribute(defvalue: "", desc: "Weather IDs are the same as used in the TimeAndWeatherManager. Weather set on game start. Authority only.", category: "KOTH: Environment")]
 	protected string m_sCustomWeatherId;
 
 	//! If enabled custom time of the day will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom time of the day will be used. Authority only.", category: "CaptureAndHold: Environment")]
+	[Attribute(defvalue: "0", desc: "If enabled, custom time of the day will be used. Authority only.", category: "KOTH: Environment")]
 	protected bool m_bUseCustomTime;
 
 	//! Time of the day set on game start. Authority only.
-	[Attribute(defvalue: "12", desc: "Time of the day set on game start. Authority only.", category: "CaptureAndHold: Environment", params: "0 24 0.01")]
+	[Attribute(defvalue: "12", desc: "Time of the day set on game start. Authority only.", category: "KOTH: Environment", params: "0 24 0.01")]
 	protected float m_fCustomTimeOfTheDay;
+	
+	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Vehicle asset list", "conf", NULL, category: "KOTH: Configuration")]
+	protected ResourceName m_VehicleAssetList;
+	protected ref array<ref KOTH_VehicleAssetInfo> m_aVehicleAssetList;
 
 	protected ImageWidget m_wWaypoint;
 	protected RichTextWidget m_wWaypointDistance;
@@ -70,6 +74,15 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
 		if (onMapOpenInvoker) {
 			onMapOpenInvoker.Insert(OnMapOpen);
+		}
+		
+		//Parse & register vehicle asset list
+		m_aVehicleAssetList = new array<ref KOTH_VehicleAssetInfo>;
+		Resource container = BaseContainerTools.LoadContainer(m_VehicleAssetList);
+		if (container && container.IsValid())
+		{
+			KOTH_VehicleAssetList list = KOTH_VehicleAssetList.Cast(BaseContainerTools.CreateInstanceFromContainer(container.GetResource().ToBaseContainer()));
+			list.GetVehicleAssetList(m_aVehicleAssetList);
 		}
 	}
 
@@ -202,5 +215,43 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			m_wWaypoint.SetOpacity(0);
 			m_wWaypointDistance.SetOpacity(0);
 		}
+	}
+	
+	
+	//------------------------------------------------------------------------------------------------
+	//! Returns the asset list for the match (list of all vehicles available for players to request)
+	//! \param assetList Array to fill with data
+	void GetVehicleAssetList(out notnull array<ref KOTH_VehicleAssetInfo> assetList)
+	{
+		assetList = m_aVehicleAssetList
+	}
+
+	//------------------------------------------------------------------------------------------------
+	//! Returns the total number of vehicles in the asset list
+	int GetVehicleAssetListCount()
+	{
+		return m_aVehicleAssetList.Count();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	//! Get the vehicle name to be shown in UI
+	//! \param assetID Unique asset ID (its index in asset list)
+	string GetVehicleAssetDisplayName(int assetID)
+	{
+		return m_aVehicleAssetList[assetID].GetDisplayName();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	string GetVehicleAssetDisplayNameUpperCase(int assetID)
+	{
+		return m_aVehicleAssetList[assetID].GetDisplayNameUpperCase();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	//! Get the vehicle prefab used to spawn the vehicle
+	//! \param assetID Unique asset ID (its index in asset list)
+	ResourceName GetVehicleAssetPrefab(int assetID)
+	{
+		return m_aVehicleAssetList[assetID].GetPrefab();
 	}
 }

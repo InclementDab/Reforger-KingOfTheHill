@@ -93,6 +93,7 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  m_bUseCustomWeather 1
  m_sCustomWeatherId "Cloudy"
  m_bUseCustomTime 1
+ m_VehicleAssetList "{FA90A6000A37E349}Configs/Vehicles/VehicleAssetList.conf"
 }
 SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
  components {
@@ -106,9 +107,6 @@ SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionMa
   KOTH_Faction "{596906B2EAEA6D99}" {
   }
   KOTH_Faction "{596906B2EDDEA2B3}" {
-  }
-  KOTH_Faction "{596C1AC038EC79AB}" {
-   FactionKey "US"
   }
  }
 }
