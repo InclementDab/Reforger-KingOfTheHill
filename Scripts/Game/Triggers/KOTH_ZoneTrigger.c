@@ -31,8 +31,6 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 	
 	override void OnActivate(IEntity ent)
 	{
-		Print(ToString() + "::OnActivate - Start");
-		
 		super.OnActivate(ent);
 		
 		if (!Replication.IsServer()) {
@@ -61,8 +59,6 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		}
 		
 		damage_manager.SetGodMode(true);
-		
-		Print(ToString() + "::OnActivate - End");
 	}
 	
 	override void OnDeactivate(IEntity ent)
