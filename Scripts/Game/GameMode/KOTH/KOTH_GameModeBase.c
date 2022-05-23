@@ -46,14 +46,14 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			if (m_wWaypoint)
 			{
 				m_wWaypoint.SetOpacity(0);
-				m_wWaypoint.SetColor(Color.FromRGBA(192, 57, 43, 240));
+				m_wWaypoint.SetColor(Color.FromRGBA(41, 128, 185, 240));
 				FrameSlot.SetSize(m_wWaypoint, 64, 64);
 			}
 			
 			if (m_wWaypointDistance)
 			{
 				m_wWaypointDistance.SetOpacity(0);
-				m_wWaypointDistance.SetColor(Color.FromRGBA(192, 57, 43, 240));
+				m_wWaypointDistance.SetColor(Color.FromRGBA(41, 128, 185, 240));
 			}
 		}
 	}
