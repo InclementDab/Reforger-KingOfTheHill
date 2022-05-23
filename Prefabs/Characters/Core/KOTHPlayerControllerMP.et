@@ -14,6 +14,7 @@ SCR_PlayerController : "{6E2BB64764E3BE9B}Prefabs/Characters/Core/DefaultPlayerC
     KOTH_ZoneObjectiveDisplay "{596ED27D36A9D436}" {
      m_LayoutPath "{414E2275BC9B5FAE}UI/layouts/HUD/KOTH/KOTHObjectiveElementLayout.layout"
      m_eLayer OVERLAY
+     m_bIsEnabled 0
     }
    }
   }
