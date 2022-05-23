@@ -5,8 +5,11 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   }
   SCR_ChatComponent "{596B46E44FAAD167}" {
   }
+  SCR_DestructionManagerComponent "{596D6DC67BAF89B5}" {
+  }
   SCR_GroupsManagerComponent "{596B4A8BDCBF5C28}" {
    m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
   }
   SCR_HintManagerComponent "{596B453A361472AB}" {
   }
@@ -15,6 +18,14 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   }
   SCR_NotificationSenderComponent "{596B453A9CC6C5C1}" {
    m_iReceiveKillFeedType ALL
+  }
+  SCR_PlayerPenaltyComponent "{596D6DC691C3488E}" {
+   m_iFriendlyPlayerKillPenalty 3
+   m_iFriendlyAIKillPenalty 1
+   m_iKickPenaltyLimit 9
+   m_iBanDuration 1800
+   m_iPenaltySubstractionPeriod 900
+   m_iPenaltySubstractionPoints 2
   }
   SCR_PlayerProfileManagerComponent "{596B453A27575582}" {
   }

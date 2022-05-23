@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B7E819173F4D2BC4}UI/layouts/Menus/RoleSelection/SelectVehicleSubMenu.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}
