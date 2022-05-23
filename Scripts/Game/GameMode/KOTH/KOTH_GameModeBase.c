@@ -48,7 +48,6 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 	void ~KOTH_GameModeBase()
 	{
-
 		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
 		if (onMapOpenInvoker)
 			onMapOpenInvoker.Remove(OnMapOpen);
