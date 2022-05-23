@@ -4,6 +4,10 @@ KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_2 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/
    Enabled 0
    Scale 100
   }
+  SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
+   Enabled 0
+   m_bStatic 0
+  }
   SCR_EditableWaypointComponent "{596D61E43710D9B5}" {
   }
   SCR_MapDescriptorComponent "{596D489F22A05302}" {

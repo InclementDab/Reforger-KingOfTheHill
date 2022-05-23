@@ -1,4 +1,31 @@
 [EntityEditorProps(category: "GameScripted/Triggers", description: "")]
+class KOTH_SafeZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
+{
+}
+
+class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
+{
+	override void OnActivate(IEntity ent)
+	{
+		super.OnActivate(ent);
+		DamageManagerComponent damage_manager = DamageManagerComponent.Cast(ent.FindComponent(DamageManagerComponent));
+		Print(damage_manager);
+		
+		damage_manager.EnableDamageHandling(false);
+	}
+	
+	override void OnDeactivate(IEntity ent)
+	{
+		super.OnDeactivate(ent);
+		
+		DamageManagerComponent damage_manager = DamageManagerComponent.Cast(ent.FindComponent(DamageManagerComponent));
+		Print(damage_manager);
+		
+		damage_manager.EnableDamageHandling(true);
+	}
+}
+
+[EntityEditorProps(category: "GameScripted/Triggers", description: "")]
 class KOTH_ZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
 {
 }
@@ -414,4 +441,91 @@ class KOTH_MapModule: SCR_MapModuleBase
 	}
 }
 
-ref array<ref CanvasWidgetCommand> debug_commands = {};
+
+// set up auto balance
+modded class SCR_SelectFactionSubMenu
+{
+	static const int AUTOBALANCE_THRESHOLD = 3;
+	
+	override void UpdateFactionPlayerList()
+	{
+		super.UpdateFactionPlayerList();
+		
+		m_RespawnSystemComponent = SCR_RespawnSystemComponent.GetInstance();
+		
+		array<Faction> factions = {};
+		GetGame().GetFactionManager().GetFactionsList(factions);
+		
+		int most_populated_count;
+		array<Faction> most_populated_teams = {};
+		foreach (Faction faction: factions) {
+			if (!m_RespawnSystemComponent) {
+				continue;
+			}
+			
+			int faction_count = m_RespawnSystemComponent.GetFactionPlayerCount(faction);
+			
+			if (faction_count >= most_populated_count + AUTOBALANCE_THRESHOLD) {
+				if (faction_count > most_populated_count + AUTOBALANCE_THRESHOLD) {
+					most_populated_teams.Clear();
+				}
+				
+				most_populated_count = faction_count;
+				most_populated_teams.Insert(faction);
+			}
+		}
+		
+		// fallback
+		if (most_populated_teams.Count() == KOTH_ZoneManager.GetInstance().GetCurrentFactions().Count()) {
+			most_populated_teams.Clear();
+		}
+
+		foreach (SCR_FactionMenuTile tile, Faction faction : m_mAvailableFactions) {
+			if (tile) {
+				tile.SetButtonState(most_populated_teams.Find(faction) == -1);
+			}
+		}
+	}
+}
+
+modded class SCR_FactionMenuTile
+{
+	static override SCR_FactionMenuTile InitializeTile(SCR_DeployMenuTileSelection parent, SCR_Faction faction)
+	{
+		Widget tile = GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI/layouts/Menus/RoleSelection/DeployMenuTile.layout");
+		SCR_FactionMenuTile handler = SCR_FactionMenuTile.Cast(tile.FindHandler(SCR_FactionMenuTile));
+		SCR_GalleryComponent gallery_handler = SCR_GalleryComponent.Cast(parent.GetTileContainer().GetHandler(0));
+		if (!handler) {
+			return null;
+		}
+
+		handler.SetParent(parent);
+		handler.SetImage(faction.GetFactionFlag());
+		handler.SetText(faction.GetFactionName());
+		handler.SetFactionBackgroundColor(faction.GetFactionColor());
+		gallery_handler.AddItem(tile);
+		return handler;
+	}
+	
+	void SetButtonState(bool state, bool animate = true)
+	{
+		m_bClickEnabled = state;
+		if (!m_bClickEnabled) {
+			OnDisabled(animate);
+			OnMouseLeave(m_wRoot, null, 0, 0);
+		} else {
+			OnEnabled(animate);
+		}
+		
+		m_wRoot.SetEnabled(m_bClickEnabled);
+	}
+	
+	override bool OnFocus(Widget w, int x, int y)
+	{
+		if (!m_bClickEnabled) {
+			return false;
+		}
+		
+		return super.OnFocus(w, x, y);
+	}
+}

@@ -35,7 +35,6 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	{
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
 	}
-
 	
 	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
 	{

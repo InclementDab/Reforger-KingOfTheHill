@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F7B0C4A563375AAE}UI/layouts/Menus/RoleSelection/DeployMenuTile.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}
