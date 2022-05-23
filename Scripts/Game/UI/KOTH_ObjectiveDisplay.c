@@ -72,7 +72,7 @@ class KOTH_ZoneObjectiveDisplayObject
 		m_fOriginalTitleSize = 15;
 
 		m_wDistanceText = TextWidget.Cast(m_wRoot.FindAnyWidget("Distance"));
-		m_wIcon = ImageWidget.Cast(m_wRoot.FindAnyWidget("Icon_Faction"));
+		m_wIcon = ImageWidget.Cast(m_wRoot.FindAnyWidget("Icon_Flag"));
 		m_wBackdropIcon = ImageWidget.Cast(m_wRoot.FindAnyWidget("Icon_Backdrop"));
 
 		m_wControlledIcon = ImageWidget.Cast(m_wRoot.FindAnyWidget("Icon_Controlled"));
