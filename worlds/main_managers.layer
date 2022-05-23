@@ -1,35 +1,29 @@
+SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
+ coords 7059.268 118.443 6016.148
+}
 PerceptionManager PerceptionManager : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
  coords 4792.388 166.843 7052.14
 }
-SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
- components {
-  RplComponent "{596D61E5E58577DD}" {
-  }
- }
- coords 4692.271 130.159 7761.14
- Factions {
-  KOTH_Faction "{596906B2F7523690}" {
-  }
-  KOTH_Faction "{596906B2EAEA6D99}" {
-  }
-  KOTH_Faction "{596906B2EDDEA2B3}" {
-  }
-  KOTH_Faction "{596C1AC038EC79AB}" {
-   FactionKey "US"
-  }
- }
-}
 TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
  coords 4792.418 166.737 7051.905
- "Grid cell size" 1000
+ "Grid cell size" 500
 }
 RadioManagerEntity : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
  coords 4792.389 166.845 7052.057
 }
+ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
+ coords 4792.403 166.801 7051.984
+ Channels {
+  BaseChatChannel "{559077E72C7027BC}" {
+  }
+ }
+}
 GarbageManager {
  coords 4776.713 130.867 7743.142
- CharacterLifetime 30
- ItemLifetime 60
+ CollectorIterations 24
+ CharacterLifetime 600
+ VehicleLifetime 600
+ ItemLifetime 600
 }
 SCR_LoadoutManager KOTH_LoadoutManager {
  coords 0 0 0

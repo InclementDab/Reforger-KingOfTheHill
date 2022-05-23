@@ -31,26 +31,44 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 	
 	override void OnActivate(IEntity ent)
 	{
+		Print(ToString() + "::OnActivate - Start");
+		
 		super.OnActivate(ent);
+		
 		if (!Replication.IsServer()) {
+			Print(ToString() + "::OnActivate - Tryed to call OnActivate on client!", LogLevel.WARNING);
 			return;	
 		}
-		
+				
+		SCR_DamageManagerComponent damage_manager;
 		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
-		if (!character || character.GetFactionKey() != m_FactionKey) {
+		
+		if (!character || character.GetFactionKey() != m_FactionKey) 
+		{
+			Print(ToString() + "::OnActivate - Detected enemy player in save zone! Process kill!");
+			damage_manager = character.GetDamageManager();
+			if (damage_manager) {
+				damage_manager.SetHealthScaled(0);
+			}
+			
 			return;
 		}
 		
 		SCR_DamageManagerComponent damage_manager = character.GetDamageManager();
 		if (!damage_manager) {
+			Print(ToString() + "::OnActivate - Could not find SCR_DamageManagerComponent!", LogLevel.WARNING);
 			return;
 		}
 		
 		damage_manager.SetGodMode(true);
+		
+		Print(ToString() + "::OnActivate - End");
 	}
 	
 	override void OnDeactivate(IEntity ent)
 	{
+		Print(ToString() + "::OnDeactivate - Start");
+		
 		super.OnDeactivate(ent);
 		if (!Replication.IsServer()) {
 			return;	
@@ -67,6 +85,8 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		}
 		
 		damage_manager.SetGodMode(false);
+		
+		Print(ToString() + "::OnDeactivate - End");
 	}
 	
 	override bool ScriptedEntityFilterForQuery(IEntity ent)

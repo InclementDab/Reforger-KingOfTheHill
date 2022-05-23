@@ -17,6 +17,7 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
    m_sConfigPath "{2C54289741D01AB5}Configs/NameTags/NametagFriendlies.conf"
   }
   SCR_NotificationSenderComponent "{596B453A9CC6C5C1}" {
+   m_iKillFeedType FULL
    m_iReceiveKillFeedType ALL
   }
   SCR_PlayerPenaltyComponent "{596D6DC691C3488E}" {
@@ -28,6 +29,8 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
    m_iPenaltySubstractionPoints 2
   }
   SCR_PlayerProfileManagerComponent "{596B453A27575582}" {
+  }
+  SCR_PlayersRestrictionZoneManagerComponent "{596EA01AE455AF82}" {
   }
   SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
    m_Info SCR_UIInfo "{5969440545013477}" {
@@ -91,10 +94,21 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  m_sCustomWeatherId "Cloudy"
  m_bUseCustomTime 1
 }
-ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
- coords 4792.403 166.801 7051.984
- Channels {
-  BaseChatChannel "{559077E72C7027BC}" {
+SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
+ components {
+  RplComponent "{596D61E5E58577DD}" {
+  }
+ }
+ coords 4692.271 130.159 7761.14
+ Factions {
+  KOTH_Faction "{596906B2F7523690}" {
+  }
+  KOTH_Faction "{596906B2EAEA6D99}" {
+  }
+  KOTH_Faction "{596906B2EDDEA2B3}" {
+  }
+  KOTH_Faction "{596C1AC038EC79AB}" {
+   FactionKey "US"
   }
  }
 }

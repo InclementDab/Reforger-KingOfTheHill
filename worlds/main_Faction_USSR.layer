@@ -584,6 +584,14 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
  }
  {
   KOTH_SafeZoneTriggerEntity {
+   components {
+    Hierarchy "{596EA01B91CD795D}" {
+    }
+    RplComponent "{596EA01B6568F487}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
    TriggerShapeType Sphere
    SphereRadius 50
    DrawShape 1
@@ -593,6 +601,10 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
    m_FactionKey "USSR"
   }
   SCR_Position SCR_Position2 {
+   components {
+    Hierarchy "{596EA01BE48CF899}" {
+    }
+   }
   }
  }
 }
