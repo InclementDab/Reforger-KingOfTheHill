@@ -8,10 +8,10 @@ FrameWidgetClass {
     OffsetLeft 0
     PositionY 0
     OffsetTop 0
-    SizeX 64
-    OffsetRight -64
-    SizeY 64
-    OffsetBottom -64
+    SizeX 46
+    OffsetRight -46
+    SizeY 46
+    OffsetBottom -46
     Alignment 0.5 0.5
    }
    Color 1 1 1 1
@@ -27,13 +27,15 @@ FrameWidgetClass {
     OffsetLeft 0
     PositionY 0
     OffsetTop 0
-    SizeX 64
-    OffsetRight -64
-    SizeY 64
-    OffsetBottom -64
+    SizeX 46
+    OffsetRight -46
+    SizeY 46
+    OffsetBottom -46
     Alignment 0.5 0.5
    }
    Text "999m"
+   "Font Size" 16
+   "Min Font Size" 16
    Offset 64 0
   }
  }
