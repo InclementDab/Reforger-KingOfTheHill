@@ -52,7 +52,7 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 			return;
 		}
 		
-		SCR_DamageManagerComponent damage_manager = character.GetDamageManager();
+		damage_manager = character.GetDamageManager();
 		if (!damage_manager) {
 			Print(ToString() + "::OnActivate - Could not find SCR_DamageManagerComponent!", LogLevel.WARNING);
 			return;
