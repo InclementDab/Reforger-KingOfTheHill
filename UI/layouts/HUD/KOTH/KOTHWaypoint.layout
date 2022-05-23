@@ -1,0 +1,40 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  ImageWidgetClass "{596F209DC70B603F}" {
+   Name "Icon"
+   Slot FrameWidgetSlot "{55DE825BE3E0E026}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 64
+    OffsetRight -64
+    SizeY 64
+    OffsetBottom -64
+    Alignment 0.5 0.5
+   }
+   Color 1 1 1 1
+   Texture "{DE969B7C3B7BBBCA}UI/icons/objective_marker.edds"
+   Image ""
+   Size 128 128
+  }
+  RichTextWidgetClass "{596F209DC70B603A}" {
+   Name "Distance"
+   Slot FrameWidgetSlot "{58547DF964996190}" {
+    Anchor 0 0 0 0
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 64
+    OffsetRight -64
+    SizeY 64
+    OffsetBottom -64
+    Alignment 0.5 0.5
+   }
+   Text "999m"
+   Offset 64 0
+  }
+ }
+}

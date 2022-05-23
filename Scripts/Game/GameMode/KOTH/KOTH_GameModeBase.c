@@ -21,13 +21,40 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	[Attribute(defvalue: "12", desc: "Time of the day set on game start. Authority only.", category: "CaptureAndHold: Environment", params: "0 24 0.01")]
 	protected float m_fCustomTimeOfTheDay;
 
+	protected ImageWidget m_wWaypoint;
+	protected RichTextWidget m_wWaypointDistance;
+	protected ChimeraCharacter m_Player;
+	
 	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
 	{
 		super.OnPlayerSpawned(playerId, controlledEntity);
 
+		m_Player = ChimeraCharacter.Cast(controlledEntity);
+		
 		// start game
 		if (GetState() == SCR_EGameModeState.PREGAME) {
 			StartGameMode();
+		}
+		
+		// Load waypoint UI upon first spawn
+		if (!m_wWaypoint)
+		{
+			Widget waypointFrame = GetGame().GetHUDManager().CreateLayout("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", EHudLayers.BACKGROUND);
+			m_wWaypoint = ImageWidget.Cast(waypointFrame.FindAnyWidget("Icon"));
+			m_wWaypointDistance = RichTextWidget.Cast(waypointFrame.FindAnyWidget("Distance"));
+			
+			if (m_wWaypoint)
+			{
+				m_wWaypoint.SetOpacity(0);
+				m_wWaypoint.SetColor(Color.FromRGBA(192, 57, 43, 240));
+				FrameSlot.SetSize(m_wWaypoint, 64, 64);
+			}
+			
+			if (m_wWaypointDistance)
+			{
+				m_wWaypointDistance.SetOpacity(0);
+				m_wWaypointDistance.SetColor(Color.FromRGBA(192, 57, 43, 240));
+			}
 		}
 	}
 
@@ -51,6 +78,12 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
 		if (onMapOpenInvoker)
 			onMapOpenInvoker.Remove(OnMapOpen);
+		
+		if (m_wWaypoint)
+			m_wWaypoint.RemoveFromHierarchy();
+		
+		if (m_wWaypointDistance)
+			m_wWaypointDistance.RemoveFromHierarchy();
 	}
 
 	protected void DoPanZoomMap(float x, float z, float zoom)
@@ -129,5 +162,45 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 		if (m_bUseCustomWeather)
 			SetWeather(m_sCustomWeatherId);
+	}
+	
+	override void EOnFrame(IEntity owner, float timeSlice)
+	{		
+		// Render waypoint if allowed
+		if (m_wWaypoint)
+		{
+			vector WPPos = GetKOTHZoneManager().GetZone().GetWorldZoneCenter();
+			WPPos[1] = WPPos[1] + 1;
+			vector pos = GetGame().GetWorkspace().ProjWorldToScreen(WPPos, GetGame().GetWorld());
+			int dist = vector.Distance(m_Player.GetOrigin(), WPPos);
+			
+			// Handle off-screen coords
+			WorkspaceWidget workspace = GetGame().GetWorkspace();
+			int winX = workspace.GetWidth();
+			int winY = workspace.GetHeight();
+			int posX = workspace.DPIScale(pos[0]);
+			int posY = workspace.DPIScale(pos[1]);
+			
+			if (posX < 0)
+				pos[0] = 0;
+			else if (posX > winX)
+				pos[0] = workspace.DPIUnscale(winX);
+			
+			if (posY < 0)
+				pos[1] = 0;
+			else if (posY > winY || pos[2] < 0)
+				pos[1] = workspace.DPIUnscale(winY);
+			
+			FrameSlot.SetPos(m_wWaypoint, pos[0], pos[1]);
+			FrameSlot.SetPos(m_wWaypointDistance, pos[0], pos[1]);
+			m_wWaypoint.SetOpacity(1);
+			m_wWaypointDistance.SetTextFormat("#AR-Tutorial_WaypointUnits_meters", dist);
+			m_wWaypointDistance.SetOpacity(1);
+		}
+		else
+		{
+			m_wWaypoint.SetOpacity(0);
+			m_wWaypointDistance.SetOpacity(0);
+		}
 	}
 }
