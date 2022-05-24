@@ -5,8 +5,8 @@ FrameWidgetClass {
   OffsetTop 0
   SizeX 400
   OffsetRight -400
-  SizeY 64
-  OffsetBottom -64
+  SizeY 32
+  OffsetBottom -32
   SizeToContent 1
  }
  {
@@ -19,20 +19,19 @@ FrameWidgetClass {
     OffsetTop 0
     SizeX 400
     OffsetRight -400
-    SizeY 64
-    OffsetBottom -64
+    SizeY 32
+    OffsetBottom -32
     Alignment 0 0
     SizeToContent 1
    }
    Clipping False
    {
-    ImageWidgetClass "{597082938E3EB536}" {
+    ImageWidgetClass "{5970C2B65FDCBE04}" {
      Name "Icon"
-     Slot LayoutSlot "{5970A0E49F3DD01F}" {
+     Slot LayoutSlot "{5970C2B67842040E}" {
      }
-     Color 1 1 1 1
-     Pivot 0 0
-     Texture "{DE969B7C3B7BBBCA}UI/icons/objective_marker.edds"
+     Rotation 0
+     Texture "{EB294B6B8215EC25}UI/icons/arrow_64x64.edds"
      Image ""
      Size 32 32
     }
