@@ -1,5 +1,21 @@
 class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 {
+	//! Objective marker config attributes
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the main objective zone marker.")]
+	protected ref Color m_iObjectiveMarkerColor;
+	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the main objective zone marker.", params: "edds imageset")]
+	protected ResourceName m_rObjectiveMarkerIcon;
+	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the main objective zone marker.")]
+	protected string m_rObjectiveMarkerIconName;
+	
+	//! Player marker config attributes
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the player marker.")]
+	protected ref Color m_iPlayerMarkerColor;
+	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the player marker.", params: "edds imageset")]
+	protected ResourceName m_rPlayerMarkerIcon;
+	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the player marker.")]
+	protected string m_rPlayerMarkerIconName;
+	
 	protected ref array<ref KOTH_MapMarker> m_MapMarkers = new array<ref KOTH_MapMarker>;
 	protected ref KOTH_MapMarker m_ObjectiveMarker;
 	protected ref KOTH_PlayerMapMarker m_PlayerMarker;
@@ -23,8 +39,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 
 		if (m_MapMarkers && m_MapMarkers.Count() > 0)
 		{
-			foreach (KOTH_MapMarker mapMarker: m_MapMarkers)
-			{
+			foreach (KOTH_MapMarker mapMarker: m_MapMarkers) {
 				mapMarker.Update();
 			}
 		}
@@ -43,8 +58,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		if (m_ObjectiveMarker)
 			delete m_ObjectiveMarker;
 
-		for (int i = 0; i < m_MapMarkers.Count(); i++)
-		{
+		for (int i = 0; i < m_MapMarkers.Count(); i++) {
 			m_MapMarkers.Remove(i);
 		}
 	}
@@ -59,15 +73,20 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			return;
 
 		//! Create player position marker
-		if (!m_PlayerMarker)
-		{
+		if (!m_PlayerMarker) {
 			m_Player = ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity());
 			if (!m_Player) 
 				return;
 			
 			m_PlayerMarker = new KOTH_PlayerMapMarker(m_RootWidget, m_Player);
-			m_PlayerMarker.SetIcon("{EB294B6B8215EC25}UI/icons/arrow_64x64.edds");
-			m_PlayerMarker.SetColor(Color.FromRGBA(44, 62, 80, 255));
+			if (m_rPlayerMarkerIconName != string.Empty && m_rPlayerMarkerIcon != ResourceName.Empty) {
+				m_PlayerMarker.SetIconFromSet(m_rPlayerMarkerIcon, m_rPlayerMarkerIconName);
+			}
+			else if (m_rPlayerMarkerIconName == string.Empty && m_rPlayerMarkerIcon != ResourceName.Empty) {
+				m_PlayerMarker.SetIcon(m_rPlayerMarkerIcon);
+			}
+			
+			m_PlayerMarker.SetColor(m_iPlayerMarkerColor);
 			
 			int playerID = SCR_PlayerController.GetLocalPlayerId();
 			PlayerManager playerManager = GetGame().GetPlayerManager();
@@ -81,7 +100,14 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		if (!m_ObjectiveMarker)
 		{
 			m_ObjectiveMarker = new KOTH_MapMarker(m_RootWidget, m_ZoneManager.GetZone().GetWorldZoneCenter());
-			m_ObjectiveMarker.SetColor(Color.FromRGBA(142, 68, 173, 255));
+			if (m_rObjectiveMarkerIconName != string.Empty && m_rObjectiveMarkerIcon != ResourceName.Empty) {
+				m_ObjectiveMarker.SetIconFromSet(m_rObjectiveMarkerIcon, m_rObjectiveMarkerIconName);
+			}
+			else if (m_rObjectiveMarkerIconName == string.Empty && m_rObjectiveMarkerIcon != ResourceName.Empty) {
+				m_ObjectiveMarker.SetIcon(m_rObjectiveMarkerIcon);
+			}
+			
+			m_ObjectiveMarker.SetColor(m_iObjectiveMarkerColor);
 			m_ObjectiveMarker.SetLabel("KOTH");
 			m_ObjectiveMarker.SetIconSize(36, 36);
 		}
@@ -106,11 +132,9 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	string FilterName(string name)
     {
 		string partToRemove;
-		for (int i = 0; i < name.Length(); i++)
-		{
+		for (int i = 0; i < name.Length(); i++) {
 			string char = name.Get(i);
-			if (char == "\\" )
-			{
+			if (char == "\\" ) {
 				partToRemove = name.Substring(0, i + 1);
 				break;
 			}
