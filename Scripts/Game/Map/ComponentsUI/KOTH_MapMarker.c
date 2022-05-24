@@ -27,6 +27,10 @@ class KOTH_MapMarker
 	void SetColor(Color color)
 	{
 		m_Icon.SetColor(color);
+	}
+	
+	void SetTextColor(Color color)
+	{
 		m_Text.SetColor(color);
 	}
 

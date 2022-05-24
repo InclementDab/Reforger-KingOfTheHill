@@ -1,8 +1,12 @@
 class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 {
 	//! Objective marker config attributes
+	[Attribute(defvalue: "0", desc: "If enabled then the defined marker color will be applied on the objective zone marker icon. If not the basic image color will be used.")]
+	protected bool m_bUseObjectiveMarkerColor;
 	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the main objective zone marker.")]
 	protected ref Color m_iObjectiveMarkerColor;
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the main objective zone marker text.")]
+	protected ref Color m_iObjectiveMarkerTextColor;
 	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the main objective zone marker.", params: "edds imageset")]
 	protected ResourceName m_rObjectiveMarkerIcon;
 	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the main objective zone marker.")]
@@ -119,7 +123,10 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 				m_ObjectiveMarker.SetIcon(m_rObjectiveMarkerIcon);
 			}
 			
-			m_ObjectiveMarker.SetColor(m_iObjectiveMarkerColor);
+			if (m_bUseObjectiveMarkerColor)
+				m_ObjectiveMarker.SetColor(m_iObjectiveMarkerColor);
+			
+			m_ObjectiveMarker.SetTextColor(m_iObjectiveMarkerTextColor);
 			m_ObjectiveMarker.SetLabel("KOTH");
 			m_ObjectiveMarker.SetIconSize(m_fObjectiveMarkerIconSize, m_fObjectiveMarkerIconSize);
 		}
