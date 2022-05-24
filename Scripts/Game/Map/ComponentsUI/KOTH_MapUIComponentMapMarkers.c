@@ -147,6 +147,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 				
 				safeZoneMarker.SetIcon(m_rSafeZoneMarkerIcon);
 				safeZoneMarker.SetColor(faction.GetFactionColor());
+				safeZoneMarker.SetTextColor(faction.GetFactionColor());
 				safeZoneMarker.SetLabel("SAFE ZONE - " + faction.GetFactionName());
 				safeZoneMarker.SetIconSize(m_fSafeZoneMarkerIconSize, m_fSafeZoneMarkerIconSize);
 			}
