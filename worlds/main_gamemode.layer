@@ -1,5 +1,25 @@
 KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
  components {
+  KOTH_BriefingComponent "{5970EC09C52BCFAE}" {
+   m_Info SCR_UIInfo "{5970EC094F2FE512}" {
+    Name "King Of The Hill"
+    Description "King the Hill! Created by InclementDab"
+    Icon "{380160E8D49A8409}Missions/emoji.edds"
+   }
+   m_aWinConditions {
+    SCR_BriefingVictoryCondition "{5970EC0B439B2BE0}" {
+     name "King Of The Hill - Chotain"
+     description "Control the town of Chotain and gain tickets."
+    }
+    SCR_BriefingVictoryCondition "{5970EC0B6F53D68C}" {
+     victoryCondition CUSTOM
+     name "Acquire Tickets"
+     description "First team to 100 tickets wins the round."
+    }
+   }
+   m_sBriefingImage "{380160E8D49A8409}Missions/emoji.edds"
+   m_bUseMissionHeaderImage 1
+  }
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
    m_TicketUpdateInterval 15
   }
@@ -33,10 +53,11 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   SCR_PlayersRestrictionZoneManagerComponent "{596EA01AE455AF82}" {
   }
   SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
+   Enabled 0
    m_Info SCR_UIInfo "{5969440545013477}" {
     Name "King Of The Hill"
     Description "King the Hill! Created by InclementDab"
-    Icon "{4DB6DBE133252C84}Missions/emoji.edds"
+    Icon "{380160E8D49A8409}Missions/emoji.edds"
    }
    m_aWinConditions {
     SCR_BriefingVictoryCondition "{596944054C0A6553}" {
