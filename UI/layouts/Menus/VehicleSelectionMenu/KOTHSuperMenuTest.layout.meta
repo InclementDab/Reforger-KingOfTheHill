@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{493F49A409D55841}UI/layouts/Menus/VehicleSelectionMenu/KOTHSuperMenuTest.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

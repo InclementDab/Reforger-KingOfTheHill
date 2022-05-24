@@ -32,18 +32,11 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 		KOTH_GameModeBase gameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		if (!gameMode)
 		{
-			Print("Respawn menu could not find any KOTH_GameModeBase", LogLevel.ERROR);
+			Print("KOTH super menu could not find KOTH_GameModeBase", LogLevel.ERROR);
 			return;
 		}
 
-		Widget loading = GetRootWidget().FindAnyWidget("Loading");
-		if (loading)
-		{
-			m_Loading = SCR_LoadingOverlay.Cast(loading.FindHandler(SCR_LoadingOverlay));
-		}
-
 		super.OnMenuOpen();
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.PauseMenu);
 
 		UpdateTabs();
 	}
@@ -58,41 +51,19 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 	override void OnMenuOpened()
 	{
 		super.OnMenuOpened();
-		// Mute sounds
-		// If menu is opened before loading screen is closed, wait for closing
-		if (ArmaReforgerLoadingAnim.IsOpen())
-			ArmaReforgerLoadingAnim.m_onExitLoadingScreen.Insert(MuteSounds);
-		else
-			MuteSounds();
-
-		//GetGame().GetCallqueue().CallLater(MuteSounds, 100);
-	}
-
-	//------------------------------------------------------------------------------------------------
-	void MuteSounds(bool mute = true)
-	{
-		if (!IsOpen())
-			return;
-
-		AudioSystem.SetMasterVolume(AudioSystem.SFX, !mute);
-		AudioSystem.SetMasterVolume(AudioSystem.VoiceChat, !mute);
-		AudioSystem.SetMasterVolume(AudioSystem.Dialog, !mute);
-
-		ArmaReforgerLoadingAnim.m_onExitLoadingScreen.Remove(MuteSounds);
 	}
 
 	//------------------------------------------------------------------------------------------------
 	void OnMenuBack()
 	{
 		if (s_bIsShown)
-			GetGame().OpenPauseMenu(false, true);
+			Close();
 	}
 
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuClose()
 	{
 		super.OnMenuClose();
-		MuteSounds(false);
 		GetRootWidget().SetEnabled(true);
 		Event_OnMenuClose.Invoke();
 	}
@@ -110,10 +81,8 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 	override void OnMenuHide()
 	{
 		super.OnMenuHide();
-		MuteSounds(false);
 		s_bIsShown = false;
 		Event_OnMenuHide.Invoke();
-		//GetGame().GetInputManager().RemoveActionListener("ShowScoreboard", EActionTrigger.DOWN, ShowPlayerList);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -121,12 +90,6 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 	{
 		super.OnMenuFocusGained();
 		GetRootWidget().SetEnabled(true);
-		// Auto-open the editor (when enabled) on top of respawn menu for Game Masters
-		/*SCR_EditorManagerEntity editorManager = SCR_EditorManagerEntity.GetInstance();
-		if (editorManager)
-			editorManager.AutoInit();
-
-		GetGame().GetInputManager().AddActionListener("ShowScoreboard", EActionTrigger.DOWN, ShowPlayerList);*/
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -137,20 +100,13 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 	}
 
 	//------------------------------------------------------------------------------------------------
-	/*void ShowPlayerList()
-	{
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.PlayerListMenu, 0, true, false);
-	}*/
-
-	//------------------------------------------------------------------------------------------------
 	void UpdateTabs()
 	{
 		int selectedTab = m_TabViewComponent.GetShownTab();
 
 		// enable individual submenu tabs based on gamemode settings:
 		m_TabViewComponent.EnableTab(KOTHMenuScreenType.VEHICLES, true);
-		//m_TabViewComponent.ShowTab(KOTHMenuScreenType.VEHICLES);
-
+		
 		int nextTab = m_TabViewComponent.GetNextValidItem(false);
 		if (m_TabViewComponent.IsTabEnabled(nextTab))
 			selectedTab = nextTab;
@@ -170,23 +126,11 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 	}
 
 	//------------------------------------------------------------------------------------------------
-	void HandleOnVehicleAssigned()
-	{
-
-	}
-
-	//------------------------------------------------------------------------------------------------
 	void SetMenuTitle(string text)
 	{
 		TextWidget w = TextWidget.Cast(GetRootWidget().FindAnyWidget(m_sTitle));
 		if (w)
 			w.SetText(text);
-	}
-
-	//------------------------------------------------------------------------------------------------
-	void SetLoadingVisible(bool visible)
-	{
-		m_Loading.SetShown(visible);
 	}
 
 	//------------------------------------------------------------------------------------------------

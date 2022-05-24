@@ -1,0 +1,235 @@
+FrameWidgetClass {
+ Name "KOTHMenuRoot"
+ "Ignore Cursor" 0
+ {
+  SizeLayoutWidgetClass "{59710CFFDA1FB824}" {
+   Name "SizeLayout0"
+   Slot FrameWidgetSlot "{59710CFFDA1FB8CF}" {
+    PositionX 1303.86
+    OffsetLeft 1303.86
+    PositionY 48.335
+    OffsetTop 48.335
+    SizeX 524.665
+    OffsetRight -1828.53
+    SizeY 992.205
+    OffsetBottom -1040.54
+   }
+   WidthOverride 100
+   HeightOverride 100
+   {
+    ImageWidgetClass "{59710CF826E6C2AC}" {
+     Name "Background"
+     Slot AlignableSlot "{59710CFFDFFA5682}" {
+     }
+     Color 0 0 0 0.784
+     Pivot 0 0
+     Size 520 990
+     Tiling Wrap
+    }
+   }
+  }
+  OverlayWidgetClass "{5970FE58F5963A0D}" : "{6F1E013D3D33703C}UI/layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout" {
+   Name "MenuBase"
+   Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
+    PositionX 1200.76
+    OffsetLeft 1200.76
+    PositionY 0
+    OffsetTop 0
+    SizeX -1200.76
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+    SizeToContent 0
+   }
+   {
+    SizeLayoutWidgetClass "{589F093B48C39BEF}" {
+     Prefab "{589F093B48C39BEF}"
+     WidthOverride 500
+     {
+      VerticalLayoutWidgetClass "{589F093B48C39BEC}" {
+       Prefab "{589F093B48C39BEC}"
+       {
+        SizeLayoutWidgetClass "{589F093B48C39BEA}" {
+         Prefab "{589F093B48C39BEA}"
+         "Is Visible" 0
+         {
+          OverlayWidgetClass "{58A07816DC169F57}" {
+           Prefab "{58A07816DC169F57}"
+           {
+            TextWidgetClass "{589F093B48C39BE9}" {
+             Prefab "{589F093B48C39BE9}"
+             Text ""
+            }
+           }
+          }
+         }
+        }
+        VerticalLayoutWidgetClass "{589F093AB3EA94A2}" {
+         Prefab "{589F093AB3EA94A2}"
+         components {
+          SCR_TabViewComponent "{546B27D01CA8A38D}" {
+           m_aElements {
+            SCR_TabViewContent "{596F4E519B8B66C8}" {
+             m_ElementLayout "{B7E819173F4D2BC4}UI/layouts/Menus/VehicleSelectionMenu/SelectVehicleSubMenu.layout"
+             m_sTabButtonContent "VEHICLES"
+             m_bShowIcon 1
+             m_IconLayout "{F316174EBD8829C5}UI/layouts/WidgetLibrary/TabView/WLib_TabViewVehicleIcon.layout"
+            }
+           }
+           m_iSelectedTab -1
+           m_bKeepHiddenTabs 1
+           m_bManualInit 1
+          }
+         }
+         {
+         }
+        }
+        SizeLayoutWidgetClass "{589F093B48C39B17}" {
+         Prefab "{589F093B48C39B17}"
+         {
+          HorizontalLayoutWidgetClass "{589F093B48C39B16}" {
+           Prefab "{589F093B48C39B16}"
+           {
+            ButtonWidgetClass "{589F093B48C39B14}" {
+             Prefab "{589F093B48C39B14}"
+             Slot LayoutSlot "{54ACA297E9BAB648}" {
+             }
+             "Z Order" -3
+             components {
+              SCR_NavigationButtonComponent "{5474BAC5DBCF129A}" {
+               m_sLabel "Close"
+              }
+             }
+             {
+              SizeLayoutWidgetClass "{5562AD435529FB36}" {
+               Prefab "{5562AD435529FB36}"
+               {
+                OverlayWidgetClass "{000000005E70868E}" {
+                 Prefab "{000000005E70868E}"
+                 {
+                  HorizontalLayoutWidgetClass "{00000000E3602307}" {
+                   Prefab "{00000000E3602307}"
+                   {
+                    RichTextWidgetClass "{00000000DB061E92}" {
+                     Prefab "{00000000DB061E92}"
+                     Text "Close"
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+            HorizontalLayoutWidgetClass "{589F093B48C39B13}" {
+             Prefab "{589F093B48C39B13}"
+             {
+              ButtonWidgetClass "{59710CFA26C681C6}" {
+               Name "Button0"
+               Slot LayoutSlot "{59710CFA26C681E3}" {
+               }
+               "Z Order" -3
+               Color 0 0 0 0
+               "no focus" 1
+               {
+                SizeLayoutWidgetClass "{59710CFBB87836DE}" {
+                 Name "SizeLayout0"
+                 Slot ButtonWidgetSlot "{59710CFBB8783687}" {
+                  HorizontalAlign 3
+                  VerticalAlign 3
+                 }
+                 WidthOverride 0
+                 AllowHeightOverride 1
+                 HeightOverride 48
+                 {
+                  OverlayWidgetClass "{59710CFB4036F16E}" {
+                   Name "Overlay0"
+                   Slot AlignableSlot "{59710CFB4036F10A}" {
+                    VerticalAlign 3
+                    Padding 2 2 2 2
+                   }
+                   {
+                    ImageWidgetClass "{59710CFCDC57E248}" {
+                     Name "Background0"
+                     Slot OverlayWidgetSlot "{59710CFCDC57E26D}" {
+                      HorizontalAlign 3
+                      VerticalAlign 3
+                     }
+                     Color 0 0 0 0.42
+                    }
+                    PanelWidgetClass "{59710CFCF2A680C0}" {
+                     Name "Border0"
+                     Slot OverlayWidgetSlot "{59710CFCF2A680E1}" {
+                      HorizontalAlign 3
+                      VerticalAlign 3
+                      Padding -2 -2 -2 -2
+                     }
+                     Opacity 0
+                     Color 0.761 0.386 0.078 1
+                     style outline_2px
+                    }
+                    HorizontalLayoutWidgetClass "{59710CFC8A805C04}" {
+                     Name "HorizontalLayout0"
+                     Slot OverlayWidgetSlot "{59710CFC8A805C20}" {
+                      HorizontalAlign 3
+                      VerticalAlign 3
+                      Padding 10 10 10 10
+                     }
+                     "Inherit Color" 1
+                     {
+                      RichTextWidgetClass "{59710CFC854C5D87}" {
+                       Name "Action0"
+                       Slot LayoutSlot "{59710CFC854C5DA2}" {
+                        HorizontalAlign 0
+                        Padding 0 -5 5 0
+                       }
+                       Color 0.761 0.386 0.078 1
+                       Text "RETURN"
+                       "Font Size" 20
+                       "Min Font Size" 20
+                       "Vertical Alignment" Center
+                       FontProperties FontProperties "{59710CFC2978A325}" {
+                        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+                       }
+                       "Line Spacing" 10
+                      }
+                      RichTextWidgetClass "{59710CFC38C745F6}" {
+                       Name "Text"
+                       Slot LayoutSlot "{59710CFC38C74594}" {
+                        HorizontalAlign 0
+                        Padding 5 0 0 0
+                        SizeMode Fill
+                       }
+                       "Inherit Color" 1
+                       Text "Confirm"
+                       "Font Size" 20
+                       "Min Font Size" 20
+                       "Horizontal Alignment" Right
+                       "Vertical Alignment" Center
+                       FontProperties FontProperties "{59710CFDF580B3EA}" {
+                        Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

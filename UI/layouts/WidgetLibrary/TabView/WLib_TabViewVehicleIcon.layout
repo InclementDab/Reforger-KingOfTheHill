@@ -1,0 +1,27 @@
+FrameWidgetClass {
+ Name "Overlay0"
+ Slot AlignableSlot "{559086051CFB1890}" {
+  HorizontalAlign 3
+  VerticalAlign 3
+ }
+ {
+  ImageWidgetClass "{59710909C9EFBD09}" {
+   Name "Icon"
+   Slot FrameWidgetSlot "{59710909C9EFBDD3}" {
+    Anchor 0 0 1 1
+    PositionX 16
+    OffsetLeft 0
+    PositionY 16
+    OffsetTop 0
+    SizeX -300
+    OffsetRight 0
+    SizeY -370
+    OffsetBottom 0
+   }
+   Color 0 0 0 1
+   Texture "{B1BE405EF0CC76ED}UI/Textures/Editor/Attributes/Categories/Attribute_Category_Vehicles.edds"
+   Image ""
+   Size 64 64
+  }
+ }
+}
