@@ -39,6 +39,7 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_TeamScoreDisplay m_ScoreDisplay;
 	protected SCR_FactionManager m_FactionManager;
+	protected ref array<KOTH_SafeZoneTriggerEntity> m_SafeZones = new array<KOTH_SafeZoneTriggerEntity>;
 
 	void KOTH_ZoneManager()
 	{
@@ -57,6 +58,16 @@ class KOTH_ZoneManager: GenericComponent
 	void SetZone(KOTH_ZoneTriggerEntity zone)
 	{
 		m_Zone = zone;
+	}
+	
+	void AddSafeZone(KOTH_SafeZoneTriggerEntity safeZone)
+	{
+		m_SafeZones.Insert(safeZone);
+	}
+	
+	array<KOTH_SafeZoneTriggerEntity> GetSafeZones()
+	{
+		return m_SafeZones;
 	}
 
 	void OnGameStart()

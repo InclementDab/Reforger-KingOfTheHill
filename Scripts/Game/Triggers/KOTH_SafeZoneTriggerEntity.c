@@ -12,6 +12,9 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the safe zone in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
 	protected vector m_SafeZoneCenter;
 
+	protected KOTH_GameModeBase m_GameMode;
+	protected KOTH_ZoneManager m_ZoneManager;
+	
 	protected SCR_MapDescriptorComponent m_MapDescriptor;
 
 	override void OnActivate(IEntity ent)
@@ -105,6 +108,20 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 			InitializeMapDescriptor(m_MapDescriptor);
 			UpdateMapDescriptor(m_MapDescriptor);
 		}
+		
+		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
+		if (!m_GameMode) {
+			Print("Could not find game mode!", LogLevel.ERROR);
+			return;
+		}
+
+		m_ZoneManager = m_GameMode.GetKOTHZoneManager();
+		if (!m_ZoneManager) {
+			Print("Could not find zone manager!", LogLevel.ERROR);
+			return;
+		}
+
+		m_ZoneManager.AddSafeZone(this);
 	}
 
 	protected void InitializeMapDescriptor(SCR_MapDescriptorComponent target)
