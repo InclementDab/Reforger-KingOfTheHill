@@ -74,6 +74,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			string playerName = playerManager.GetPlayerName(playerID);
 			string formatedName = FilterName(playerName);
 			m_PlayerMarker.SetLabel(formatedName);
+			m_PlayerMarker.SetIconSize(36, 36);
 		}
 		
 		//! Create objective marker
@@ -82,6 +83,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			m_ObjectiveMarker = new KOTH_MapMarker(m_RootWidget, m_ZoneManager.GetZone().GetWorldZoneCenter());
 			m_ObjectiveMarker.SetColor(Color.FromRGBA(142, 68, 173, 255));
 			m_ObjectiveMarker.SetLabel("KOTH");
+			m_ObjectiveMarker.SetIconSize(36, 36);
 		}
 
 		//! Create safe zone markers
@@ -94,6 +96,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 				safeZoneMarker.SetIcon("{B1E5566B0FA239A4}UI/icons/marker_64x64.edds");
 				safeZoneMarker.SetColor(faction.GetFactionColor());
 				safeZoneMarker.SetLabel("SAFE ZONE - " + faction.GetFactionName());
+				safeZoneMarker.SetIconSize(32, 32);
 			}
 
 			m_MapMarkers.Insert(safeZoneMarker);
@@ -136,5 +139,9 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		}
 
 		m_Enabled = m_GameMode.UseMapMarkerComponent();
+		
+		//! Disable the component if not enabled in game mode settings
+		if (!m_Enabled)
+			SetActive(false);
 	}
 };

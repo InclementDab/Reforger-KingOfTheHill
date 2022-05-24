@@ -5,8 +5,11 @@ class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 
 class KOTH_GameModeBase: SCR_BaseGameMode
 {
-	[Attribute(defvalue: "0", desc: "If enabled, the KOTH_MapUIComponenMapMarkers will be used and safe zone and objectove markers get created on the players map.", category: "KOTH: Settings")]
+	[Attribute(defvalue: "0", desc: "If enabled, the KOTH_MapUIComponenMapMarkers will be used and safe zone and objective markers get created on the players map.", category: "KOTH: Settings")]
 	protected bool m_bEnableMapUIComponent;
+	
+	[Attribute(defvalue: "0", desc: "If enabled, players will see a 3D waypoint marker on the objective zone location on there UI.", category: "KOTH: Settings")]
+	protected bool m_bEnable3DObjectiveMarker;
 	
 	//! If enabled custom weather Id will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "KOTH: Environment")]
@@ -49,7 +52,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	private void LoadObjectiveUI()
 	{
 		// Load objective waypoint UI upon first spawn
-		if (!m_wWaypoint)
+		if (!m_wWaypoint && m_bEnable3DObjectiveMarker)
 		{
 			Widget waypointFrame = GetGame().GetHUDManager().CreateLayout("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", EHudLayers.BACKGROUND);
 			m_wWaypoint = ImageWidget.Cast(waypointFrame.FindAnyWidget("Icon"));
@@ -76,14 +79,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	}
 	
 	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
-	{
-		// This is not the best way of solving this problem,
-		// but for a small game mode like this it's completely fine.
-		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
-		if (onMapOpenInvoker) {
-			onMapOpenInvoker.Insert(OnMapOpen);
-		}
-		
+	{		
 		//Parse & register vehicle asset list
 		m_aVehicleAssetList = new array<ref KOTH_VehicleAssetInfo>;
 		Resource container = BaseContainerTools.LoadContainer(m_VehicleAssetList);
@@ -95,16 +91,15 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	}
 
 	void ~KOTH_GameModeBase()
-	{
-		ScriptInvoker onMapOpenInvoker = SCR_MapEntity.GetOnMapOpen();
-		if (onMapOpenInvoker)
-			onMapOpenInvoker.Remove(OnMapOpen);
-		
-		if (m_wWaypoint)
-			m_wWaypoint.RemoveFromHierarchy();
-		
-		if (m_wWaypointDistance)
-			m_wWaypointDistance.RemoveFromHierarchy();
+	{	
+		if (m_bEnable3DObjectiveMarker)
+		{
+			if (m_wWaypoint)
+				m_wWaypoint.RemoveFromHierarchy();
+			
+			if (m_wWaypointDistance)
+				m_wWaypointDistance.RemoveFromHierarchy();
+		}
 	}
 
 	protected void DoPanZoomMap(float x, float z, float zoom)
@@ -115,11 +110,6 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 		// Zoom and pan to objectives almost immediately
 		mapEntity.ZoomPanSmooth(zoom, x, z, 0.001);
-	}
-
-	protected void OnMapOpen(MapConfiguration config)
-	{
-		
 	}
 	
 	protected void SetWeather(string weatherId)
@@ -168,9 +158,8 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		UpdateObjectiveUI();
-		
-		
+		if (m_bEnable3DObjectiveMarker)
+			UpdateObjectiveUI();
 	}
 	
 	private void UpdateObjectiveUI()

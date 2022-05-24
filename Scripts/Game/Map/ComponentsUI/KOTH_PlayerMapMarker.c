@@ -43,6 +43,11 @@ class KOTH_PlayerMapMarker
 	{
 		m_Icon.LoadImageFromSet(0, setName, iconName);
 	}
+	
+	void SetIconSize(float x, float y)
+	{
+		FrameSlot.SetSize(m_Icon, x, y);
+	}
 
 	void Update()
 	{
