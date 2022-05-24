@@ -13,16 +13,16 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_ZoneManager m_ZoneManager;
 	protected FactionManager m_FactionManager;
-	protected SCR_MapDescriptorComponent m_MapDescriptor;
-
+	
 	void KOTH_ZoneTriggerEntity(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);
 	}
 
-	override void EOnInit(IEntity owner)
+	protected override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
+		
 		m_FactionManager = GetGame().GetFactionManager();
 		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		if (!m_GameMode) {
@@ -118,67 +118,5 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	vector GetWorldZoneCenter()
 	{
 		return CoordToParent(m_ZoneCenter);
-	}
-
-	protected override bool RplLoad(ScriptBitReader reader)
-	{
-		super.RplLoad(reader);
-
-		if (m_MapDescriptor)
-			UpdateMapDescriptor(m_MapDescriptor);
-
-		return true;
-	}
-
-	protected override void OnInit(IEntity owner)
-	{
-		super.OnInit(owner);
-
-		// Supress messages out of playmode, order of things is not quite guaranteed here
-		if (!GetGame().InPlayMode())
-			return;
-
-		// If map descriptor is present, initialize it
-		m_MapDescriptor = SCR_MapDescriptorComponent.Cast(FindComponent(SCR_MapDescriptorComponent));
-		if (m_MapDescriptor)
-		{
-			InitializeMapDescriptor(m_MapDescriptor);
-			UpdateMapDescriptor(m_MapDescriptor);
-		}
-	}
-
-	protected void InitializeMapDescriptor(SCR_MapDescriptorComponent target)
-	{
-		MapItem item = target.Item();
-		if (!item)
-			return;
-
-		MapDescriptorProps props = item.GetProps();
-		Color color = Color.FromRGBA(192, 57, 43, 255);
-		props.SetIconSize(0.65, 0.65, 0.65);
-		props.SetTextSize(32, 32, 32);
-		props.SetTextBold();
-		props.SetTextColor(color);
-		props.SetTextOffsetX(-10);
-		props.SetTextOffsetY(-16.5);
-		props.Activate(true);
-		props.SetFont("{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt");
-		item.SetProps(props);
-		item.SetDisplayName("KOTH");
-		vector xyz = GetWorldZoneCenter();
-		item.SetPos(xyz[0], xyz[2]);
-		item.SetVisible(true);
-	}
-
-	protected void UpdateMapDescriptor(SCR_MapDescriptorComponent target)
-	{
-		if (!target)
-			return;
-
-		Color color = Color.FromRGBA(192, 57, 43, 255);
-		MapDescriptorProps props = target.Item().GetProps();
-		props.SetTextColor(color);
-		props.Activate(true);
-		target.Item().SetProps(props);
 	}
 }

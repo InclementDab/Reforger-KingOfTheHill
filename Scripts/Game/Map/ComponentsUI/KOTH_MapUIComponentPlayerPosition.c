@@ -5,7 +5,7 @@ class KOTH_MapMarker
 	protected Widget m_Marker;
 	protected ImageWidget m_Icon;
 	protected RichTextWidget m_Text;
-	protected vector m_Position;		
+	protected vector m_Position;
 	
 	void KOTH_MapMarker(Widget parent, vector pos)
 	{
@@ -124,6 +124,7 @@ class KOTH_PlayerMapMarker
 class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 {
 	protected ref array<ref KOTH_MapMarker> m_MapMarkers = new array<ref KOTH_MapMarker>;
+	protected ref KOTH_MapMarker m_ObjectiveMarker;
 	protected ref KOTH_PlayerMapMarker m_PlayerMarker;
 	protected ChimeraCharacter m_Player;
 	protected bool m_Enabled = true;
@@ -136,6 +137,7 @@ class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 		super.Update();
 		
 		if (m_PlayerMarker) m_PlayerMarker.Update();
+		if (m_ObjectiveMarker) m_ObjectiveMarker.Update();
 		
 		if (m_MapMarkers && m_MapMarkers.Count() > 0)
 		{
@@ -153,7 +155,13 @@ class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 		if (m_PlayerMarker)
 			delete m_PlayerMarker;
 		
+		if (m_ObjectiveMarker)
+			delete m_ObjectiveMarker;
 		
+		foreach (KOTH_MapMarker mapMarker: m_MapMarkers)
+		{		
+			delete mapMarker;
+		}
 	}
 
 	override void OnMapOpen(MapConfiguration config)
@@ -163,15 +171,34 @@ class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 		if (!m_RootWidget)
 			return;
 		
+		//! Create player position marker
 		if (!m_PlayerMarker)
 		{
 			m_Player = ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity());
 			m_PlayerMarker = new KOTH_PlayerMapMarker(m_RootWidget, m_Player);
+			m_PlayerMarker.SetColor(Color.FromRGBA(0, 0, 0, 255));
+			m_PlayerMarker.SetLabel(m_Player.GetName());
 		}
 		
+		//! Create objhective marker
+		if (!m_ObjectiveMarker)
+		{
+			m_ObjectiveMarker = new KOTH_MapMarker(m_RootWidget, m_ZoneManager.GetZone().GetWorldZoneCenter());
+			m_ObjectiveMarker.SetColor(Color.FromRGBA(142, 68, 173, 255));
+			m_ObjectiveMarker.SetLabel("KOTH");
+		}
+		
+		//! Create safe zone markers
 		foreach (KOTH_SafeZoneTriggerEntity safeZone: m_ZoneManager.GetSafeZones())
 		{
-			KOTH_MapMarker safeZoneMarker = new KOTH_MapMarker(m_RootWidget, safeZone.GetWorldSafeZoneCenter());		
+			KOTH_MapMarker safeZoneMarker = new KOTH_MapMarker(m_RootWidget, safeZone.GetWorldSafeZoneCenter());
+			KOTH_Faction faction = safeZone.GetAffiliatedFaction();
+			if (faction)
+			{
+				safeZoneMarker.SetColor(faction.GetFactionColor());
+				safeZoneMarker.SetLabel("SAFE ZONE - " + faction.GetFactionName());
+			}
+			
 			m_MapMarkers.Insert(safeZoneMarker);
 		}
 	}

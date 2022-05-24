@@ -14,8 +14,6 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 
 	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_ZoneManager m_ZoneManager;
-	
-	protected SCR_MapDescriptorComponent m_MapDescriptor;
 
 	override void OnActivate(IEntity ent)
 	{
@@ -83,31 +81,13 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		return CoordToParent(m_SafeZoneCenter);
 	}
 
-	protected override bool RplLoad(ScriptBitReader reader)
+	protected override void EOnInit(IEntity owner)
 	{
-		super.RplLoad(reader);
-
-		if (m_MapDescriptor)
-			UpdateMapDescriptor(m_MapDescriptor);
-
-		return true;
-	}
-
-	protected override void OnInit(IEntity owner)
-	{
-		super.OnInit(owner);
+		super.EOnInit(owner);
 
 		// Supress messages out of playmode, order of things is not quite guaranteed here
 		if (!GetGame().InPlayMode())
 			return;
-
-		// If map descriptor is present, initialize it
-		m_MapDescriptor = SCR_MapDescriptorComponent.Cast(FindComponent(SCR_MapDescriptorComponent));
-		if (m_MapDescriptor)
-		{
-			InitializeMapDescriptor(m_MapDescriptor);
-			UpdateMapDescriptor(m_MapDescriptor);
-		}
 		
 		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		if (!m_GameMode) {
@@ -124,29 +104,6 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		m_ZoneManager.AddSafeZone(this);
 	}
 
-	protected void InitializeMapDescriptor(SCR_MapDescriptorComponent target)
-	{
-		MapItem item = target.Item();
-		if (!item)
-			return;
-
-		MapDescriptorProps props = item.GetProps();
-		Color color = Color.FromRGBA(44, 62, 80, 255);
-		props.SetIconSize(0.65, 0.65, 0.65);
-		props.SetTextSize(32, 32, 32);
-		props.SetTextBold();
-		props.SetTextColor(color);
-		props.SetTextOffsetX(-10);
-		props.SetTextOffsetY(-16.5);
-		props.Activate(true);
-		props.SetFont("{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt");
-		item.SetProps(props);
-		item.SetDisplayName("Safe Zone - " + GetAffiliatedFactionName());
-		vector xyz = GetWorldSafeZoneCenter();
-		item.SetPos(xyz[0], xyz[2]);
-		item.SetVisible(true);
-	}
-
 	protected string GetAffiliatedFactionName()
 	{
 		FactionManager factionManager = GetGame().GetFactionManager();
@@ -156,16 +113,14 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 
 		return "UNKNOWN";
 	}
-
-	protected void UpdateMapDescriptor(SCR_MapDescriptorComponent target)
+	
+	KOTH_Faction GetAffiliatedFaction()
 	{
-		if (!target)
-			return;
+		FactionManager factionManager = GetGame().GetFactionManager();
+		KOTH_Faction faction = KOTH_Faction.Cast(factionManager.GetFactionByKey(m_FactionKey));
+		if (faction)
+			return faction;
 
-		Color color = Color.FromRGBA(44, 62, 80, 255);
-		MapDescriptorProps props = target.Item().GetProps();
-		props.SetTextColor(color);
-		props.Activate(true);
-		target.Item().SetProps(props);
+		return NULL;
 	}
 }

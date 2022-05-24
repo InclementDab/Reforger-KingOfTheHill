@@ -541,9 +541,7 @@ $grp SCR_VehicleSpawn {
 SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
-   DisplayName "FIA Spawn (Safezone)"
-   VisibleOnMap 1
-   MapItemDescriptor 1
+   Enabled 0
   }
  }
  coords 6815.458 126.913 6610.908
@@ -559,9 +557,6 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
   KOTH_SafeZoneTriggerEntity {
    components {
     Hierarchy "{596EA01B82753F91}" {
-    }
-    SCR_MapDescriptorComponent "{596EB69BFBCF9C41}" {
-     MainType Spawnpoint
     }
     RplComponent "{596EA01B7B677B95}" {
      "Rpl State Override" Static

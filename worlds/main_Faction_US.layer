@@ -554,9 +554,7 @@ $grp SCR_VehicleSpawn {
 SCR_SpawnPoint US_Spawnpoint2 : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
-   DisplayName "US Spawn (Safe Zone)"
-   VisibleOnMap 1
-   MapItemDescriptor 1
+   Enabled 0
   }
  }
  coords 6425.169 80.915 5590.523
@@ -570,9 +568,6 @@ SCR_SpawnPoint US_Spawnpoint2 : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoin
   KOTH_SafeZoneTriggerEntity {
    components {
     Hierarchy "{596EA01B88DBC6C6}" {
-    }
-    SCR_MapDescriptorComponent "{596EB69BCDF8F108}" {
-     MainType Spawnpoint
     }
     RplComponent "{596EA01B76153A59}" {
      "Rpl State Override" Static

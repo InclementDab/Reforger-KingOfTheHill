@@ -568,9 +568,8 @@ $grp GenericEntity : "{34A56AFC3D4FCAE2}Prefabs/Compositions/Slotted/SlotRoadSma
 SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
-   DisplayName "USSR Spawn (Safe Zone)"
+   Enabled 0
    VisibleOnMap 1
-   MapItemDescriptor 1
   }
  }
  coords 7453.308 102.114 5689.446
@@ -586,9 +585,6 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
   KOTH_SafeZoneTriggerEntity {
    components {
     Hierarchy "{596EA01B91CD795D}" {
-    }
-    SCR_MapDescriptorComponent "{596EB6908A86AE43}" {
-     MainType Spawnpoint
     }
     RplComponent "{596EA01B6568F487}" {
      "Rpl State Override" Static
