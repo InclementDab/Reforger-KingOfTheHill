@@ -1,7 +1,8 @@
 class KOTH_MapMarker
 {
 	protected Widget m_ParentRoot;
-	protected Widget m_Marker;
+	protected Widget m_Root;
+	protected HorizontalLayoutWidget m_Horizontal;
 	protected ImageWidget m_Icon;
 	protected RichTextWidget m_Text;
 	protected vector m_Position;
@@ -11,15 +12,16 @@ class KOTH_MapMarker
 		m_ParentRoot = parent;
 		m_Position = pos;
 
-		m_Marker = GetGame().GetWorkspace().CreateWidgets("{380240BDB1F22EAF}UI/layouts/HUD/KOTH/KOTHMapMarker.layout", parent);
-		m_Icon = ImageWidget.Cast(m_Marker.FindAnyWidget("Icon"));
-		m_Text = RichTextWidget.Cast(m_Marker.FindAnyWidget("Label"));
+		m_Root = GetGame().GetWorkspace().CreateWidgets("{380240BDB1F22EAF}UI/layouts/HUD/KOTH/KOTHMapMarker.layout", parent);
+		m_Horizontal = HorizontalLayoutWidget.Cast(m_Root.FindAnyWidget("HorizontalSpacerWidget"));
+		m_Icon = ImageWidget.Cast(m_Root.FindAnyWidget("Icon"));
+		m_Text = RichTextWidget.Cast(m_Root.FindAnyWidget("Label"));
 	}
 
 	void ~KOTH_MapMarker()
 	{
-		if (m_Marker)
-			m_Marker.RemoveFromHierarchy();
+		if (m_Root)
+			m_Root.RemoveFromHierarchy();
 	}
 
 	void SetColor(Color color)
@@ -45,12 +47,16 @@ class KOTH_MapMarker
 	
 	void SetIconSize(float x, float y)
 	{
+		vector horizontalWSize = FrameSlot.GetSize(m_Horizontal);
+		FrameSlot.SetSize(m_Horizontal, horizontalWSize[0], y);
+		vector rootWSize = FrameSlot.GetSize(m_Root);
+		FrameSlot.SetSize(m_Root, rootWSize[0], y);
 		FrameSlot.SetSize(m_Icon, x, y);
 	}
 
 	void Update()
 	{
-		if (!m_Marker) return;
+		if (!m_Root) return;
 
 		float x, y;
 		SCR_MapEntity.GetMapInstance().WorldToScreen(m_Position[0], m_Position[2], x, y, true);
@@ -58,6 +64,6 @@ class KOTH_MapMarker
 		x = GetGame().GetWorkspace().DPIUnscale(x);
 		y = GetGame().GetWorkspace().DPIUnscale(y);
 
-		FrameSlot.SetPos(m_Marker, x, y);
+		FrameSlot.SetPos(m_Root, x, y);
 	}
 };

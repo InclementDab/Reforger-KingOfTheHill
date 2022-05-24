@@ -11,7 +11,7 @@ FrameWidgetClass {
  }
  {
   HorizontalLayoutWidgetClass "{5970A0E7B3999BBC}" {
-   Name "WrapLayout0"
+   Name "HorizontalSpacerWidget"
    Slot FrameWidgetSlot "{5970A0E7B3999BD3}" {
     PositionX 0
     OffsetLeft 0
