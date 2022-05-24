@@ -121,7 +121,7 @@ class KOTH_PlayerMapMarker
 	}
 };
 
-class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
+class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 {
 	protected ref array<ref KOTH_MapMarker> m_MapMarkers = new array<ref KOTH_MapMarker>;
 	protected ref KOTH_MapMarker m_ObjectiveMarker;
@@ -135,6 +135,8 @@ class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 	override void Update()
 	{
 		super.Update();
+		
+		if (!m_Enabled) return;
 		
 		if (m_PlayerMarker) m_PlayerMarker.Update();
 		if (m_ObjectiveMarker) m_ObjectiveMarker.Update();
@@ -152,22 +154,27 @@ class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 	{
 		super.OnMapClose(config);
 		
+		if (!m_Enabled) return;
+		
 		if (m_PlayerMarker)
 			delete m_PlayerMarker;
 		
 		if (m_ObjectiveMarker)
 			delete m_ObjectiveMarker;
 		
-		foreach (KOTH_MapMarker mapMarker: m_MapMarkers)
+		for (int i = 0; i < m_MapMarkers.Count(); i++)
 		{		
-			delete mapMarker;
+			m_MapMarkers.Remove(i);
 		}
+		
 	}
 
 	override void OnMapOpen(MapConfiguration config)
 	{
 		super.OnMapOpen(config);
 
+		if (!m_Enabled) return;
+		
 		if (!m_RootWidget)
 			return;
 		
@@ -219,5 +226,7 @@ class KOTH_MapUIComponenMapMarkers : SCR_MapUIBaseComponent
 			Print("Could not find zone manager!", LogLevel.ERROR);
 			return;
 		}
+		
+		m_Enabled = m_GameMode.UseMapMarkerComponent();
 	}
 };

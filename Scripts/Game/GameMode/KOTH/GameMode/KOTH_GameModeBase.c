@@ -5,6 +5,9 @@ class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 
 class KOTH_GameModeBase: SCR_BaseGameMode
 {
+	[Attribute(defvalue: "0", desc: "If enabled, the KOTH_MapUIComponenMapMarkers will be used and safe zone and objectove markers get created on the players map.", category: "KOTH: Settings")]
+	protected bool m_bEnableMapUIComponent;
+	
 	//! If enabled custom weather Id will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "KOTH: Environment")]
 	protected bool m_bUseCustomWeather;
@@ -240,5 +243,10 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	ResourceName GetVehicleAssetPrefab(int assetID)
 	{
 		return m_aVehicleAssetList[assetID].GetPrefab();
+	}
+	
+	bool UseMapMarkerComponent()
+	{
+		return m_bEnableMapUIComponent;
 	}
 }

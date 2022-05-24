@@ -90,6 +90,7 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  coords 7059.423 118.741 6016.411
  PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
  m_eTestGameFlags SpawnVehicles
+ m_bEnableMapUIComponent 1
  m_bUseCustomWeather 1
  m_sCustomWeatherId "Rainy"
  m_bUseCustomTime 1
