@@ -82,6 +82,22 @@ FrameWidgetClass {
           }
          }
          {
+          OverlayWidgetClass "{000000001094E915}" {
+           Prefab "{000000001094E915}"
+           Slot LayoutSlot "{5454881316546B14}" {
+            FillWeight 1
+           }
+           {
+            WrapLayoutWidgetClass "{597133D5D07BEF61}" {
+             Name "WrapLayout0"
+             Slot OverlayWidgetSlot "{597133D5D07BEF43}" {
+              HorizontalAlign 3
+              VerticalAlign 3
+              Padding 0 0 0 0
+             }
+            }
+           }
+          }
          }
         }
         SizeLayoutWidgetClass "{589F093B48C39B17}" {

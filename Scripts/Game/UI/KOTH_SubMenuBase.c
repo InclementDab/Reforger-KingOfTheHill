@@ -1,6 +1,5 @@
 class KOTH_SubMenuBase : SCR_SubMenuBase
 {
-	protected KOTH_VehicleSelectionTileSelection m_TileSelection;
 	protected InputManager m_InputManager;
 	protected FactionManager m_FactionManager;
 	protected KOTH_GameModeBase m_GameMode;
@@ -13,10 +12,10 @@ class KOTH_SubMenuBase : SCR_SubMenuBase
 	[Attribute("{1F0A6C9C19E131C6}UI/Textures/Icons/icons_wrapperUI.imageset")]
 	protected ResourceName m_sIcons;
 
-	[Attribute("#AR-ButtonSelectDeploy")]
+	[Attribute("Select Vehicle")]
 	protected LocalizedString m_sButtonTextSelectVehicle;
 
-	[Attribute("#AR-Button_Confirm-UC")]
+	[Attribute("Confirm")]
 	protected LocalizedString m_sConfirm;
 
 	//------------------------------------------------------------------------------------------------

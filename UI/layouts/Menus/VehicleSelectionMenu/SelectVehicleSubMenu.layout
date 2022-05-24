@@ -11,9 +11,6 @@ FrameWidgetClass {
    Slot FrameWidgetSlot "{558462025A51042F}" {
    }
    components {
-    KOTH_VehicleSelectionTileSelection "{596F2AE452A53518}" {
-     m_sTilePrefab "{C0907ACA0A72069C}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile.layout"
-    }
    }
    {
     VerticalLayoutWidgetClass "{5584621E1C59DEFB}" {
