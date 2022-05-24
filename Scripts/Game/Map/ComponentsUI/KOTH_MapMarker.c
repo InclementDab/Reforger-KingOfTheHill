@@ -11,9 +11,11 @@ class KOTH_MapMarker
 		m_ParentRoot = parent;
 		m_Position = pos;
 
-		m_Marker = GetGame().GetWorkspace().CreateWidgets("{1AF7B03852C313F6}UI/layouts/KOTHMapMarker.layout", parent);
+		m_Marker = GetGame().GetWorkspace().CreateWidgets("{380240BDB1F22EAF}UI/layouts/HUD/KOTH/KOTHMapMarker.layout", parent);
 		m_Icon = ImageWidget.Cast(m_Marker.FindAnyWidget("Icon"));
 		m_Text = RichTextWidget.Cast(m_Marker.FindAnyWidget("Label"));
+		
+		FrameSlot.SetSize(m_Icon, 32, 32);
 	}
 
 	void ~KOTH_MapMarker()

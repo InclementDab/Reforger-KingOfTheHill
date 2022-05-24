@@ -1,0 +1,58 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ Slot FrameWidgetSlot "{5970A0E679E89975}" {
+  OffsetLeft 0
+  OffsetTop 0
+  SizeX 400
+  OffsetRight -400
+  SizeY 64
+  OffsetBottom -64
+  SizeToContent 1
+ }
+ {
+  HorizontalLayoutWidgetClass "{5970A0E7B3999BBC}" {
+   Name "WrapLayout0"
+   Slot FrameWidgetSlot "{5970A0E7B3999BD3}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 400
+    OffsetRight -400
+    SizeY 64
+    OffsetBottom -64
+    Alignment 0 0
+    SizeToContent 1
+   }
+   Clipping False
+   {
+    ImageWidgetClass "{597082938E3EB536}" {
+     Name "Icon"
+     Slot LayoutSlot "{5970A0E49F3DD01F}" {
+     }
+     Color 1 1 1 1
+     Pivot 0 0
+     Texture "{DE969B7C3B7BBBCA}UI/icons/objective_marker.edds"
+     Image ""
+     Size 32 32
+    }
+    RichTextWidgetClass "{597082938E3EB530}" {
+     Name "Label"
+     Slot LayoutSlot "{5970A0E49F3DD076}" {
+      SizeMode Fill
+     }
+     Pivot 0 0
+     Text "SAFE ZONE - VERY LONG NAME"
+     "Font Size" 16
+     "Min Font Size" 16
+     "Horizontal Alignment" Center
+     "Vertical Alignment" Center
+     Wrap 1
+     Offset 5 0
+     "Line Spacing" 0
+     "Shadow Offset" 0 0
+    }
+   }
+  }
+ }
+}

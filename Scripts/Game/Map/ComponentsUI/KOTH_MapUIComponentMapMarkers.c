@@ -72,22 +72,6 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			int playerID = SCR_PlayerController.GetLocalPlayerId();
 			PlayerManager playerManager = GetGame().GetPlayerManager();
 			string playerName = playerManager.GetPlayerName(playerID);
-			/*array<string> charsToRemove = new array<string>;
-			for (int i = 0; i < playerName.Length(); i++)
-			{
-				string char = playerName.Get(i);
-				if (char != "\\")
-				{
-					charsToRemove.Insert(char);
-				}
-				else if (char == "\\")
-				{
-					charsToRemove.Insert(char);
-					break;
-				}
-			}*/
-			
-			//playerName.Substring(0, toRemove);
 			string formatedName = FilterName(playerName);
 			m_PlayerMarker.SetLabel(formatedName);
 		}
@@ -107,6 +91,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			KOTH_Faction faction = safeZone.GetAffiliatedFaction();
 			if (faction)
 			{
+				safeZoneMarker.SetIcon("{B1E5566B0FA239A4}UI/icons/marker_64x64.edds");
 				safeZoneMarker.SetColor(faction.GetFactionColor());
 				safeZoneMarker.SetLabel("SAFE ZONE - " + faction.GetFactionName());
 			}
