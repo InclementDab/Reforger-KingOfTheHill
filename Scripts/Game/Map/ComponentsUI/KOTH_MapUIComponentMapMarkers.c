@@ -13,12 +13,20 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	//! Player marker config attributes
 	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the player marker.")]
 	protected ref Color m_iPlayerMarkerColor;
-	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the player marker.", params: "edds imageset")]
+	[Attribute("{EB294B6B8215EC25}UI/icons/arrow_64x64.edds", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the player marker.", params: "edds imageset")]
 	protected ResourceName m_rPlayerMarkerIcon;
 	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the player marker.")]
 	protected string m_rPlayerMarkerIconName;
 	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the player marker.")]
 	protected float m_fPlayerMarkerIconSize;
+	
+	//! Safe zone marker config attributes
+	[Attribute("{B1E5566B0FA239A4}UI/icons/marker_64x64.edds", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the safe zone markers.", params: "edds imageset")]
+	protected ResourceName m_rSafeZoneMarkerIcon;
+	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the safe zone markers.")]
+	protected string m_rSafeZoneMarkerIconName;
+	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the safe zone markers.")]
+	protected float m_fSafeZoneMarkerIconSize;
 	
 	protected ref array<ref KOTH_MapMarker> m_MapMarkers = new array<ref KOTH_MapMarker>;
 	protected ref KOTH_MapMarker m_ObjectiveMarker;
@@ -113,7 +121,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			
 			m_ObjectiveMarker.SetColor(m_iObjectiveMarkerColor);
 			m_ObjectiveMarker.SetLabel("KOTH");
-			m_ObjectiveMarker.SetIconSize(36, 36);
+			m_ObjectiveMarker.SetIconSize(m_fObjectiveMarkerIconSize, m_fObjectiveMarkerIconSize);
 		}
 
 		//! Create safe zone markers
@@ -123,10 +131,17 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			KOTH_Faction faction = safeZone.GetAffiliatedFaction();
 			if (faction)
 			{
-				safeZoneMarker.SetIcon("{B1E5566B0FA239A4}UI/icons/marker_64x64.edds");
+				if (m_rSafeZoneMarkerIconName != string.Empty && m_rSafeZoneMarkerIcon != ResourceName.Empty) {
+					safeZoneMarker.SetIconFromSet(m_rSafeZoneMarkerIcon, m_rSafeZoneMarkerIconName);
+				}
+				else if (m_rSafeZoneMarkerIconName == string.Empty && m_rSafeZoneMarkerIcon != ResourceName.Empty) {
+					safeZoneMarker.SetIcon(m_rSafeZoneMarkerIcon);
+				}
+				
+				safeZoneMarker.SetIcon(m_rSafeZoneMarkerIcon);
 				safeZoneMarker.SetColor(faction.GetFactionColor());
 				safeZoneMarker.SetLabel("SAFE ZONE - " + faction.GetFactionName());
-				safeZoneMarker.SetIconSize(m_fObjectiveMarkerIconSize, m_fObjectiveMarkerIconSize);
+				safeZoneMarker.SetIconSize(m_fSafeZoneMarkerIconSize, m_fSafeZoneMarkerIconSize);
 			}
 
 			m_MapMarkers.Insert(safeZoneMarker);

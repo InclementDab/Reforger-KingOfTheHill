@@ -92,6 +92,9 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  m_eTestGameFlags SpawnVehicles
  m_bEnableMapUIComponent 1
  m_bEnable3DObjectiveMarker 1
+ m_i3DMarkerColor 0 0 0 0
+ m_r3DMarkerIcon "{C3F217CA9CF060B4}UI/Imagesets/Conflict/ConflictIconsSet.imageset"
+ m_r3DMarkerIconName "Task_Attack"
  m_bUseCustomWeather 1
  m_sCustomWeatherId "Rainy"
  m_bUseCustomTime 1

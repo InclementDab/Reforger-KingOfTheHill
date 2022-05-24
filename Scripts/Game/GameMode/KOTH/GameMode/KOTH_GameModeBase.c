@@ -11,6 +11,20 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	[Attribute(defvalue: "0", desc: "If enabled, players will see a 3D waypoint marker on the objective zone location on there UI.", category: "KOTH: Settings")]
 	protected bool m_bEnable3DObjectiveMarker;
 	
+	[Attribute(defvalue: "0", desc: "If enabled then the defined marker color will be applied on the 3D marker icon. If not the basic image color will be used.", category: "KOTH: Settings")]
+	protected bool m_bUse3DMarkerColor;
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the 3D objective marker.", category: "KOTH: Settings")]
+	protected ref Color m_i3DMarkerColor;
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the 3D objective marker distance text.", category: "KOTH: Settings")]
+	protected ref Color m_i3DMarkerTextColor;
+	
+	[Attribute("{DE969B7C3B7BBBCA}UI/icons/objective_marker.edds", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the 3D objective marker.", category: "KOTH: Settings", params: "edds imageset")]
+	protected ResourceName m_r3DMarkerIcon;
+	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the 3D objective marker.", category: "KOTH: Settings")]
+	protected string m_r3DMarkerIconName;
+	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the 3D objective marker.", category: "KOTH: Settings")]
+	protected float m_f3DMarkerIconSize;
+	
 	//! If enabled custom weather Id will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "KOTH: Environment")]
 	protected bool m_bUseCustomWeather;
@@ -61,14 +75,23 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			if (m_wWaypoint)
 			{
 				m_wWaypoint.SetOpacity(0);
-				m_wWaypoint.SetColor(Color.FromRGBA(179, 57, 57, 240));
-				FrameSlot.SetSize(m_wWaypoint, 46, 46);
+				
+				if (m_r3DMarkerIconName != string.Empty && m_r3DMarkerIcon != ResourceName.Empty) {
+					m_wWaypoint.LoadImageFromSet(0, m_r3DMarkerIcon, m_r3DMarkerIconName);
+				} else if (m_r3DMarkerIconName == string.Empty && m_r3DMarkerIcon != ResourceName.Empty) {
+					m_wWaypoint.LoadImageTexture(0, m_r3DMarkerIcon);
+				}
+				
+				if (m_bUse3DMarkerColor)
+					m_wWaypoint.SetColor(m_i3DMarkerColor);
+				
+				FrameSlot.SetSize(m_wWaypoint, m_f3DMarkerIconSize, m_f3DMarkerIconSize);
 			}
 			
 			if (m_wWaypointDistance)
 			{
 				m_wWaypointDistance.SetOpacity(0);
-				m_wWaypointDistance.SetColor(Color.FromRGBA(179, 57, 57, 240));
+				m_wWaypointDistance.SetColor(m_i3DMarkerTextColor);
 			}
 		}
 	}
