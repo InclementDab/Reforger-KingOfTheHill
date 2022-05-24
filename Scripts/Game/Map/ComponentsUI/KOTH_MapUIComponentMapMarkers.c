@@ -7,6 +7,8 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	protected ResourceName m_rObjectiveMarkerIcon;
 	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the main objective zone marker.")]
 	protected string m_rObjectiveMarkerIconName;
+	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the main objective zone marker.")]
+	protected float m_fObjectiveMarkerIconSize;
 	
 	//! Player marker config attributes
 	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the player marker.")]
@@ -15,6 +17,8 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	protected ResourceName m_rPlayerMarkerIcon;
 	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the player marker.")]
 	protected string m_rPlayerMarkerIconName;
+	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the player marker.")]
+	protected float m_fPlayerMarkerIconSize;
 	
 	protected ref array<ref KOTH_MapMarker> m_MapMarkers = new array<ref KOTH_MapMarker>;
 	protected ref KOTH_MapMarker m_ObjectiveMarker;
@@ -93,7 +97,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			string playerName = playerManager.GetPlayerName(playerID);
 			string formatedName = FilterName(playerName);
 			m_PlayerMarker.SetLabel(formatedName);
-			m_PlayerMarker.SetIconSize(36, 36);
+			m_PlayerMarker.SetIconSize(m_fPlayerMarkerIconSize, m_fPlayerMarkerIconSize);
 		}
 		
 		//! Create objective marker
@@ -122,7 +126,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 				safeZoneMarker.SetIcon("{B1E5566B0FA239A4}UI/icons/marker_64x64.edds");
 				safeZoneMarker.SetColor(faction.GetFactionColor());
 				safeZoneMarker.SetLabel("SAFE ZONE - " + faction.GetFactionName());
-				safeZoneMarker.SetIconSize(32, 32);
+				safeZoneMarker.SetIconSize(m_fObjectiveMarkerIconSize, m_fObjectiveMarkerIconSize);
 			}
 
 			m_MapMarkers.Insert(safeZoneMarker);
