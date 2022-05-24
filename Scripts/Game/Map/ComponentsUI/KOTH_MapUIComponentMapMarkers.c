@@ -15,8 +15,11 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 
 		if (!m_Enabled) return;
 
-		if (m_PlayerMarker) m_PlayerMarker.Update();
-		if (m_ObjectiveMarker) m_ObjectiveMarker.Update();
+		if (m_PlayerMarker)
+			m_PlayerMarker.Update();
+		
+		if (m_ObjectiveMarker)
+			m_ObjectiveMarker.Update();
 
 		if (m_MapMarkers && m_MapMarkers.Count() > 0)
 		{
@@ -31,7 +34,8 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	{
 		super.OnMapClose(config);
 
-		/*if (!m_Enabled) return;
+		if (!m_Enabled) 
+			return;
 
 		if (m_PlayerMarker)
 			delete m_PlayerMarker;
@@ -42,7 +46,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		for (int i = 0; i < m_MapMarkers.Count(); i++)
 		{
 			m_MapMarkers.Remove(i);
-		}*/
+		}
 	}
 
 	override void OnMapOpen(MapConfiguration config)
@@ -58,12 +62,37 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		if (!m_PlayerMarker)
 		{
 			m_Player = ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity());
+			if (!m_Player) 
+				return;
+			
 			m_PlayerMarker = new KOTH_PlayerMapMarker(m_RootWidget, m_Player);
-			m_PlayerMarker.SetColor(Color.FromRGBA(0, 0, 0, 255));
-			m_PlayerMarker.SetLabel(m_Player.GetName());
+			m_PlayerMarker.SetIcon("{EB294B6B8215EC25}UI/icons/arrow_64x64.edds");
+			m_PlayerMarker.SetColor(Color.FromRGBA(44, 62, 80, 255));
+			
+			int playerID = SCR_PlayerController.GetLocalPlayerId();
+			PlayerManager playerManager = GetGame().GetPlayerManager();
+			string playerName = playerManager.GetPlayerName(playerID);
+			/*array<string> charsToRemove = new array<string>;
+			for (int i = 0; i < playerName.Length(); i++)
+			{
+				string char = playerName.Get(i);
+				if (char != "\\")
+				{
+					charsToRemove.Insert(char);
+				}
+				else if (char == "\\")
+				{
+					charsToRemove.Insert(char);
+					break;
+				}
+			}*/
+			
+			//playerName.Substring(0, toRemove);
+			string formatedName = FilterName(playerName);
+			m_PlayerMarker.SetLabel(formatedName);
 		}
-
-		//! Create objhective marker
+		
+		//! Create objective marker
 		if (!m_ObjectiveMarker)
 		{
 			m_ObjectiveMarker = new KOTH_MapMarker(m_RootWidget, m_ZoneManager.GetZone().GetWorldZoneCenter());
@@ -85,6 +114,24 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			m_MapMarkers.Insert(safeZoneMarker);
 		}
 	}
+	
+	string FilterName(string name)
+    {
+		string partToRemove;
+		for (int i = 0; i < name.Length(); i++)
+		{
+			string char = name.Get(i);
+			if (char == "\\" )
+			{
+				partToRemove = name.Substring(0, i + 1);
+				break;
+			}
+		}
+		
+		name.Replace(partToRemove, "");
+		
+        return name;
+    }
 
 	//------------------------------------------------------------------------------------------------
 	override void Init()
