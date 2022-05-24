@@ -1,0 +1,50 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ Slot FrameWidgetSlot "{596F73DF729F0294}" {
+  OffsetLeft 0
+  OffsetTop 0
+  SizeX 200
+  OffsetRight -200
+  SizeY 32
+  OffsetBottom -32
+ }
+ {
+  ImageWidgetClass "{597002A877764F68}" {
+   Name "Icon"
+   Slot FrameWidgetSlot "{596F73DF602F00C1}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 32
+    OffsetRight -32
+    SizeY 32
+    OffsetBottom -32
+   }
+   Texture "{B1E5566B0FA239A4}UI/icons/marker_64x64.edds"
+   Image ""
+   Size 64 64
+  }
+  RichTextWidgetClass "{597002A877764F6A}" {
+   Name "Label"
+   Slot FrameWidgetSlot "{58547DF964996190}" {
+    Anchor 0.176 0.243 0.176 0.243
+    PositionX 51.172
+    OffsetLeft 51.172
+    PositionY 8.095
+    OffsetTop 8.095
+    SizeX 98.363
+    OffsetRight -149.535
+    SizeY 17.301
+    OffsetBottom -25.396
+    Alignment 0.5 0.5
+    SizeToContent 1
+   }
+   Text "SAFE ZONE - US"
+   "Font Size" 16
+   "Min Font Size" 16
+   Wrap 1
+   Offset 0 0
+  }
+ }
+}

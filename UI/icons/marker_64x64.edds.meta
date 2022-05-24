@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{B1E5566B0FA239A4}DayZExpansion/Core/GUI/icons/hud/marker_64x64.edds"
+ Author "desktop-e8g26fa"
+ ChangeDate 688777986
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "marker_64x64.TGA"
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

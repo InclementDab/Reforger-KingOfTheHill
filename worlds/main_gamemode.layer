@@ -91,9 +91,10 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
  m_eTestGameFlags SpawnVehicles
  m_bUseCustomWeather 1
- m_sCustomWeatherId "Cloudy"
+ m_sCustomWeatherId "Rainy"
  m_bUseCustomTime 1
- m_VehicleAssetList "{FA90A6000A37E349}Configs/Vehicles/VehicleAssetList.conf"
+ m_fCustomTimeOfTheDay 0
+ m_VehicleAssetList "{98A343D8C86F9DFB}Configs/Vehicles/VehicleAssetList.conf"
 }
 SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
  components {

@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{EB294B6B8215EC25}DayZExpansion/Core/GUI/icons/hud/arrow_64x64.edds"
+ Author "desktop-e8g26fa"
+ ChangeDate 16640770
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "arrow_64x64.TGA"
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}
