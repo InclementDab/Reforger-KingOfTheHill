@@ -1,5 +1,8 @@
 SCR_ChimeraCharacter : "{2F912ED6E399FF47}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Unarmed.et" {
  components {
+  SCR_CharacterDamageManagerComponent "{55872AD7B4E959F2}" {
+   EnableDamage 0
+  }
   ActionsManagerComponent "{520EA1D2F659CE02}" {
    additionalActions {
     KOTH_OpenKOTHMenuUserAction "{5970FE598C203859}" {
@@ -17,4 +20,24 @@ SCR_ChimeraCharacter : "{2F912ED6E399FF47}Prefabs/Characters/Factions/BLUFOR/US_
  angleX 3.209
  angleY -61.888
  angleZ -0.313
+}
+GenericEntity : "{5196CA1829D428F7}Prefabs/Compositions/Misc/SubCompositions/Sandbag_Bunker_Cluttered_US_01.et" {
+ coords 7079.844 118.852 6020.348
+ angleX 2.623
+ angleY -1.287
+ angleZ -2.74
+}
+$grp GenericEntity : "{8F623F3CB68525DC}Prefabs/Compositions/Misc/SubCompositions/Sandbag_Cluttered_US_01.et" {
+ {
+  coords 7096.909 118.977 6029.527
+  angleX -1.068
+  angleY 126.622
+  angleZ 1.436
+ }
+ {
+  coords 7100.294 118.92 6026.996
+  angleX -1.068
+  angleY 126.622
+  angleZ 1.436
+ }
 }
