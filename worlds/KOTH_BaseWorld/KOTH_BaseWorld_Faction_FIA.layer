@@ -564,7 +564,7 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
     }
    }
    TriggerShapeType Sphere
-   SphereRadius 50
+   SphereRadius 75
    DrawShape 1
    TriggerActivationType "Every query"
    PeriodicQueries 1
@@ -574,6 +574,8 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
   SCR_Position {
    components {
     Hierarchy "{596EA01BB9A02E5D}" {
+    }
+    RplComponent "{597361D27EECABC9}" {
     }
    }
    coords 0 0 0

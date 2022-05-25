@@ -592,7 +592,7 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
     }
    }
    TriggerShapeType Sphere
-   SphereRadius 50
+   SphereRadius 75
    DrawShape 1
    TriggerActivationType "Every query"
    PeriodicQueries 1
@@ -602,6 +602,8 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
   SCR_Position SCR_Position2 {
    components {
     Hierarchy "{596EA01BE48CF899}" {
+    }
+    RplComponent "{597361D2835DAA8A}" {
     }
    }
   }

@@ -6,7 +6,7 @@ modded class SCR_SelectFactionSubMenu
 	override void UpdateFactionPlayerList()
 	{
 		super.UpdateFactionPlayerList();
-
+		
 		m_RespawnSystemComponent = SCR_RespawnSystemComponent.GetInstance();
 
 		array<Faction> factions = {};

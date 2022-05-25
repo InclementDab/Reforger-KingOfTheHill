@@ -71,12 +71,21 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			return;
 		}
 		
+		return; // todo ids not working at this stage, fix!
+		
+		Print("Checking id " + iPlayerID);
 		// Handle VIP slots
 		PlayerManager player_manager = GetGame().GetPlayerManager();
+		string player_uid = GetGame().GetBackendApi().GetPlayerUID(iPlayerID);
 		KOTH_MissionHeader header = KOTH_MissionHeader.Cast(GetGame().GetMissionHeader());
+		Print(player_uid);
 		if (!header) {
 			return; // probably offline, dont worry about it
 		}
+		
+		Print(header.m_iPlayerCount);
+		Print(player_manager.GetPlayerCount());
+		Print(header.GetVIPSlotCount());
 		
 		if (header.m_iPlayerCount - player_manager.GetPlayerCount() > header.GetVIPSlotCount()) {
 			// todo if player is VIP, return
@@ -84,6 +93,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 				//return;
 			//}
 			
+			Print("Kicking player id " + player_uid);
 			player_manager.KickPlayer(iPlayerID, PlayerManagerKickReason.KICK);
 		}
 	}
