@@ -12,17 +12,17 @@ Vehicle : "{49C21BD25CF5ECE0}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command_spaw
    components {
     Hierarchy "{596D232712F5B146}" {
     }
-    RplComponent "{596D232710880930}" {
-    }
     SCR_MapDescriptorComponent "{596D23263648D90C}" {
      DisplayName "Mobile Spawn (HQ)"
      MainType Spawnpoint
     }
+    RplComponent "{596D232710880930}" {
+    }
    }
    coords 0 0 -5.496
    angleY 180
-   m_fSpawnRadius 2
-   m_fNoSightRadius 0
+   m_fSpawnRadius 5
+   m_fNoSightRadius 10
    m_sFaction "US"
    {
     SCR_Position {

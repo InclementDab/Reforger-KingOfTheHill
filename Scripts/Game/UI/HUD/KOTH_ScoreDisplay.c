@@ -60,6 +60,10 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	*/
 	override void DisplayStartDraw(IEntity owner)
 	{
+		if (RplSession.Mode() == RplMode.Dedicated) {
+			delete this; // lol bugfix
+		}
+		
 		if (!m_wRoot || !m_KOTHManager) {
 			return;
 		}
