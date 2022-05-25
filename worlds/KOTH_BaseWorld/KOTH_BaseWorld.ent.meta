@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{16F9F6F781C1AB2D}worlds/main.ent"
+ Name "{16F9F6F781C1AB2D}worlds/KOTH_BaseWorld/KOTH_BaseWorld.ent"
  Configurations {
   ENTResourceClass PC {
   }
