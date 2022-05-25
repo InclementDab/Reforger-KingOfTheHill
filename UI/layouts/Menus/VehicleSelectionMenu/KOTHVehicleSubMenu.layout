@@ -10,8 +10,6 @@ FrameWidgetClass {
    Name "TileSelection"
    Slot FrameWidgetSlot "{558462025A51042F}" {
    }
-   components {
-   }
    {
     VerticalLayoutWidgetClass "{5584621E1C59DEFB}" {
      Prefab "{5584621E1C59DEFB}"
@@ -26,6 +24,7 @@ FrameWidgetClass {
            Prefab "{56DE73DD3754FB6B}"
            components {
             SCR_GalleryComponent "{56D4A49D514555C0}" {
+             m_sItemLayout "{C0907ACA0A72069C}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile.layout"
             }
            }
            {

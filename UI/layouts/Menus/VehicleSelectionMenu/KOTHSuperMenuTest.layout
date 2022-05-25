@@ -146,6 +146,7 @@ FrameWidgetClass {
                Slot LayoutSlot "{59710CFA26C681E3}" {
                }
                "Z Order" -3
+               "Is Visible" 0
                Color 0 0 0 0
                "no focus" 1
                {

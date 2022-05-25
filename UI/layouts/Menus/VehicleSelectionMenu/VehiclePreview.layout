@@ -1,0 +1,37 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ components {
+  KOTH_VehiclePreviewComponent "{5972F84CF80BF261}" {
+  }
+ }
+ {
+  OverlayWidgetClass "{5972F84DD741ECA3}" {
+   Name "Overlay"
+   Slot FrameWidgetSlot "{552068607D1612F5}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   {
+    ItemPreviewWidgetClass "{5972F84DD741ECA5}" {
+     Name "Preview"
+     Slot OverlayWidgetSlot "{5520686078A2A7F7}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Opacity 0.393
+     Color 1 1 1 1
+     "Use clear color" 1
+     "Clear Color" 0 0 0 0
+     "Blend mode" Blend
+    }
+   }
+  }
+ }
+}

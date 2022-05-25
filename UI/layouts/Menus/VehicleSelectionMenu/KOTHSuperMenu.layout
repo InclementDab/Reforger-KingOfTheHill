@@ -92,10 +92,6 @@ FrameWidgetClass {
          components {
           SCR_TabViewComponent "{546B27D01CA8A38D}" {
            m_aElements {
-            SCR_TabViewContent "{58A07A786A39582F}" {
-             m_ElementLayout "{4517634FB88BB42A}UI/layouts/Menus/RoleSelection/RespawnBriefingSubMenu.layout"
-             m_sTabButtonContent "#AR-DeployMenu_TabName_Briefing-UC"
-            }
             SCR_TabViewContent "{596F4E519B8B66C8}" {
              m_ElementLayout "{B7E819173F4D2BC4}UI/layouts/Menus/VehicleSelectionMenu/SelectVehicleSubMenu.layout"
              m_sTabButtonContent "VEHICLES"
