@@ -1,0 +1,26 @@
+{
+    "dedicatedServerId": "ar-mptest-%profilename",
+    "region": "US",
+    "gameHostBindAddress": "",
+    "gameHostBindPort": 2001,
+    "gameHostRegisterBindAddress": "",
+    "gameHostRegisterPort": 2001,
+    "adminPassword": "mp",
+    "game": {
+        "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "scenarioId": "{5968FE6DF3F3853B}Missions/KOTH_Test.conf",
+        "playerCountLimit": 64,
+        "visible": true,
+        "gameMode": "",
+        "supportedGameClientTypes": [
+            "PLATFORM_PC",
+            "PLATFORM_XBL"
+        ],
+        "gameProperties": {
+            "serverMaxViewDistance": 1600,
+            "battleEye": true,
+            "fastValidation": true
+        },
+        "mods": []
+    }
+}

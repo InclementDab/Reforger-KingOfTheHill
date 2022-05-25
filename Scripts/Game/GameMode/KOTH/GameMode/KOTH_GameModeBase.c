@@ -63,6 +63,31 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		LoadObjectiveUI();
 	}
 	
+	override void OnPlayerAuditSuccess(int iPlayerID)
+	{
+		super.OnPlayerAuditSuccess(iPlayerID);
+		
+		if (!Replication.IsServer()) {
+			return;
+		}
+		
+		// Handle VIP slots
+		PlayerManager player_manager = GetGame().GetPlayerManager();
+		KOTH_MissionHeader header = KOTH_MissionHeader.Cast(GetGame().GetMissionHeader());
+		if (!header) {
+			return; // probably offline, dont worry about it
+		}
+		
+		if (header.m_iPlayerCount - player_manager.GetPlayerCount() > header.GetVIPSlotCount()) {
+			// todo if player is VIP, return
+			// if (player.VIP()) {
+				//return;
+			//}
+			
+			player_manager.KickPlayer(iPlayerID, PlayerManagerKickReason.KICK);
+		}
+	}
+	
 	private void LoadObjectiveUI()
 	{
 		// Load objective waypoint UI upon first spawn
