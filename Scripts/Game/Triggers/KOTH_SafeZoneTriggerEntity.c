@@ -90,4 +90,9 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 
 		m_ZoneManager.AddSafeZone(this);
 	}
+	
+	KOTH_Faction GetFaction()
+	{
+		return KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey(m_FactionKey));
+	}
 }

@@ -132,10 +132,9 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		}
 
 		//! Create safe zone markers
-		foreach (KOTH_SafeZoneTriggerEntity safeZone: m_ZoneManager.GetSafeZones())
-		{
-			KOTH_MapMarker safeZoneMarker = new KOTH_MapMarker(m_RootWidget, safeZone.GetWorldSafeZoneCenter());
-			KOTH_Faction faction = safeZone.GetAffiliatedFaction();
+		foreach (KOTH_SafeZoneTriggerEntity safe_zone: m_ZoneManager.GetSafeZones()) {
+			KOTH_MapMarker safeZoneMarker = new KOTH_MapMarker(m_RootWidget, safe_zone.GetWorldSafeZoneCenter());
+			KOTH_Faction faction = safe_zone.GetFaction();
 			if (faction)
 			{
 				if (m_rSafeZoneMarkerIconName != string.Empty && m_rSafeZoneMarkerIcon != ResourceName.Empty) {
