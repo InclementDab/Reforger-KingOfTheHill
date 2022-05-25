@@ -106,10 +106,9 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		//Parse & register vehicle asset list
 		m_aVehicleAssetList = new array<ref KOTH_VehicleAssetInfo>;
 		Resource container = BaseContainerTools.LoadContainer(m_VehicleAssetList);
-		if (container && container.IsValid())
-		{
+		if (container && container.IsValid()) {
 			KOTH_VehicleAssetList list = KOTH_VehicleAssetList.Cast(BaseContainerTools.CreateInstanceFromContainer(container.GetResource().ToBaseContainer()));
-			list.GetVehicleAssetList(m_aVehicleAssetList);
+			m_aVehicleAssetList = list.GetVehicleAssetList();
 		}
 	}
 
