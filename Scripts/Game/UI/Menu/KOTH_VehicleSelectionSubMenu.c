@@ -18,7 +18,8 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	protected string m_sConfirmButtonText;
 	//[Attribute("NoLoadoutSaved")]
 	//protected string m_sNoArsenalLoadoutMessageID;
-
+	
+	//------------------------------------------------------------------------------------------------
 	void GetWidgets()
 	{
 		Widget tileSelection = GetRootWidget().FindAnyWidget("TileSelection");
@@ -29,6 +30,8 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuOpen(SCR_SuperMenuBase parentMenu)
 	{
+		Print(ToString() + "::OnMenuOpen - Start");
+		
 		super.OnMenuOpen(parentMenu);
 		
 		GetWidgets();
@@ -42,6 +45,8 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 
 		//m_LoadoutManager = GetGame().GetLoadoutManager();
 		m_sConfirmButtonText = m_sButtonTextSelectVehicle;
+		
+		Print(ToString() + "::OnMenuOpen - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -49,12 +54,14 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	{
 		super.OnMenuShow(parentMenu);
 
-		UpdateLoadouts();
+		UpdateVehicles();
 	}
 
 	//------------------------------------------------------------------------------------------------
-	protected void UpdateLoadouts()
+	protected void UpdateVehicles()
 	{
+		Print(ToString() + "::UpdateVehicles - Start");
+		
 		//Faction faction = m_RespawnSystemComponent.GetPlayerFaction(m_iPlayerId);
 		array<ref KOTH_VehicleAssetInfo> vehicles = new array<ref KOTH_VehicleAssetInfo>;
 		Widget gallery = GetRootWidget().FindAnyWidget(m_sTileContainer);
@@ -80,29 +87,32 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 
 		for (int i = 0; i < vehiclesCnt; ++i)
 		{
+			Resource res = Resource.Load(vehicles[i].GetPrefab());
+			BaseResourceObject baseObj = res.GetResource();
+			IEntityComponentSource source = SCR_BaseContainerTools.FindComponentSource(res, "SCR_EditableVehicleComponent");
+			BaseContainer container = source.GetObject("m_UIInfo");
+			SCR_EditableEntityUIInfo info = SCR_EditableEntityUIInfo.Cast(BaseContainerTools.CreateInstanceFromContainer(container));
+			
+			ResourceName path;
+			// get the vehicle img
+			container.Get("m_Image", path);
+			
+			Print(ToString() + "::UpdateVehicles - Display Name: " + vehicles[i].GetDisplayName());	
+			Print(ToString() + "::UpdateVehicles - Resource: " + res.ToString());
+			Print(ToString() + "::UpdateVehicles - BaseResourceObject: " + baseObj.ToString());
+			Print(ToString() + "::UpdateVehicles - IEntityComponentSource: " + source.ToString());
+			Print(ToString() + "::UpdateVehicles - BaseContainer: " + container.ToString());
+			Print(ToString() + "::UpdateVehicles - SCR_EditableEntityUIInfo: " + info.ToString());
+			Print(ToString() + "::UpdateVehicles - ResourceName: " + path);
+			
 			KOTH_VehicleMenuTile tile = KOTH_VehicleMenuTile.InitializeTile(m_TileSelection, vehicles[i]);			
 			m_mAvailableVehicles.Set(tile, vehicles[i]);
 			tile.m_OnClicked.Insert(HandleOnConfirm);
 		}
 
 		m_TileSelection.Init();
-	}
-
-	//------------------------------------------------------------------------------------------------
-	protected int GetWeaponSlots(IEntitySource prefab, out array<IEntityComponentSource> slots)
-	{
-		if (!prefab)
-			return -1;
-
-		int componentsCount = prefab.GetComponentCount();
-		for (int i = 0; i < componentsCount; ++i)
-		{
-			IEntityComponentSource compSrc = prefab.GetComponent(i);
-			if (compSrc.GetClassName() == "CharacterWeaponSlotComponent")
-				slots.Insert(compSrc);
-		}
-
-		return slots.Count();
+		
+		Print(ToString() + "::UpdateVehicles - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -120,10 +130,14 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	//------------------------------------------------------------------------------------------------
 	protected bool ConfirmSelection()
 	{
+		Print(ToString() + "::ConfirmSelection - Start");
+		
 		if (GetSelectedVehicle())
 		{
 			//! TODO!!
 		}
+		
+		Print(ToString() + "::ConfirmSelection - End");
 		
 		return false;
 	}
@@ -138,8 +152,12 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	//------------------------------------------------------------------------------------------------
 	void HandleOnVehicleAssigned(int playerId, KOTH_VehicleAssetInfo vehicle)
 	{
+		Print(ToString() + "::HandleOnVehicleAssigned - Start");
+		
+		Print(ToString() + "::HandleOnVehicleAssigned - End");
 	}
 	
+	//------------------------------------------------------------------------------------------------	
 	protected void CreateConfirmButton()
 	{
 		m_ConfirmButton = CreateNavigationButton("MenuSelect", m_sConfirm, true);
@@ -149,11 +167,16 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 			m_ConfirmButton.GetRootWidget().SetZOrder(-1);
 		}
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	protected void HandleOnConfirm()
 	{
+		Print(ToString() + "::HandleOnVehicleAssigned - Start");
+				
 		bool assignResult = ConfirmSelection();
 		m_bVehicleRequestSent = false;
+		
+		Print(ToString() + "::HandleOnVehicleAssigned - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------

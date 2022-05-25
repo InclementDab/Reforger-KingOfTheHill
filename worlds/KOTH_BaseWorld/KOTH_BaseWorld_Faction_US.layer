@@ -554,7 +554,10 @@ $grp SCR_VehicleSpawn {
 SCR_SpawnPoint US_Spawnpoint2 : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
-   Enabled 0
+  }
+  RplComponent "{552E67F19D2F2A2F}" {
+   "Self Insert" 1
+   "Rpl State Override" Static
   }
  }
  coords 6425.169 80.915 5590.523
@@ -585,6 +588,10 @@ SCR_SpawnPoint US_Spawnpoint2 : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoin
   SCR_Position {
    components {
     Hierarchy "{596EA01B8C78D944}" {
+    }
+    RplComponent "{59735AC36B7B0D89}" {
+     "Rpl State Override" Static
+     Streamable Disabled
     }
    }
   }

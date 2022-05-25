@@ -541,7 +541,10 @@ $grp SCR_VehicleSpawn {
 SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
-   Enabled 0
+  }
+  RplComponent "{552E67F19D2F2A2F}" {
+   "Self Insert" 1
+   "Rpl State Override" Static
   }
  }
  coords 6815.458 126.913 6610.908
@@ -574,6 +577,10 @@ SCR_SpawnPoint FIA_Spawnpoint2 : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoi
   SCR_Position {
    components {
     Hierarchy "{596EA01BB9A02E5D}" {
+    }
+    RplComponent "{59735AC316518FB0}" {
+     "Rpl State Override" Static
+     Streamable Disabled
     }
    }
    coords 0 0 0

@@ -568,8 +568,11 @@ $grp GenericEntity : "{34A56AFC3D4FCAE2}Prefabs/Compositions/Slotted/SlotRoadSma
 SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
  components {
   SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
-   Enabled 0
    VisibleOnMap 1
+  }
+  RplComponent "{552E67F19D2F2A2F}" {
+   "Self Insert" 1
+   "Rpl State Override" Static
   }
  }
  coords 7453.308 102.114 5689.446
@@ -602,6 +605,10 @@ SCR_SpawnPoint USSR_SpawnPoint2 : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPo
   SCR_Position SCR_Position2 {
    components {
     Hierarchy "{596EA01BE48CF899}" {
+    }
+    RplComponent "{59735AC3786307E6}" {
+     "Rpl State Override" Static
+     Streamable Disabled
     }
    }
   }

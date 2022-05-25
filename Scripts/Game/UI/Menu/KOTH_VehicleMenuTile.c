@@ -1,9 +1,5 @@
-class KOTH_VehicleMenuTileBase : SCR_ButtonImageComponent
-{
-};
-
 //------------------------------------------------------------------------------------------------
-class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
+class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 {
 	[Attribute("VehicleMessage", desc: "Widget name of simple message component")]
 	protected string m_sSimpleMessageName;
@@ -21,7 +17,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 
 	//------------------------------------------------------------------------------------------------
 	static KOTH_VehicleMenuTile InitializeTile(KOTH_VehicleMenuTileSelection parent, KOTH_VehicleAssetInfo vehicle)
-	{
+	{		
 		Widget tile = GetGame().GetWorkspace().CreateWidgets(parent.GetTileResource());
 		SCR_GalleryComponent gallery_handler = SCR_GalleryComponent.Cast(parent.GetTileContainer().GetHandler(0));
 
@@ -34,11 +30,11 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 		handler.SetText(vehicle.GetDisplayName());
 		gallery_handler.AddItem(tile);
 
-		Resource res = Resource.Load(vehicle.GetPrefab());
+		Resource res = Resource.Load(vehicle.GetPrefab());		
 		IEntityComponentSource source = SCR_BaseContainerTools.FindComponentSource(res, "SCR_EditableVehicleComponent");
 		BaseContainer container = source.GetObject("m_UIInfo");
 		SCR_EditableEntityUIInfo info = SCR_EditableEntityUIInfo.Cast(BaseContainerTools.CreateInstanceFromContainer(container));
-
+		
 		ResourceName path;
 		// get the vehicle img
 		container.Get("m_Image", path);
@@ -46,7 +42,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 
 		// get the vehicle icon
 		handler.SetIcon(info);
-
+		
 		return handler;
 	}
 
@@ -54,6 +50,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 	Disable the layout button and show a message over it
 	\param messageID ID in simple message component to set message to
 	*/
+	//------------------------------------------------------------------------------------------------
 	void DisableAndShowMessage(string messageID)
 	{
 		m_bForceDisabled = true;
@@ -61,6 +58,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 		ShowSimpleMessage(true, messageID);
 	}
 
+	//------------------------------------------------------------------------------------------------
 	override bool OnFocus(Widget w, int x, int y)
 	{
 		super.OnFocus(w, x, y);
@@ -79,6 +77,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 	\param show if false the message will be hidden and if true it will be shown
 	\param messageId the id of the message that should be shown
 	*/
+	//------------------------------------------------------------------------------------------------
 	void ShowSimpleMessage(bool show, string messageId = string.Empty)
 	{
 		Widget simpleMessageWidget = GetRootWidget().FindAnyWidget(m_sSimpleMessageName);
@@ -106,7 +105,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 		super.HandlerAttached(w);
 
 		m_wIcon = ImageWidget.Cast(w.FindAnyWidget("Icon"));
-		m_wFactionBackground = ImageWidget.Cast(w.FindAnyWidget("FactionBckg"));
+		m_wImage = ImageWidget.Cast(w.FindAnyWidget("FactionBckg"));
 		Widget widget = w.FindAnyWidget("VehiclePreview");
 		m_Preview = KOTH_VehiclePreviewComponent.Cast(widget.FindHandler(KOTH_VehiclePreviewComponent));
 	}
@@ -114,12 +113,20 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 	//------------------------------------------------------------------------------------------------
 	void SetPreviewedVehicle(KOTH_VehicleAssetInfo vehicles)
 	{
+		Print(ToString() + "::SetPreviewedVehicle - Start");
+		
 		if (m_Preview)
 		{
+			Print(ToString() + "::SetPreviewedVehicle - Preview valid!");
 			IEntity ent = m_Preview.SetPreviewedVehicle(vehicles);
 			if (!ent)
+			{
+				Print(ToString() + "::SetPreviewedVehicle - BIG F!");
 				return;
-
+			}
+			
+			Print(ToString() + "::SetPreviewedVehicle - Entity: " + ent);
+			
 			/*FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(ent.FindComponent(FactionAffiliationComponent));
 			if (affiliation)
 			{
@@ -128,6 +135,28 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 					m_wFactionBackground.SetColor(faction.GetFactionColor());
 			}*/
 		}
+		
+		Print(ToString() + "::SetPreviewedVehicle - End");
+	}
+	
+	override void SetImage(ResourceName texture)
+	{
+		Print(ToString() + "::SetImage - Start");
+		Print(ToString() + "::SetImage - Image widget: " + m_wImage);
+		if (!m_wImage)
+			return;
+		
+		bool show = texture != string.Empty;
+		m_wImage.SetVisible(show);
+		if (show)
+		{
+			int x, y;
+			m_wImage.LoadImageTexture(0, texture);
+			m_wImage.GetImageSize(0, x, y);
+			m_wImage.SetSize(x, y);
+		}
+		
+		Print(ToString() + "::SetImage - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -148,7 +177,11 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 	//------------------------------------------------------------------------------------------------
 	void SetText(string text)
 	{
+		Print(ToString() + "::SetText - Start");
+		
 		if (m_wText)
 			m_wText.SetText(text);
+		
+		Print(ToString() + "::SetText - Start");
 	}
 };

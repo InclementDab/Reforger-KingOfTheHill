@@ -23,6 +23,7 @@ class KOTH_VehiclePreviewComponent : ScriptedWidgetComponent
 	//------------------------------------------------------------------------------------------------
 	IEntity SetPreviewedVehicle(notnull KOTH_VehicleAssetInfo vehicle)
 	{
+		Print(ToString() + "::SetPreviewedVehicle - Start");
 		m_PreviewManager = GetGame().GetItemPreviewManager();
 
 		if (!m_PreviewManager)
@@ -50,7 +51,14 @@ class KOTH_VehiclePreviewComponent : ScriptedWidgetComponent
 			m_PreviewManager.SetPreviewItem(m_wPreview, m_PreviewedVehicle);
 			m_PreviewedVehicle.ClearFlags(EntityFlags.ACTIVE | EntityFlags.TRACEABLE, true);
 			m_PreviewedVehicle.SetFlags(EntityFlags.NO_LINK, true);
+			m_PreviewedVehicle.SetScale(0.5);
+			
+			Print(m_PreviewedVehicle.GetYawPitchRoll());
+			
+			m_PreviewedVehicle.SetYawPitchRoll("90.0 0 0");
 		}
+		
+		Print(ToString() + "::SetPreviewedVehicle - End and return: " + m_PreviewedVehicle.ToString());
 
 		return m_PreviewedVehicle;
 	}

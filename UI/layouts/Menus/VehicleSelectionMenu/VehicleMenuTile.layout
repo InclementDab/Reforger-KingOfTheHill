@@ -10,6 +10,7 @@ ButtonWidgetClass {
    m_BackgroundDefault 0 0 0 1
    m_BackgroundHovered 0 0 0 0.784
    m_sTexture "{1907015942ABC9A3}UI/Textures/Metabolism/toast-64.edds"
+   m_sImageName "favourites"
    m_sSimpleMessageName "VehicleMessage"
   }
   SCR_EventHandlerComponent "{5588D78956B78241}" {
@@ -46,6 +47,7 @@ ButtonWidgetClass {
         HorizontalAlign 3
         VerticalAlign 3
        }
+       "Is Visible" 0
        Size 4 4
       }
       PanelWidgetClass "{5972F84208397454}" {
@@ -58,11 +60,22 @@ ButtonWidgetClass {
        Color 0.761 0.392 0.078 1
        style outline_2px
       }
-      FrameWidgetClass "{5972F84D60EBDF93}" : "{D1A0079733968AA6}UI/layouts/Menus/VehicleSelectionMenu/VehiclePreview.layout" {
+      FrameWidgetClass "{59735AC1DEB7715A}" : "{D1A0079733968AA6}UI/layouts/Menus/VehicleSelectionMenu/VehiclePreview.layout" {
        Name "VehiclePreview"
-       Slot OverlayWidgetSlot "{5972F84D60EBDF81}" {
+       Slot OverlayWidgetSlot "{59735AC1DEB77177}" {
+        HorizontalAlign 3
+        VerticalAlign 3
        }
        {
+        OverlayWidgetClass "{5972F84DD741ECA3}" {
+         Prefab "{5972F84DD741ECA3}"
+         {
+          ItemPreviewWidgetClass "{5972F84DD741ECA5}" {
+           Prefab "{5972F84DD741ECA5}"
+           Opacity 1
+          }
+         }
+        }
        }
       }
       VerticalLayoutWidgetClass "{5972F84208397450}" {
@@ -87,6 +100,7 @@ ButtonWidgetClass {
             VerticalAlign 3
             Padding -20 -20 -20 -20
            }
+           "Is Visible" 0
           }
           ImageWidgetClass "{5972F842083AD970}" {
            Name "Image"
@@ -132,7 +146,7 @@ ButtonWidgetClass {
                   VerticalAlign 1
                   SizeMode Fill
                  }
-                 Text "Loadout name"
+                 Text "Vehicle name"
                  "Font Size" 25
                  "Min Font Size" 25
                  FontProperties FontProperties "{558E4CA24F4EE5E7}" {
@@ -155,6 +169,7 @@ ButtonWidgetClass {
         HorizontalAlign 3
         VerticalAlign 3
        }
+       "Is Visible" 0
       }
       OverlayWidgetClass "{5972F842083AEBB6}" : "{E52A6FEBC53030D1}UI/layouts/Menus/Common/SimpleMessage.layout" {
        Name "LoadoutMessage"

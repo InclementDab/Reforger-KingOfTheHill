@@ -70,7 +70,7 @@ FrameWidgetClass {
           SCR_TabViewComponent "{546B27D01CA8A38D}" {
            m_aElements {
             SCR_TabViewContent "{596F4E519B8B66C8}" {
-             m_ElementLayout "{B7E819173F4D2BC4}UI/layouts/Menus/VehicleSelectionMenu/SelectVehicleSubMenu.layout"
+             m_ElementLayout "{B7E819173F4D2BC4}UI/layouts/Menus/VehicleSelectionMenu/KOTHVehicleSubMenu.layout"
              m_sTabButtonContent "VEHICLES"
              m_bShowIcon 1
              m_IconLayout "{F316174EBD8829C5}UI/layouts/WidgetLibrary/TabView/WLib_TabViewVehicleIcon.layout"
