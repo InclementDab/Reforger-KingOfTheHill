@@ -25,21 +25,22 @@ class KOTH_VehicleAssetInfo
 	{
 		return m_sDisplayNameUC;
 	}
-}
+};
 
 [BaseContainerProps(configRoot: true)]
 class KOTH_VehicleAssetList
 {
 	[Attribute(desc: "Vehicle asset list.")]
-	protected ref array<ref KOTH_VehicleAssetInfo> m_VehicleAssetList;
+	private ref array<ref KOTH_VehicleAssetInfo> m_VehicleAssetList;
+
+
+	void GetVehicleAssetList(out notnull array<ref KOTH_VehicleAssetInfo> vehicleAssetList)
+	{
+		vehicleAssetList = m_VehicleAssetList;
+	}
 
 	void ~KOTH_VehicleAssetList()
 	{
-		delete m_VehicleAssetList;
+		m_VehicleAssetList = null;
 	}
-	
-	array<ref KOTH_VehicleAssetInfo> GetVehicleAssetList()
-	{
-		return m_VehicleAssetList;
-	}
-}
+};
