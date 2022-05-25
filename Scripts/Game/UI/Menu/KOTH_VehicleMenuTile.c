@@ -20,7 +20,7 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 	protected KOTH_VehiclePreviewComponent m_Preview;;
 
 	//------------------------------------------------------------------------------------------------
-	static KOTH_VehicleMenuTile InitializeTile(KOTH_VehicleMenuTileSelection parent, KOTH_VehicleAssetInfo vehicles)
+	static KOTH_VehicleMenuTile InitializeTile(KOTH_VehicleMenuTileSelection parent, KOTH_VehicleAssetInfo vehicle)
 	{
 		Widget tile = GetGame().GetWorkspace().CreateWidgets(parent.GetTileResource());
 		SCR_GalleryComponent gallery_handler = SCR_GalleryComponent.Cast(parent.GetTileContainer().GetHandler(0));
@@ -30,21 +30,21 @@ class KOTH_VehicleMenuTile : KOTH_VehicleMenuTileBase
 			return null;
 
 		handler.SetParent(parent);
-		handler.SetPreviewedVehicle(vehicles);
-		handler.SetText(vehicles.GetDisplayName());
+		handler.SetPreviewedVehicle(vehicle);
+		handler.SetText(vehicle.GetDisplayName());
 		gallery_handler.AddItem(tile);
 
-		Resource res = Resource.Load(vehicles.GetPrefab());
+		Resource res = Resource.Load(vehicle.GetPrefab());
 		IEntityComponentSource source = SCR_BaseContainerTools.FindComponentSource(res, "SCR_EditableVehicleComponent");
 		BaseContainer container = source.GetObject("m_UIInfo");
 		SCR_EditableEntityUIInfo info = SCR_EditableEntityUIInfo.Cast(BaseContainerTools.CreateInstanceFromContainer(container));
 
 		ResourceName path;
-		// get the vehicles img
+		// get the vehicle img
 		container.Get("m_Image", path);
 		handler.SetImage(path);
 
-		// get the vehicles icon
+		// get the vehicle icon
 		handler.SetIcon(info);
 
 		return handler;

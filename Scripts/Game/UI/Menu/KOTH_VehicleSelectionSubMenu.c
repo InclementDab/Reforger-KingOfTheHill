@@ -30,7 +30,8 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	override void OnMenuOpen(SCR_SuperMenuBase parentMenu)
 	{
 		super.OnMenuOpen(parentMenu);
-
+		
+		GetWidgets();
 		//m_bIsLastAvailableTab = !GetRespawnMenuHandler().GetAllowSpawnPointSelection();
 		CreateConfirmButton();
 		//CreateQuickDeployButton();

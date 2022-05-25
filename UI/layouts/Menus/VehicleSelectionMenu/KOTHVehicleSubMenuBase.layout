@@ -1,4 +1,4 @@
-HorizontalLayoutWidgetClass "{59731A6EB59B7A85}" {
+HorizontalLayoutWidgetClass {
  Name "TileSelection"
  Slot FrameWidgetSlot "{558462025A51042F}" {
   Anchor 0 0 1 1
@@ -13,7 +13,7 @@ HorizontalLayoutWidgetClass "{59731A6EB59B7A85}" {
   SizeToContent 1
  }
  components {
-  SCR_DeployMenuTileSelection "{585687CA6589C165}" {
+  KOTH_VehicleMenuTileSelection "{59732C95FF9F1AFC}" {
   }
  }
  {
@@ -50,7 +50,7 @@ HorizontalLayoutWidgetClass "{59731A6EB59B7A85}" {
          }
          components {
           SCR_GalleryComponent "{56D4A49D514555C0}" {
-           m_sItemLayout "{900A8FEC4A263B07}UI/layouts/Menus/RoleSelection/DeployMenuTile.layout"
+           m_sItemLayout "{C0907ACA0A72069C}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile.layout"
           }
          }
          "Fill Origin" Center

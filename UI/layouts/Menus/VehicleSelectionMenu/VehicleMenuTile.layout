@@ -66,14 +66,14 @@ ButtonWidgetClass {
        }
       }
       VerticalLayoutWidgetClass "{5972F84208397450}" {
-       Name "VerticalLayout0"
+       Name "VerticalLayout"
        Slot OverlayWidgetSlot "{5588C2B20312AF98}" {
         HorizontalAlign 3
         VerticalAlign 2
        }
        {
         OverlayWidgetClass "{5972F842083AD972}" {
-         Name "Overlay0"
+         Name "Overlay"
          Slot LayoutSlot "{5588C2B1D059DB2F}" {
           Padding 20 20 20 20
           SizeMode Fill
@@ -89,7 +89,7 @@ ButtonWidgetClass {
            }
           }
           ImageWidgetClass "{5972F842083AD970}" {
-           Name "Image0"
+           Name "Image"
            Slot OverlayWidgetSlot "{585A990495B9F313}" {
             HorizontalAlign 3
             VerticalAlign 3
@@ -98,19 +98,19 @@ ButtonWidgetClass {
            Color 0 0 0 0.973
           }
           VerticalLayoutWidgetClass "{5972F842083AD97F}" {
-           Name "VerticalLayout0"
+           Name "VerticalLayout"
            Slot OverlayWidgetSlot "{5588C2B1D14F4B11}" {
             HorizontalAlign 3
             VerticalAlign 3
            }
            {
             OverlayWidgetClass "{5972F842083AD97E}" {
-             Name "Overlay0"
+             Name "Overlay"
              Slot LayoutSlot "{558E4CB3AF147085}" {
              }
              {
               HorizontalLayoutWidgetClass "{5972F842083AD97D}" {
-               Name "HorizontalLayout0"
+               Name "HorizontalLayout"
                Slot OverlayWidgetSlot "{558E4CB38AB5D991}" {
                 HorizontalAlign 3
                 VerticalAlign 3

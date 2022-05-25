@@ -4,10 +4,8 @@ class KOTH_VehicleAssetInfo
 {
 	[Attribute("", UIWidgets.ResourcePickerThumbnail, "", "et")]
 	protected ResourceName m_Prefab;
-
 	[Attribute("Vehicle", desc: "Display name to be shown in UI.")]
 	protected string m_sDisplayName;
-
 	[Attribute("VEHICLE", desc: "Display name to be shown in UI (upper case).")]
 	protected string m_sDisplayNameUC;
 
