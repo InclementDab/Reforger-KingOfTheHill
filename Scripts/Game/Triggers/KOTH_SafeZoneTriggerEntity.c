@@ -1,4 +1,3 @@
-// hack
 [EntityEditorProps(category: "GameScripted/Triggers", description: "")]
 class KOTH_SafeZoneTriggerEntityClass: ScriptedGameTriggerEntityClass
 {
@@ -23,27 +22,24 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 			return;
 		}
 
-		SCR_DamageManagerComponent damage_manager;
 		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
-
-		damage_manager = character.GetDamageManager();
+		if (!character || character.GetFactionKey() != m_FactionKey) {
+			return;
+		}
+		
+		SCR_DamageManagerComponent damage_manager = character.GetDamageManager();
 		if (!damage_manager) {
 			Print(ToString() + "::OnActivate - Could not find SCR_DamageManagerComponent!", LogLevel.WARNING);
 			return;
 		}
 
-		//damage_manager.SetGodMode(true);
-		damage_manager.EnableDamageHandling(false);
-		
-		//Print("Here");
-		//Print(GetGame().GetBackendApi().GetPlayerUID(GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(character)));
+		damage_manager.EnableDamageHandling(false);		
 	}
 
 	override void OnDeactivate(IEntity ent)
 	{
-		Print(ToString() + "::OnDeactivate - Start");
-
 		super.OnDeactivate(ent);
+		
 		if (!Replication.IsServer()) {
 			return;
 		}
@@ -58,10 +54,7 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 			return;
 		}
 
-		//damage_manager.SetGodMode(false);
 		damage_manager.EnableDamageHandling(true);
-		
-		Print(ToString() + "::OnDeactivate - End");
 	}
 
 	override bool ScriptedEntityFilterForQuery(IEntity ent)
@@ -79,8 +72,9 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		super.EOnInit(owner);
 
 		// Supress messages out of playmode, order of things is not quite guaranteed here
-		if (!GetGame().InPlayMode())
+		if (!GetGame().InPlayMode()) {
 			return;
+		}
 		
 		m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		if (!m_GameMode) {
@@ -95,25 +89,5 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 		}
 
 		m_ZoneManager.AddSafeZone(this);
-	}
-
-	protected string GetAffiliatedFactionName()
-	{
-		FactionManager factionManager = GetGame().GetFactionManager();
-		Faction faction = factionManager.GetFactionByKey(m_FactionKey);
-		if (faction)
-			return faction.GetFactionName();
-
-		return "UNKNOWN";
-	}
-	
-	KOTH_Faction GetAffiliatedFaction()
-	{
-		FactionManager factionManager = GetGame().GetFactionManager();
-		KOTH_Faction faction = KOTH_Faction.Cast(factionManager.GetFactionByKey(m_FactionKey));
-		if (faction)
-			return faction;
-
-		return NULL;
 	}
 }

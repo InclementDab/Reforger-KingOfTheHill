@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{380160E8D49A8409}Missions/emoji.edds"
+ Name "{4DB6DBE133252C84}Missions/emoji.edds"
  Configurations {
   PNGResourceClass PC : "{DC555BD399D92412}Configs/System/ResourceTypes/PC/TextureUnspecified.conf" {
   }
