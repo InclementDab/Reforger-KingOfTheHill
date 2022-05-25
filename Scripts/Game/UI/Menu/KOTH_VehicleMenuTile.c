@@ -26,7 +26,7 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 			return null;
 
 		handler.SetParent(parent);
-		handler.SetPreviewedVehicle(vehicle);
+		//handler.SetPreviewedVehicle(vehicle);
 		handler.SetText(vehicle.GetDisplayName());
 		gallery_handler.AddItem(tile);
 
@@ -85,8 +85,7 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 		if (!simpleMessageWidget)
 			return;
 
-		if (!show || messageId.IsEmpty())
-		{
+		if (!show || messageId.IsEmpty()) {
 			simpleMessageWidget.SetVisible(false);
 			return;
 		}
@@ -104,59 +103,39 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 	{
 		super.HandlerAttached(w);
 
+		m_wText = TextWidget.Cast(w.FindAnyWidget("Text"));
 		m_wIcon = ImageWidget.Cast(w.FindAnyWidget("Icon"));
-		m_wImage = ImageWidget.Cast(w.FindAnyWidget("FactionBckg"));
+		m_wImage = ImageWidget.Cast(w.FindAnyWidget("Image"));
 		Widget widget = w.FindAnyWidget("VehiclePreview");
 		m_Preview = KOTH_VehiclePreviewComponent.Cast(widget.FindHandler(KOTH_VehiclePreviewComponent));
 	}
 
 	//------------------------------------------------------------------------------------------------
 	void SetPreviewedVehicle(KOTH_VehicleAssetInfo vehicles)
-	{
-		Print(ToString() + "::SetPreviewedVehicle - Start");
-		
+	{		
 		if (m_Preview)
 		{
-			Print(ToString() + "::SetPreviewedVehicle - Preview valid!");
 			IEntity ent = m_Preview.SetPreviewedVehicle(vehicles);
 			if (!ent)
 			{
-				Print(ToString() + "::SetPreviewedVehicle - BIG F!");
 				return;
 			}
-			
-			Print(ToString() + "::SetPreviewedVehicle - Entity: " + ent);
-			
-			/*FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(ent.FindComponent(FactionAffiliationComponent));
-			if (affiliation)
-			{
-				Faction faction = affiliation.GetAffiliatedFaction();
-				if (faction)
-					m_wFactionBackground.SetColor(faction.GetFactionColor());
-			}*/
 		}
-		
-		Print(ToString() + "::SetPreviewedVehicle - End");
 	}
 	
 	override void SetImage(ResourceName texture)
 	{
-		Print(ToString() + "::SetImage - Start");
-		Print(ToString() + "::SetImage - Image widget: " + m_wImage);
 		if (!m_wImage)
 			return;
 		
 		bool show = texture != string.Empty;
 		m_wImage.SetVisible(show);
-		if (show)
-		{
+		if (show) {
 			int x, y;
 			m_wImage.LoadImageTexture(0, texture);
 			m_wImage.GetImageSize(0, x, y);
 			m_wImage.SetSize(x, y);
 		}
-		
-		Print(ToString() + "::SetImage - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -164,6 +143,7 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 	{
 		if (!info)
 			return;
+		
 		info.SetIconTo(m_wIcon);
 		m_wIcon.SetVisible(true);
 	}
@@ -176,12 +156,8 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 	
 	//------------------------------------------------------------------------------------------------
 	void SetText(string text)
-	{
-		Print(ToString() + "::SetText - Start");
-		
+	{	
 		if (m_wText)
 			m_wText.SetText(text);
-		
-		Print(ToString() + "::SetText - Start");
 	}
 };

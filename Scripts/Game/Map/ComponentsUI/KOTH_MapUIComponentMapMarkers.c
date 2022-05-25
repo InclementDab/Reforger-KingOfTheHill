@@ -53,8 +53,7 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		if (m_ObjectiveMarker)
 			m_ObjectiveMarker.Update();
 
-		if (m_MapMarkers && m_MapMarkers.Count() > 0)
-		{
+		if (m_MapMarkers && m_MapMarkers.Count() > 0) {
 			foreach (KOTH_MapMarker mapMarker: m_MapMarkers) {
 				mapMarker.Update();
 			}

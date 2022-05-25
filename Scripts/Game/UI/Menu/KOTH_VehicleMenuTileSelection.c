@@ -36,8 +36,7 @@ class KOTH_VehicleMenuTileSelection : ScriptedWidgetComponent
 			return;
 
 		Widget child = m_wTileContainer.GetChildren();
-		while (child)
-		{
+		while (child) {
 			Widget sibling = child.GetSibling();
 			child.RemoveFromHierarchy();
 			child = sibling;
@@ -73,8 +72,7 @@ class KOTH_VehicleMenuTileSelection : ScriptedWidgetComponent
 	//------------------------------------------------------------------------------------------------
 	void SetTilesEnabled(bool enabled)
 	{
-		foreach (KOTH_VehicleMenuTile tile : m_aTiles)
-		{
+		foreach (KOTH_VehicleMenuTile tile : m_aTiles) {
 			tile.SetEnabled(enabled);
 		}
 	}

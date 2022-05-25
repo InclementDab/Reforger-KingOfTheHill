@@ -9,7 +9,6 @@ ButtonWidgetClass {
    m_bMouseOverToFocus 1
    m_BackgroundDefault 0 0 0 1
    m_BackgroundHovered 0 0 0 0.784
-   m_sTexture "{1907015942ABC9A3}UI/Textures/Metabolism/toast-64.edds"
    m_sImageName "favourites"
    m_sSimpleMessageName "VehicleMessage"
   }
@@ -31,7 +30,7 @@ ButtonWidgetClass {
    AllowWidthOverride 1
    WidthOverride 400
    AllowHeightOverride 1
-   HeightOverride 600
+   HeightOverride 400
    {
     OverlayWidgetClass "{5972F8420839742B}" {
      Name "Overlay"
@@ -41,6 +40,14 @@ ButtonWidgetClass {
       Padding 4 4 4 4
      }
      {
+      ImageWidgetClass "{5972F842083AD970}" {
+       Name "Image"
+       Slot OverlayWidgetSlot "{585A990495B9F313}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding -20 -20 -20 -20
+       }
+      }
       ImageWidgetClass "{5972F84208397455}" {
        Name "Background"
        Slot OverlayWidgetSlot "{5548E6E7DF4EE313}" {
@@ -66,6 +73,8 @@ ButtonWidgetClass {
         HorizontalAlign 3
         VerticalAlign 3
        }
+       "Is Enabled" 0
+       "Is Visible" 0
        {
         OverlayWidgetClass "{5972F84DD741ECA3}" {
          Prefab "{5972F84DD741ECA3}"
@@ -94,22 +103,13 @@ ButtonWidgetClass {
          }
          {
           ImageWidgetClass "{5972F842083AD971}" {
-           Name "FactionBckg"
+           Name "Backround"
            Slot OverlayWidgetSlot "{5588C2BF8C37F8F6}" {
             HorizontalAlign 3
             VerticalAlign 3
             Padding -20 -20 -20 -20
            }
-           "Is Visible" 0
-          }
-          ImageWidgetClass "{5972F842083AD970}" {
-           Name "Image"
-           Slot OverlayWidgetSlot "{585A990495B9F313}" {
-            HorizontalAlign 3
-            VerticalAlign 3
-            Padding -20 -20 -20 -20
-           }
-           Color 0 0 0 0.973
+           Color 0 0 0 0.784
           }
           VerticalLayoutWidgetClass "{5972F842083AD97F}" {
            Name "VerticalLayout"

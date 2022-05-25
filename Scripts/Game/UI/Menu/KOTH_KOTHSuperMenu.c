@@ -23,15 +23,13 @@ class KOTH_KOTHSuperMenu : SCR_SuperMenuBase
 		Event_OnMenuOpen.Invoke();
 
 		Widget backBtn = GetRootWidget().FindAnyWidget(m_sBack);
-		if (backBtn)
-		{
+		if (backBtn) {
 			SCR_NavigationButtonComponent nav = SCR_NavigationButtonComponent.Cast(backBtn.FindHandler(SCR_NavigationButtonComponent));
 			nav.m_OnActivated.Insert(OnMenuBack);
 		}
 
 		KOTH_GameModeBase gameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
-		if (!gameMode)
-		{
+		if (!gameMode) {
 			Print("KOTH super menu could not find KOTH_GameModeBase", LogLevel.ERROR);
 			return;
 		}
