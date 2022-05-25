@@ -19,11 +19,6 @@ class KOTH_SubMenuBase : SCR_SubMenuBase
 	protected LocalizedString m_sConfirm;
 
 	//------------------------------------------------------------------------------------------------
-	protected void GetWidgets()
-	{
-	}
-
-	//------------------------------------------------------------------------------------------------
 	protected bool ConfirmSelection()
 	{
 		return false;
@@ -33,7 +28,6 @@ class KOTH_SubMenuBase : SCR_SubMenuBase
 	override void OnMenuOpen(SCR_SuperMenuBase parentMenu)
 	{
 		super.OnMenuOpen(parentMenu);
-		GetWidgets();
 
 		m_InputManager = GetGame().GetInputManager();
 		if (!m_InputManager)
