@@ -48,7 +48,7 @@ class KOTH_ObjectiveDisplayObject
 	void UpdateObjectiveDisplay()
 	{
 		// Render and update objeczive waypoint if allowed
-		if (!m_wWaypoint || !m_ZoneManager || !m_KOTHGameMode.Use3DObjectiveMarker())
+		if (!m_wWaypoint || !m_ZoneManager)
 			return;
 		
 		vector WPPos = m_ZoneManager.GetZone().GetWorldZoneCenter();
@@ -73,7 +73,6 @@ class KOTH_ObjectiveDisplayObject
 		else if (posY > winY || pos[2] < 0)
 			pos[1] = workspace.DPIUnscale(winY);
 
-		//FrameSlot.SetPos(m_Root, pos[0], pos[1]);
 		FrameSlot.SetPos(m_wWaypoint, pos[0], pos[1]);
 		FrameSlot.SetPos(m_wWaypointDistance, pos[0], pos[1]);
 		m_wWaypoint.SetOpacity(0.5);

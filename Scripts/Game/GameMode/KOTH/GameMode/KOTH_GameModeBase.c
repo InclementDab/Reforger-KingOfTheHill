@@ -7,10 +7,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 {
 	[Attribute(defvalue: "0", desc: "If enabled, the KOTH_MapUIComponenMapMarkers will be used and safe zone and objective markers get created on the players map.", category: "KOTH: Settings")]
 	protected bool m_bEnableMapUIComponent;
-	
-	[Attribute(defvalue: "0", desc: "If enabled, players will see a 3D waypoint marker on the objective zone location on there UI.", category: "KOTH: Settings")]
-	protected bool m_bEnable3DObjectiveMarker;
-	
+		
 	//! If enabled custom weather Id will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "KOTH: Environment")]
 	protected bool m_bUseCustomWeather;
@@ -192,10 +189,5 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	bool UseMapMarkerComponent()
 	{
 		return m_bEnableMapUIComponent;
-	}
-	
-	bool Use3DObjectiveMarker()
-	{
-		return m_bEnable3DObjectiveMarker;
 	}
 }

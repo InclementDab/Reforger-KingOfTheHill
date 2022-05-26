@@ -1,5 +1,7 @@
 class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 {
+	[Attribute(defvalue: "1", desc: "If enabled, players will see a 3D waypoint marker on the objective zone location on there UI.", category: "KOTH: Settings")]
+	protected bool m_bEnable3DObjectiveMarker;
 	[Attribute(defvalue: "0", desc: "If enabled then the defined marker color will be applied on the 3D marker icon. If not the basic image color will be used.", category: "KOTH: Settings")]
 	bool m_bUse3DMarkerColor;
 	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the 3D objective marker.", category: "KOTH: Settings")]
@@ -7,11 +9,11 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the 3D objective marker distance text.", category: "KOTH: Settings")]
 	ref Color m_i3DMarkerTextColor;
 
-	[Attribute("{DE969B7C3B7BBBCA}UI/icons/objective_marker.edds", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the 3D objective marker.", category: "KOTH: Settings", params: "edds imageset")]
+	[Attribute("{C3F217CA9CF060B4}UI/Imagesets/Conflict/ConflictIconsSet.imageset", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the 3D objective marker.", category: "KOTH: Settings", params: "edds imageset")]
 	ResourceName m_r3DMarkerIcon;
-	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the 3D objective marker.", category: "KOTH: Settings")]
+	[Attribute("Task_Attack", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the 3D objective marker.", category: "KOTH: Settings")]
 	string m_r3DMarkerIconName;
-	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the 3D objective marker.", category: "KOTH: Settings")]
+	[Attribute("26.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the 3D objective marker.", category: "KOTH: Settings")]
 	float m_f3DMarkerIconSize;
 	
 	//! Objective waypoint ui element	
@@ -28,10 +30,6 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	//! Speed used to fade areas hud when hints are shown
 	//protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 
-	
-	/*!
-		Checks the prerequisites for this InfoDisplay.
-	*/
 	override bool DisplayStartDrawInit(IEntity owner)
 	{
 		// No ui can be drawn without necessary items	
@@ -50,9 +48,6 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		return true;
 	}
 
-	/*!
-		Creates individual hud elements.
-	*/
 	override void DisplayStartDraw(IEntity owner)
 	{
 		if (RplSession.Mode() == RplMode.Dedicated) {
@@ -63,7 +58,9 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			return;
 		}
 		
-		m_ObjectiveElement = KOTH_ObjectiveDisplayObject(GetGame().GetWorkspace().CreateWidgets("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", m_wRoot), this);
+		//! Create 3D objective waypoint marker
+		if (m_bEnable3DObjectiveMarker)
+			m_ObjectiveElement = KOTH_ObjectiveDisplayObject(GetGame().GetWorkspace().CreateWidgets("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", m_wRoot), this);
 		
 		//! Create score display
 		foreach (KOTH_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
@@ -72,21 +69,16 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		}
 	}
 
-	/*!
-		Clears all hud elements.
-	*/
 	override void DisplayStopDraw(IEntity owner)
 	{
 		super.DisplayStopDraw(owner);
 		m_ScoringElements.Clear();
 	}
 
-	/*!
-		Updates the progress and state of all available scoring elements.
-	*/
 	override void DisplayUpdate(IEntity owner, float timeSlice)
 	{
-		m_ObjectiveElement.UpdateObjectiveDisplay();
+		if (m_bEnable3DObjectiveMarker)
+			m_ObjectiveElement.UpdateObjectiveDisplay();
 		
 		Widget scoring_root = m_wRoot.FindAnyWidget("Score_Frame");
 		
