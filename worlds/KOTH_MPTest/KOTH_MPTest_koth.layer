@@ -1,5 +1,13 @@
 KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
  components {
+  SCR_AutomaticRespawnHandlerComponent "{59754BE58B69EFAF}" {
+  }
+  SCR_CallsignManagerComponent "{59754BE5B8156883}" {
+  }
+  SCR_GameOverScreenManagerComponent "{59754BE5A4ADA06D}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{59754BE557ED2846}" {
+   }
+  }
   SCR_RespawnSystemComponent "{59754BE7A74BB00E}" {
   }
  }
@@ -33,12 +41,22 @@ SCR_MapLocator : "{6D4FA62FC419894E}Prefabs/MP/Modes/KOTH_MapLocator.et" {
  coords 40.984 9.262 -146.189
 }
 SCR_SpawnPoint : "{6DCFCDB01875785C}Prefabs/MP/Modes/FIA_Spawnpoint.et" {
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   VisibleOnMap 1
+  }
+ }
  coords 261.415 9.262 121.234
  angleX 0
  angleY 0
  angleZ 0
 }
 SCR_SpawnPoint : "{70A1F3E65CDA8F75}Prefabs/MP/Modes/US_Spawnpoint.et" {
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   VisibleOnMap 1
+  }
+ }
  coords -182.942 9.262 119.8
  angleY 0
 }

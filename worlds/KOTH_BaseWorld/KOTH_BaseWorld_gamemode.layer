@@ -74,6 +74,8 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   }
   SCR_RespawnMenuHandlerComponent "{5969440516D47C96}" {
   }
+  SCR_RespawnSystemComponent "{59754BE6E9CAABB8}" {
+  }
   SCR_RespawnTimerComponent "{59692D07C13904D3}" {
    m_fRespawnTime 7
   }
