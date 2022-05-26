@@ -8,15 +8,7 @@ class KOTH_NetworkComponentClass: ScriptComponentClass
 //! Used to identify various notifications for client
 enum EKOTHClientNotificationID
 {
-	VEHICLE_SPAWNED,
-	NO_SPACE,
-	OUT_OF_STOCK,
-	SUPPLIES_LOADED,
-	SUPPLIES_UNLOADED,
-	RESPAWN,
-	ASSEMBLY_DEPLOYED,
-	ASSEMBLY_DISMANTLED,
-	ASSEMBLY_DESTROYED
+	VEHICLE_SPAWNED
 };
 
 class KOTH_NetworkComponent : ScriptComponent
