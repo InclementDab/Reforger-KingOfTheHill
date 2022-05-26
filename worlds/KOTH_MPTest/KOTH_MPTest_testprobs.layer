@@ -1,0 +1,19 @@
+$grp SCR_DestructibleBuildingEntity : "{4F3627AC1E51584D}Prefabs/Structures/Infrastructure/Naval/Lighthouse/LighthouseMedium_01.et" {
+ {
+  coords -203.699 8.993 -347.714
+ }
+ {
+  coords 284.511 9.262 -347.038
+ }
+ {
+  coords 283.154 9.262 138.458
+  angleY -90.094
+ }
+ {
+  coords -201.191 9.262 137.267
+  angleY 90.3
+ }
+}
+SCR_DestructibleBuildingEntity : "{85B7377A90F6A75F}Prefabs/Structures/Infrastructure/Naval/Cranes/HarborCrane_01.et" {
+ coords 20.982 9.262 -124.286
+}
