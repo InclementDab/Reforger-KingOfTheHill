@@ -30,11 +30,11 @@ class KOTH_TeamScoreDisplayObject
 	protected TextWidget m_ScoreText;
 
 	//! Faction this object represents
-	protected KOTH_Faction m_Faction;
+	protected SCR_Faction m_Faction;
 	
 	protected ScoreDiplayObjectBlinkState m_BlinkState;
 
-	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull KOTH_Faction faction)
+	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull SCR_Faction faction)
 	{
 		m_Root = root;
 		m_Faction = faction;
@@ -99,7 +99,7 @@ class KOTH_TeamScoreDisplayObject
 		m_PlayerImage.SetColor(Color.FromRGBA(255 * !in_zone, 255, 255 * !in_zone, 255));
 	}
 
-	KOTH_Faction GetFaction()
+	SCR_Faction GetFaction()
 	{
 		return m_Faction;
 	}

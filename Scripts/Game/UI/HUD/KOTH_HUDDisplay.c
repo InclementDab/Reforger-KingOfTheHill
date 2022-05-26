@@ -19,7 +19,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	//! Objective waypoint ui element	
 	protected ref KOTH_ObjectiveDisplayObject m_ObjectiveElement;
 	//! Array of all wrappers for the individual teams
-	protected ref map<KOTH_Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<KOTH_Faction, ref KOTH_TeamScoreDisplayObject>();
+	protected ref map<SCR_Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<SCR_Faction, ref KOTH_TeamScoreDisplayObject>();
 
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_KOTHManager;
@@ -63,7 +63,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			m_ObjectiveElement = KOTH_ObjectiveDisplayObject(GetGame().GetWorkspace().CreateWidgets("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", m_wRoot), this);
 		
 		//! Create score display
-		foreach (KOTH_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
+		foreach (SCR_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
 			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
@@ -106,7 +106,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		}*/
 
 		// Update scoring
-		foreach (KOTH_Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
+		foreach (SCR_Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
 			if (!scoring_object || !m_KOTHManager) {
 				continue;
 			}
@@ -118,7 +118,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		}
 		
 		// update blinking on hud
-		foreach (KOTH_Faction faction, KOTH_TeamScoreDisplayObject score_display: m_ScoringElements) {
+		foreach (SCR_Faction faction, KOTH_TeamScoreDisplayObject score_display: m_ScoringElements) {
 			switch (m_KOTHManager.GetZoneContestType()) {
 				case KOTHZoneContestType.OWNED: {
 					if (faction == m_KOTHManager.GetZoneOwner()) {

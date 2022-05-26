@@ -8,7 +8,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 	[Attribute("0 0 0", UIWidgets.EditBox, "Center of the area tigger in local space.", category: "KOTH", params: "inf inf 0 purposeCoords spaceEntity")]
 	protected vector m_ZoneCenter;
 
-	protected ref map<KOTH_Faction, ref set<SCR_ChimeraCharacter>> m_CharactersInZone = new map<KOTH_Faction, ref set<SCR_ChimeraCharacter>>();
+	protected ref map<SCR_Faction, ref set<SCR_ChimeraCharacter>> m_CharactersInZone = new map<SCR_Faction, ref set<SCR_ChimeraCharacter>>();
 
 	protected KOTH_GameModeBase m_GameMode;
 	protected KOTH_ZoneManager m_ZoneManager;
@@ -46,7 +46,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 			return;
 		}
 
-		KOTH_Faction player_faction = GetFactionFromCharacter(character);
+		SCR_Faction player_faction = GetFactionFromCharacter(character);
 		if (!m_CharactersInZone[player_faction]) {
 			m_CharactersInZone[player_faction] = new set<SCR_ChimeraCharacter>();
 		}
@@ -71,18 +71,18 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		}
 
 		// reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-		KOTH_Faction faction = GetFactionFromCharacter(character);
+		SCR_Faction faction = GetFactionFromCharacter(character);
 		m_CharactersInZone[faction].Remove(m_CharactersInZone[faction].Find(character));
 	}
 
-	static KOTH_Faction GetFactionFromCharacter(ChimeraCharacter character)
+	static SCR_Faction GetFactionFromCharacter(ChimeraCharacter character)
 	{
 		FactionAffiliationComponent faction_affiliation = FactionAffiliationComponent.Cast(character.FindComponent(FactionAffiliationComponent));
 		if (!faction_affiliation) {
 			return null;
 		}
 
-		return KOTH_Faction.Cast(faction_affiliation.GetAffiliatedFaction());
+		return SCR_Faction.Cast(faction_affiliation.GetAffiliatedFaction());
 	}
 
 	override bool ScriptedEntityFilterForQuery(IEntity ent)
@@ -90,7 +90,7 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		return ent.IsInherited(ChimeraCharacter);
 	}
 
-	int GetAmountOfPlayersInZone(KOTH_Faction faction)
+	int GetAmountOfPlayersInZone(SCR_Faction faction)
 	{
 		if (!m_CharactersInZone[faction]) {
 			return 0;
@@ -99,14 +99,14 @@ class KOTH_ZoneTriggerEntity: ScriptedGameTriggerEntity
 		return m_CharactersInZone[faction].Count();
 	}
 
-	map<KOTH_Faction, ref set<SCR_ChimeraCharacter>> GetCharactersInZone()
+	map<SCR_Faction, ref set<SCR_ChimeraCharacter>> GetCharactersInZone()
 	{
 		return m_CharactersInZone;
 	}
 
 	bool IsInZone(SCR_ChimeraCharacter character)
 	{
-		foreach (KOTH_Faction faction, set<SCR_ChimeraCharacter> characters: m_CharactersInZone) {
+		foreach (SCR_Faction faction, set<SCR_ChimeraCharacter> characters: m_CharactersInZone) {
 			if (characters.Find(character) != -1) {
 				return true;
 			}

@@ -1,5 +1,5 @@
 typedef func OnFactionTicketChanged;
-void OnFactionTicketChanged(KOTH_Faction faction, int tickets);
+void OnFactionTicketChanged(SCR_Faction faction, int tickets);
 
 enum KOTHZoneContestType
 {
@@ -25,18 +25,13 @@ class KOTH_ZoneManager: GenericComponent
 
 	[RplProp()]
 	protected KOTHZoneContestType m_KOTHZoneContestType;
+	
+	// stores tickets for team, indexed by faction id
+	[RplProp()]
+	protected ref array<int> m_Tickets = {}; 
 
-	[RplProp()]
-	protected int m_Tickets0;
-	
-	[RplProp()]
-	protected int m_Tickets1;
-	
-	[RplProp()]
-	protected int m_Tickets2;
-	
 
-	protected ref array<KOTH_Faction> m_ZoneOwners = {};
+	protected ref array<SCR_Faction> m_ZoneOwners = {};
 	protected KOTH_GameModeBase m_GameMode;
 	protected SCR_FactionManager m_FactionManager;
 	protected ref array<KOTH_SafeZoneTriggerEntity> m_SafeZones = {};
@@ -94,7 +89,7 @@ class KOTH_ZoneManager: GenericComponent
 
 		m_ZoneOwners.Clear();
 		int max_fact_count;
-		foreach (KOTH_Faction faction, set<SCR_ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
+		foreach (SCR_Faction faction, set<SCR_ChimeraCharacter> characters: m_Zone.GetCharactersInZone()) {
 			if (characters.Count() == 0) { // dont want a tie with 0's
 				continue;
 			}
@@ -115,7 +110,7 @@ class KOTH_ZoneManager: GenericComponent
 		}
 
 		if (m_ZoneOwners.Count() == 1) {
-			KOTH_Faction zone_owner = m_ZoneOwners[0];
+			SCR_Faction zone_owner = m_ZoneOwners[0];
 			m_KOTHZoneContestType = KOTHZoneContestType.OWNED;
 			SetTickets(zone_owner, GetTickets(zone_owner) + 1);
 			OnFactionTicketChangedScript.Invoke(zone_owner, GetTickets(zone_owner));
@@ -127,8 +122,8 @@ class KOTH_ZoneManager: GenericComponent
 		}
 
 		// check our ticket counts
-		array<KOTH_Faction> fctn = GetCurrentFactions();
-		foreach (KOTH_Faction faction: fctn) {
+		array<SCR_Faction> fctn = GetCurrentFactions();
+		foreach (SCR_Faction faction: fctn) {
 			if (GetTickets(faction) >= m_TicketCountToWin) {
 				if (m_GameMode) {
 					m_GameMode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: GetGame().GetFactionManager().GetFactionIndex(faction)));
@@ -137,58 +132,25 @@ class KOTH_ZoneManager: GenericComponent
 		}
 	}
 
-	void SetTickets(KOTH_Faction faction, int tickets)
+	void SetTickets(SCR_Faction faction, int tickets)
 	{
-		// cleared the bits for the original ticket value
-		//m_Tickets &= (0xFFFFFF00 << GetFactionId(faction) * 8);
-
-		//m_Tickets |= (tickets << GetFactionId(faction) * 8);
-		switch (faction.GetFactionKey()) {
-			case "US": {
-				m_Tickets0 = tickets;
-				break;
-			}
-			
-			case "USSR": {
-				m_Tickets1 = tickets;
-				break;
-			}
-			
-			case "FIA": {
-				m_Tickets2 = tickets;
-				break;
-			}
-		}
-		
+		int fid = GetFactionId(faction);
+		m_Tickets[fid] = tickets;
 		Replication.BumpMe();
 	}
 	
-	int GetTickets(KOTH_Faction faction)
+	int GetTickets(SCR_Faction faction)
 	{
-		switch (faction.GetFactionKey()) {
-			case "US": {
-				return m_Tickets0;
-			}
-			
-			case "USSR": {
-				return m_Tickets1;
-			}
-			
-			case "FIA": {
-				return m_Tickets2;
-			}
-		}
-		
-		return -1;
-		//return ((m_Tickets >> GetFactionId(faction) * 8) & 0x000000FF);
+		int fid = GetFactionId(faction);
+		return m_Tickets[fid];
 	}
 
-	bool IsZoneOwner(KOTH_Faction faction)
+	bool IsZoneOwner(SCR_Faction faction)
 	{
 		return (m_ZoneOwners.Find(faction) != -1);
 	}
 
-	KOTH_Faction GetZoneOwner()
+	SCR_Faction GetZoneOwner()
 	{
 		if (m_KOTHZoneContestType != KOTHZoneContestType.OWNED) {
 			return null;
@@ -197,7 +159,7 @@ class KOTH_ZoneManager: GenericComponent
 		return m_ZoneOwners[0];
 	}
 
-	array<KOTH_Faction> GetZoneOwners()
+	array<SCR_Faction> GetZoneOwners()
 	{
 		return m_ZoneOwners;
 	}
@@ -207,7 +169,7 @@ class KOTH_ZoneManager: GenericComponent
 		return m_KOTHZoneContestType;
 	}
 
-	int GetAmountOfPlayersInZone(KOTH_Faction faction)
+	int GetAmountOfPlayersInZone(SCR_Faction faction)
 	{
 		return m_Zone.GetAmountOfPlayersInZone(faction);
 	}
@@ -223,16 +185,16 @@ class KOTH_ZoneManager: GenericComponent
 	}
 
 	// TODO: dynamically generate these based on the mission loaded
-	array<KOTH_Faction> GetCurrentFactions()
+	array<SCR_Faction> GetCurrentFactions()
 	{
 		return {
-			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("US")),
-			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("USSR")),
-			KOTH_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("FIA")),
+			SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("US")),
+			SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("USSR")),
+			SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("FIA")),
 		};
 	}
 
-	int GetFactionId(KOTH_Faction faction)
+	int GetFactionId(SCR_Faction faction)
 	{
 		return GetCurrentFactions().Find(faction);
 	}
