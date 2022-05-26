@@ -22,6 +22,11 @@ class KOTH_OpenKOTHMenuUserAction : ScriptedUserAction
 
 	}
 
+	override bool CanBroadcastScript()
+	{		
+		return false;
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	override bool CanBeShownScript(IEntity user)
 	{
@@ -40,6 +45,14 @@ class KOTH_OpenKOTHMenuUserAction : ScriptedUserAction
 	//------------------------------------------------------------------------------------------------
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.KOTHSuperMenu, 0, true, true);
+		// Find local player controller
+		PlayerController playerController = GetGame().GetPlayerController();
+		if (!playerController)
+			return;
+				
+		// Find campaign network component to send RPC to server
+		KOTH_NetworkComponent kothNetworkComponent = KOTH_NetworkComponent.Cast(playerController.FindComponent(KOTH_NetworkComponent));
+		if (kothNetworkComponent)
+			kothNetworkComponent.OpenKOTHMenu();
 	}
 };

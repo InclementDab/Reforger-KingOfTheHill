@@ -597,3 +597,9 @@ SCR_SpawnPoint US_Spawnpoint2 : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoin
   }
  }
 }
+SCR_ChimeraCharacter : "{AF5845D2159F5A12}Prefabs/Characters/VehicleMenuTestNPC.et" {
+ coords 6449.13 79.258 5598.924
+ angleX 0
+ angleY 0
+ angleZ 0
+}

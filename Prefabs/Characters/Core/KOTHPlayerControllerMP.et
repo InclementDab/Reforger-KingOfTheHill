@@ -1,6 +1,8 @@
 SCR_PlayerController : "{6E2BB64764E3BE9B}Prefabs/Characters/Core/DefaultPlayerController.et" {
  ID "1A9BA6BEFA06E3B1"
  components {
+  KOTH_NetworkComponent "{5974C1A1D5BC5856}" {
+  }
   RadioHandlerComponent "{59697398C4187B34}" {
   }
   SCR_ChatComponent "{59697398C4187B37}" {
