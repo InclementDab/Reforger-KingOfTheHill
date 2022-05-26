@@ -21,6 +21,7 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
    m_bUseMissionHeaderImage 1
   }
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
+   Enabled 0
    m_TicketUpdateInterval 15
   }
   SCR_ChatComponent "{596B46E44FAAD167}" {
@@ -112,10 +113,6 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
  PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
  m_eTestGameFlags SpawnVehicles
  m_bEnableMapUIComponent 1
- m_bEnable3DObjectiveMarker 1
- m_i3DMarkerColor 0 0 0 0
- m_r3DMarkerIcon "{C3F217CA9CF060B4}UI/Imagesets/Conflict/ConflictIconsSet.imageset"
- m_r3DMarkerIconName "Task_Attack"
  m_sCustomWeatherId "Rainy"
  m_bUseCustomTime 1
  m_fCustomTimeOfTheDay 9
@@ -128,11 +125,5 @@ SCR_FactionManager SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionMa
  }
  coords 7059.521 118.611 6016.403
  Factions {
-  KOTH_Faction "{596906B2F7523690}" {
-  }
-  KOTH_Faction "{596906B2EAEA6D99}" {
-  }
-  KOTH_Faction "{596906B2EDDEA2B3}" {
-  }
  }
 }

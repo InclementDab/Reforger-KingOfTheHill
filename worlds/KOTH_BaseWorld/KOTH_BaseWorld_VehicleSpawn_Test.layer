@@ -1,0 +1,13 @@
+KOTH_DeliveryPoint VehicleRequestSpawnUSA {
+ components {
+  Hierarchy "{5974E4250DBFD4F5}" {
+  }
+  RplComponent "{5974E42501746574}" {
+   "Rpl State Override" Static
+  }
+ }
+ coords 6412.963 81.455 5607.807
+ angleZ 2.684
+ Flags 1027
+ m_iDeliveryPointID 1
+}

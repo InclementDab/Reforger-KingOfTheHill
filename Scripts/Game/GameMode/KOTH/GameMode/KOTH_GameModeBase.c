@@ -188,4 +188,30 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	{
 		return m_bEnableMapUIComponent;
 	}
+	
+	static IEntity FindEntityByName(string entityName)
+	{
+		if (!GetGame())
+			return null;
+		
+		BaseWorld world = GetGame().GetWorld();
+		IEntity foundEntity = world.FindEntityByName(entityName);
+		IEntity entity = null;
+		
+		if (foundEntity)
+			entity = IEntity.Cast(foundEntity);
+		
+		return entity;
+	}
+	
+	static KOTH_DeliveryPoint GetUSDeliveryPoint()
+	{
+		if (!GetGame())
+			return null;
+		
+		BaseWorld world = GetGame().GetWorld();
+		KOTH_DeliveryPoint usPoint = KOTH_DeliveryPoint.Cast(world.FindEntityByName("VehicleRequestSpawnUSA"));
+		
+		return usPoint;
+	}
 }
