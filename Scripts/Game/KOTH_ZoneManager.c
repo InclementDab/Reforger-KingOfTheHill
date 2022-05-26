@@ -27,7 +27,14 @@ class KOTH_ZoneManager: GenericComponent
 	protected KOTHZoneContestType m_KOTHZoneContestType;
 
 	[RplProp()]
-	protected int m_Tickets;
+	protected int m_Tickets0;
+	
+	[RplProp()]
+	protected int m_Tickets1;
+	
+	[RplProp()]
+	protected int m_Tickets2;
+	
 
 	protected ref array<KOTH_Faction> m_ZoneOwners = {};
 	protected KOTH_GameModeBase m_GameMode;
@@ -132,13 +139,48 @@ class KOTH_ZoneManager: GenericComponent
 
 	void SetTickets(KOTH_Faction faction, int tickets)
 	{
-		m_Tickets |= tickets << GetFactionId(faction) * 8;
+		// cleared the bits for the original ticket value
+		//m_Tickets &= (0xFFFFFF00 << GetFactionId(faction) * 8);
+
+		//m_Tickets |= (tickets << GetFactionId(faction) * 8);
+		switch (faction.GetFactionKey()) {
+			case "US": {
+				m_Tickets0 = tickets;
+				break;
+			}
+			
+			case "USSR": {
+				m_Tickets1 = tickets;
+				break;
+			}
+			
+			case "FIA": {
+				m_Tickets2 = tickets;
+				break;
+			}
+		}
+		
 		Replication.BumpMe();
 	}
-
+	
 	int GetTickets(KOTH_Faction faction)
 	{
-		return ((m_Tickets >> GetFactionId(faction) * 8) & 0x000000FF);
+		switch (faction.GetFactionKey()) {
+			case "US": {
+				return m_Tickets0;
+			}
+			
+			case "USSR": {
+				return m_Tickets1;
+			}
+			
+			case "FIA": {
+				return m_Tickets2;
+			}
+		}
+		
+		return -1;
+		//return ((m_Tickets >> GetFactionId(faction) * 8) & 0x000000FF);
 	}
 
 	bool IsZoneOwner(KOTH_Faction faction)
