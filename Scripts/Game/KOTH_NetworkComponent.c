@@ -16,7 +16,8 @@ class KOTH_NetworkComponent : ScriptComponent
 	// Member variables
 	protected SCR_PlayerController m_PlayerController;
 	protected RplComponent m_RplComponent;
-
+	protected KOTH_GameModeBase m_KOTHGameMode;
+	
 	//------------------------------------------------------------------------------------------------
 	static KOTH_NetworkComponent GetKOTHNetworkComponent(int playerID)
 	{
@@ -34,6 +35,23 @@ class KOTH_NetworkComponent : ScriptComponent
 	void OpenKOTHMenu()
 	{
 		Rpc(RpcDo_OnOpenKOTHMenu);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SpawnVehicle(KOTH_DeliveryPoint vehicleSpawnPoint, int assetID)
+	{	
+		Print(ToString() + "::SpawnVehicle - Start");
+		
+		//RplId spawnPointID = Replication.FindId(vehicleSpawnPoint);
+		int pointID = vehicleSpawnPoint.GetDeliveryPointID();
+				
+		if (!m_PlayerController)
+			return;
+		
+		int playerID = m_PlayerController.GetPlayerId();
+		Rpc(RpcAsk_SpawnVehicle, pointID, assetID, playerID);
+		
+		Print(ToString() + "::SpawnVehicle - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -159,150 +177,65 @@ class KOTH_NetworkComponent : ScriptComponent
 	//! \param deliveryPointID Delivery point entity ID
 	//! \param assetID Unique asset ID (its index in asset list)
 	//! \param playerID Requester entity ID
-	/*[RplRpc(RplChannel.Reliable, RplRcver.Server)]
-	protected void RpcAsk_SpawnVehicle(RplId deliveryPointID, int assetID, int playerID)
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	protected void RpcAsk_SpawnVehicle(int spawnPointID, int assetID, int playerID)
 	{
-		SCR_CampaignDeliveryPoint building = SCR_CampaignDeliveryPoint.Cast(Replication.FindItem(deliveryPointID));
-
-		if (!building)
-			return;
+		Print(ToString() + "::RpcAsk_SpawnVehicle - Start");
+		
+		KOTH_DeliveryPoint spawnPoint;
+		if (spawnPointID == 1)
+			spawnPoint = m_KOTHGameMode.GetUSDeliveryPoint();
 
 		IEntity player = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID);
 
 		if (!player)
-			return;
-
-		// Repeat the check for player's ability to actually request the vehicle on server to be sure
-		if (building.CanRequest(playerID, assetID) != 1)
-			return;
-
-		// No more given vehicles in stock
-		if (building.GetStockSize(assetID) == 0)
 		{
-			Rpc(RpcDo_PlayerFeedback, ECampaignClientNotificationID.OUT_OF_STOCK);
+			Print(ToString() + "::RpcAsk_SpawnVehicle - F 2");
 			return;
-		};
-
-		// Check all depot spawnpoints, find an empty one
-		IEntity child = building.GetChildren();
-		BaseGameTriggerEntity trg = null;
-
-		while (child && !trg)
+		}
+		
+		array<ref KOTH_VehicleAssetInfo> vehicles = new array<ref KOTH_VehicleAssetInfo>;
+		m_KOTHGameMode.GetVehicleAssetList(vehicles);
+		Resource res = Resource.Load(vehicles[assetID].GetPrefab());
+		if (!res)
 		{
-			if (child.Type() == BaseGameTriggerEntity)
-			{
-				auto compAI = child.FindComponent(SCR_CampaignAIVehicleSpawnComponent);
-
-				if (!compAI)	// Ignore triggers that spawn vehicles for AI
-				{
-					BaseGameTriggerEntity thisTrg = BaseGameTriggerEntity.Cast(child);
-					thisTrg.QueryEntitiesInside();
-					array<IEntity> inside = new array<IEntity>();
-					thisTrg.GetEntitiesInside(inside);
-					if (inside.Count() == 0)
-						trg = thisTrg;
-				}
-			}
-
-			child = child.GetSibling();
-		};
-
-		// No more empty spawnpoints
-		if (!trg)
-		{
-			Rpc(RpcDo_PlayerFeedback, ECampaignClientNotificationID.NO_SPACE);
+			Print(ToString() + "::RpcAsk_SpawnVehicle - F 3");
 			return;
-		};
-
+		}
+				
 		// Spawn the vehicle
 		EntitySpawnParams params = EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
-		trg.GetWorldTransform(params.Transform);
-		Resource res = Resource.Load(SCR_CampaignFactionManager.GetInstance().GetVehicleAssetPrefab(assetID));
+		spawnPoint.GetWorldTransform(params.Transform);
 		Vehicle veh = Vehicle.Cast(GetGame().SpawnEntityPrefab(res, null, params));
 
 		if (!veh)
+		{
+			Print(ToString() + "::RpcAsk_SpawnVehicle - F 4");
 			return;
-
-		building.DepleteAsset(assetID);
+		}
+		
 		Physics physicsComponent = veh.GetPhysics();
-
 		if (!physicsComponent)
 			return;
 
 		veh.GetPhysics().SetVelocity("0 -0.1 0"); // Make the vehicle copy the terrain properly
-		BaseRadioComponent radioComponent = BaseRadioComponent.Cast(veh.FindComponent(BaseRadioComponent));
+		//BaseRadioComponent radioComponent = BaseRadioComponent.Cast(veh.FindComponent(BaseRadioComponent));
 		SCR_VehicleSpawnProtectionComponent protectionComponent = SCR_VehicleSpawnProtectionComponent.Cast(veh.FindComponent(SCR_VehicleSpawnProtectionComponent));
-		SCR_ECampaignHints hintID = SCR_ECampaignHints.NONE;
-
-		// If radio truck was requested, set its radio frequency etc.
-		if (radioComponent)
-		{
-			SCR_CampaignFaction f = SCR_CampaignFaction.Cast(building.GetParentBase().GetOwningFaction());
-
-			if (f)
-			{
-				radioComponent.TogglePower(false);
-				radioComponent.SetFrequency(f.GetFactionRadioFrequency());
-				radioComponent.SetEncryptionKey(f.GetFactionRadioEncryptionKey());
-			}
-		}
-
-		SlotManagerComponent slotManager = SlotManagerComponent.Cast(veh.FindComponent(SlotManagerComponent));
-
-		if (slotManager)
-		{
-			array<EntitySlotInfo> slots = new array<EntitySlotInfo>;
-			slotManager.GetSlotInfos(slots);
-
-			foreach (EntitySlotInfo slot: slots)
-			{
-				if (!slot)
-					continue;
-
-				IEntity truckBed = slot.GetAttachedEntity();
-
-				if (!truckBed)
-					continue;
-
-				SCR_CampaignSuppliesComponent suppliesComponent = SCR_CampaignSuppliesComponent.Cast(truckBed.FindComponent(SCR_CampaignSuppliesComponent));
-				SCR_CampaignMobileAssemblyComponent mobileAssemblyComponent = SCR_CampaignMobileAssemblyComponent.Cast(truckBed.FindComponent(SCR_CampaignMobileAssemblyComponent));
-
-				// If supply truck was requested, show hint and handle garbage collector
-				if (suppliesComponent)
-				{
-					hintID = SCR_ECampaignHints.SUPPLY_RUNS;
-					EventHandlerManagerComponent eventHandlerManager = EventHandlerManagerComponent.Cast(veh.FindComponent(EventHandlerManagerComponent));
-					SCR_CampaignGarbageManager gManager = SCR_CampaignGarbageManager.Cast(GetGame().GetGarbageManager());
-
-					if (eventHandlerManager && gManager)
-						eventHandlerManager.RegisterScriptHandler("OnCompartmentLeft", veh, OnSupplyTruckLeft);
-				}
-
-				// If mobile assembly was requested, set its parent faction
-				if (mobileAssemblyComponent)
-				{
-					SCR_CampaignFactionManager fManager = SCR_CampaignFactionManager.GetInstance();
-
-					if (fManager)
-						mobileAssemblyComponent.SetParentFactionID(fManager.GetFactionIndex(building.GetParentBase().GetOwningFaction()));
-
-					hintID = SCR_ECampaignHints.MOBILE_ASSEMBLY;
-				}
-			}
-		}
+		//SCR_ECampaignHints hintID = SCR_ECampaignHints.NONE;
 
 		if (protectionComponent)
 		{
 			protectionComponent.SetVehicleOwner(playerID);
-			protectionComponent.SetProtectionTime(SCR_GameModeCampaignMP.GetInstance().GetVehicleProtectionTime());
+			protectionComponent.SetProtectionTime(120.0);
 		}
 
 		// Vehicle spawned, inform requester
-		m_fLastAssetRequestTimestamp = Replication.Time();
-		Rpc(RpcDo_PlayerFeedbackAsset, ECampaignClientNotificationID.VEHICLE_SPAWNED, assetID, hintID);
+		//Rpc(RpcDo_PlayerFeedbackAsset, ECampaignClientNotificationID.VEHICLE_SPAWNED, assetID, hintID);
 		Replication.BumpMe();
-	}*/
+		
+		Print(ToString() + "::RpcAsk_SpawnVehicle - End");
+	}
 
 	//------------------------------------------------------------------------------------------------
 	//! Bump supply truck lifetime in garbage manager if it's parked near a base
@@ -370,8 +303,20 @@ class KOTH_NetworkComponent : ScriptComponent
 			Print("KOTH_NetworkComponent must be attached to PlayerController!", LogLevel.ERROR);
 			return;
 		}
-
+		
 		m_RplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
+		if (!m_RplComponent)
+		{
+			Print("Could not find RplComponent on PlayerController!", LogLevel.ERROR);
+			return;
+		}
+		
+		m_KOTHGameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
+		if (!m_KOTHGameMode)
+		{
+			Print("Could not find KOTH_GameModeBase!", LogLevel.ERROR);
+			return;
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -387,6 +332,7 @@ class KOTH_NetworkComponent : ScriptComponent
 	// Constructor
 	void KOTH_NetworkComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
 	{
+		
 	}
 
 	//------------------------------------------------------------------------------------------------
