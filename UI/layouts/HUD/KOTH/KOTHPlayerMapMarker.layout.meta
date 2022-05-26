@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E0D43A468EB56014}UI/layouts/HUD/KOTH/KOTHPlayerMapMarker.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

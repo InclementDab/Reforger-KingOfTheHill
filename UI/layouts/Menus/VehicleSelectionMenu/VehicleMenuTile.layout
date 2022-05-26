@@ -135,7 +135,6 @@ ButtonWidgetClass {
                  Slot LayoutSlot "{558E4CB599B10A10}" {
                   HorizontalAlign 0
                  }
-                 "Is Visible" 0
                  Image ""
                  Size 32 32
                 }

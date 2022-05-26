@@ -21,7 +21,6 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
    m_bUseMissionHeaderImage 1
   }
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
-   Enabled 0
    m_TicketUpdateInterval 15
   }
   SCR_ChatComponent "{596B46E44FAAD167}" {

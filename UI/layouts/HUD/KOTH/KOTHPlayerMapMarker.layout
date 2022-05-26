@@ -1,0 +1,91 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ Slot FrameWidgetSlot "{59750E89CF4000C5}" {
+  OffsetLeft 0
+  OffsetTop 0
+  SizeX 300
+  OffsetRight -300
+  SizeY 32
+  OffsetBottom -32
+  SizeToContent 1
+ }
+ {
+  HorizontalLayoutWidgetClass "{59750E8546733D7F}" {
+   Name "HorizontalSpacerWidget"
+   Slot FrameWidgetSlot "{5970A0E7B3999BD3}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 400
+    OffsetRight -400
+    SizeY 32
+    OffsetBottom -32
+    Alignment 0 0
+    SizeToContent 1
+   }
+   "Is Enabled" 0
+   "Is Visible" 0
+   Clipping False
+  }
+  RichTextWidgetClass "{59750E8546733D79}" {
+   Name "Label"
+   Slot FrameWidgetSlot "{59750E87E897729D}" {
+    PositionX 33.5
+    OffsetLeft 33.5
+    PositionY 8.5
+    OffsetTop 8.5
+    SizeX 119.7
+    OffsetRight -153.2
+    SizeY 32
+    OffsetBottom -40.5
+    SizeToContent 1
+   }
+   Pivot 0 0
+   Text "PLAYERNAME - [UAZ]"
+   "Font Size" 16
+   "Min Font Size" 16
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   Offset 5 0
+   "Line Spacing" 0
+   "Shadow Offset" 0 0
+  }
+  ImageWidgetClass "{59750E8546733D78}" {
+   Name "Icon"
+   Slot FrameWidgetSlot "{59750E87883FBEE9}" {
+    Anchor 0 0 0 0
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 32
+    OffsetRight -32
+    SizeY 32
+    OffsetBottom -32
+   }
+   "Is Visible" 0
+   Rotation 0
+   Texture "{943873C801ED95B8}UI/Textures/Editor/EditableEntities/Vehicles/EditableEntity_Vehicle_Offroad.edds"
+   Image ""
+   Size 32 32
+  }
+  ImageWidgetClass "{59750E86EE61A11A}" {
+   Name "Icon0"
+   Slot FrameWidgetSlot "{59750E86892FB1AA}" {
+    PositionX -3
+    OffsetLeft -3
+    PositionY -3
+    OffsetTop -3
+    SizeX 38
+    OffsetRight -35
+    SizeY 38
+    OffsetBottom -35
+   }
+   Rotation 0
+   Texture "{0250208EA4A9AB25}UI/Textures/Icons/icons_wrapperUI-32-glow.imageset"
+   Image "compass"
+   Size 0 0
+  }
+ }
+}

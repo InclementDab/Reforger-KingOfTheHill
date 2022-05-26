@@ -17,9 +17,9 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	//! Player marker config attributes
 	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the player marker.")]
 	protected ref Color m_iPlayerMarkerColor;
-	[Attribute("{EB294B6B8215EC25}UI/icons/arrow_64x64.edds", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the player marker.", params: "edds imageset")]
+	[Attribute("{0250208EA4A9AB25}UI/Textures/Icons/icons_wrapperUI-32-glow.imageset", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the player marker.", params: "edds imageset")]
 	protected ResourceName m_rPlayerMarkerIcon;
-	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the player marker.")]
+	[Attribute("compass", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the player marker.")]
 	protected string m_rPlayerMarkerIconName;
 	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the player marker.")]
 	protected float m_fPlayerMarkerIconSize;
