@@ -108,6 +108,12 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 			//m_ConfirmButton.GetRootWidget().SetZOrder(-1);
 		}
 	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void HandleOnConfirm()
+	{
+		
+	}
 	
 	//------------------------------------------------------------------------------------------------
 	static KOTH_VehicleSelectionSubMenu GetInstance()
