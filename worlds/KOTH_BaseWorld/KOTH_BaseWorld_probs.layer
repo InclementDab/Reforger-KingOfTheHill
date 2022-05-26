@@ -1,26 +1,3 @@
-SCR_ChimeraCharacter : "{2F912ED6E399FF47}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Unarmed.et" {
- components {
-  SCR_CharacterDamageManagerComponent "{55872AD7B4E959F2}" {
-   EnableDamage 0
-  }
-  ActionsManagerComponent "{520EA1D2F659CE02}" {
-   additionalActions {
-    KOTH_OpenKOTHMenuUserAction "{5970FE598C203859}" {
-     ParentContextList {
-      "default"
-     }
-     UIInfo UIInfo "{5970FE59ABB77945}" {
-      Name "Vehicles"
-     }
-    }
-   }
-  }
- }
- coords 6449.292 79.246 5598.807
- angleX 3.209
- angleY -61.888
- angleZ -0.313
-}
 GenericEntity : "{5196CA1829D428F7}Prefabs/Compositions/Misc/SubCompositions/Sandbag_Bunker_Cluttered_US_01.et" {
  coords 7079.844 118.852 6020.348
  angleX 2.623
