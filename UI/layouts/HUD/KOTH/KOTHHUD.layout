@@ -5,30 +5,58 @@ FrameWidgetClass {
   FrameWidgetClass "{59695DB3FBAC4B28}" {
    Name "Score_Frame"
    Slot FrameWidgetSlot "{5626D0F364797B4C}" {
-    Anchor 0.5 0 0.5 0
-    PositionX 1
-    OffsetLeft 1
+    Anchor 0.837 0.88 0.837 0.88
+    PositionX 100
+    OffsetLeft 100
     PositionY 0
     OffsetTop 0
-    SizeX 200
-    OffsetRight -201
-    SizeY 60
-    OffsetBottom -60
+    SizeX 160
+    OffsetRight -260
+    SizeY 80
+    OffsetBottom -80
     Alignment 0.5 0
    }
    {
     HorizontalLayoutWidgetClass "{596B0DDF54983966}" {
      Name "Score_Root"
      Slot FrameWidgetSlot "{596B0DDF54983942}" {
-      Anchor 0 0 1 1
       PositionX 0
       OffsetLeft 0
       PositionY 0
       OffsetTop 0
-      SizeX 0
-      OffsetRight 0
-      SizeY 0
+      SizeX 160
+      OffsetRight -160
+      SizeY 80
+      OffsetBottom -80
+     }
+    }
+    VerticalLayoutWidgetClass "{59755E76418DFBE9}" {
+     Name "VerticalLayoutWidget"
+     Slot FrameWidgetSlot "{59755E76418DFB0D}" {
+      Anchor 0 1 0 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY -10
+      OffsetTop -10
+      SizeX 160
+      OffsetRight -160
+      SizeY 10
       OffsetBottom 0
+     }
+     "Is Enabled" 0
+     "Is Visible" 0
+     {
+      FrameWidgetClass "{59755E7720128CFC}" : "{8C6FFCB1CCD9FDCE}UI/layouts/HUD/KOTH/KOTH_TicketPulse.layout" {
+       Name "PulseFrame"
+       Slot LayoutSlot "{59755E7642909007}" {
+       }
+       {
+        SliderWidgetClass "{59755E7701295EB9}" {
+         Prefab "{59755E7701295EB9}"
+         Color 0.15 0.001 0.001 1
+        }
+       }
+      }
      }
     }
    }

@@ -1,0 +1,42 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ Slot FrameWidgetSlot "{59755E771368811E}" {
+  OffsetLeft 0
+  OffsetTop 0
+  SizeX 160
+  OffsetRight -160
+  SizeY 10
+  OffsetBottom -10
+ }
+ {
+  SliderWidgetClass "{59755E7701295EB9}" {
+   Name "PulseSlider"
+   Slot FrameWidgetSlot "{59755E7701295EC4}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 160
+    OffsetRight -160
+    SizeY 10
+    OffsetBottom -10
+   }
+   Color 0.15 0.001 0.001 1
+  }
+  PanelWidgetClass "{59756396F1E90FB9}" {
+   Name "Border"
+   Slot FrameWidgetSlot {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 160
+    OffsetRight -160
+    SizeY 10
+    OffsetBottom -10
+   }
+   Color 0.761 0.392 0.078 1
+   style outline_2px
+  }
+ }
+}

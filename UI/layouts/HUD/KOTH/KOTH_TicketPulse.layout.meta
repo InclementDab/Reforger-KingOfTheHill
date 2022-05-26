@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{8C6FFCB1CCD9FDCE}UI/layouts/HUD/KOTH/KOTH_TicketPulse.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}
