@@ -64,7 +64,7 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 			
 			KOTH_VehicleMenuTile tile = KOTH_VehicleMenuTile.InitializeTile(m_TileSelection, vehicles[i]);			
 			m_mAvailableVehicles.Set(tile, vehicles[i]);
-			tile.m_OnClicked.Insert(HandleOnConfirm);
+			//tile.m_OnClicked.Insert(HandleOnConfirm);
 		}
 
 		m_TileSelection.Init();
@@ -104,8 +104,8 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	{
 		m_ConfirmButton = CreateNavigationButton("MenuSelect", m_sConfirm, true);
 		if (m_ConfirmButton) {
-			m_ConfirmButton.m_OnActivated.Insert(HandleOnConfirm);
-			m_ConfirmButton.GetRootWidget().SetZOrder(-1);
+			//m_ConfirmButton.m_OnActivated.Insert(HandleOnConfirm);
+			//m_ConfirmButton.GetRootWidget().SetZOrder(-1);
 		}
 	}
 	

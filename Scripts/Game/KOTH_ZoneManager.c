@@ -31,7 +31,6 @@ class KOTH_ZoneManager: GenericComponent
 
 	protected ref array<KOTH_Faction> m_ZoneOwners = {};
 	protected KOTH_GameModeBase m_GameMode;
-	protected KOTH_TeamScoreDisplay m_ScoreDisplay;
 	protected SCR_FactionManager m_FactionManager;
 	protected ref array<KOTH_SafeZoneTriggerEntity> m_SafeZones = {};
 
@@ -39,10 +38,6 @@ class KOTH_ZoneManager: GenericComponent
 	{
 		if (!m_GameMode) {
 			m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
-		}
-
-		if (!m_ScoreDisplay) {
-			m_ScoreDisplay = KOTH_TeamScoreDisplay.Cast(m_GameMode.FindComponent(KOTH_TeamScoreDisplay));
 		}
 
 		m_GameMode.GetOnGameStart().Insert(OnGameStart);

@@ -15,9 +15,6 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	[Attribute("{A1EA87A89C5215AC}UI\\layouts\\HUD\\KOTH\\KOTHObjectiveLayout.layout", params: "layout")]
 	protected ResourceName m_ObjectiveHUDLayout;
 	
-	[Attribute("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", params: "layout")]
-	protected ResourceName m_TeamFlagLayout;
-
 	//! Parent frame that holds all area markers
 	protected HorizontalLayoutWidget m_wAreaLayoutWidget;
 
@@ -70,7 +67,7 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 		
 		foreach (KOTH_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
-			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets(m_TeamFlagLayout, m_wRoot.FindAnyWidget("Score_Root")), faction)
+			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
 	}
 
