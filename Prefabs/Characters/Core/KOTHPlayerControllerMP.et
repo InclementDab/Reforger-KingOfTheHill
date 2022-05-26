@@ -7,10 +7,12 @@ SCR_PlayerController : "{6E2BB64764E3BE9B}Prefabs/Characters/Core/DefaultPlayerC
   }
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
-    KOTH_TeamScoreDisplay "{596C64878822F1A1}" {
-     m_LayoutPath "{D57619881C83AA34}UI/layouts/HUD/KOTH/KOTHScoringLayout.layout"
+    KOTH_HUDDisplay "{5974973AD6B8B2E8}" {
+     m_LayoutPath "{D57619881C83AA34}UI/layouts/HUD/KOTH/KOTHHUD.layout"
      m_eLayer OVERLAY
-     m_TeamFlagLayout "{DA5637D17656DCA2}UI/layouts/HUD/KOTH/KOTHScore.layout"
+     m_r3DMarkerIcon "{C3F217CA9CF060B4}UI/Imagesets/Conflict/ConflictIconsSet.imageset"
+     m_r3DMarkerIconName "Task_Attack"
+     m_f3DMarkerIconSize 26
     }
    }
   }

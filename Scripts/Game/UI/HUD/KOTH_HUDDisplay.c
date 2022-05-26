@@ -1,23 +1,21 @@
-/*!
-	This InfoDisplay allows drawing of individual HUD scoring elements for individual KOTH factions.
-	In addition it draws all available objectives in the screen space.
-
-	Note:
-		This HUD element only supports 3 factions at a single given time.
-		In addition only the US, USSR and FIA factions are supported.
-		Using more than 3 factions will yield unexpected results.
-		
-		Similar approach can be taken, but a list of elements or any other
-		dynamically filled element would be a much more preferable choice.
-*/
-class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
+class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 {
-	[Attribute("{A1EA87A89C5215AC}UI\\layouts\\HUD\\KOTH\\KOTHObjectiveLayout.layout", params: "layout")]
-	protected ResourceName m_ObjectiveHUDLayout;
-	
-	//! Parent frame that holds all area markers
-	protected HorizontalLayoutWidget m_wAreaLayoutWidget;
+	[Attribute(defvalue: "0", desc: "If enabled then the defined marker color will be applied on the 3D marker icon. If not the basic image color will be used.", category: "KOTH: Settings")]
+	bool m_bUse3DMarkerColor;
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the 3D objective marker.", category: "KOTH: Settings")]
+	ref Color m_i3DMarkerColor;
+	[Attribute("0.000000 0.616999 0.583993 1.000000", UIWidgets.ColorPicker, desc: "Main color that will be used for the 3D objective marker distance text.", category: "KOTH: Settings")]
+	ref Color m_i3DMarkerTextColor;
 
+	[Attribute("{DE969B7C3B7BBBCA}UI/icons/objective_marker.edds", UIWidgets.ResourceNamePicker, desc: "Main icon or imageset that will be used for the the 3D objective marker.", category: "KOTH: Settings", params: "edds imageset")]
+	ResourceName m_r3DMarkerIcon;
+	[Attribute("", UIWidgets.EditBox , desc: "Imageset icon name if imageset is used for the the 3D objective marker.", category: "KOTH: Settings")]
+	string m_r3DMarkerIconName;
+	[Attribute("34.0", UIWidgets.EditBox , desc: "Size of the marker icon used for the the 3D objective marker.", category: "KOTH: Settings")]
+	float m_f3DMarkerIconSize;
+	
+	//! Objective waypoint ui element	
+	protected ref KOTH_ObjectiveDisplayObject m_ObjectiveElement;
 	//! Array of all wrappers for the individual teams
 	protected ref map<KOTH_Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<KOTH_Faction, ref KOTH_TeamScoreDisplayObject>();
 
@@ -28,7 +26,7 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	protected KOTH_GameModeBase m_KOTHGameMode;
 
 	//! Speed used to fade areas hud when hints are shown
-	protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
+	//protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 
 	
 	/*!
@@ -65,6 +63,9 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 			return;
 		}
 		
+		m_ObjectiveElement = KOTH_ObjectiveDisplayObject(GetGame().GetWorkspace().CreateWidgets("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", m_wRoot), this);
+		
+		//! Create score display
 		foreach (KOTH_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
 			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
@@ -85,6 +86,8 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 	*/
 	override void DisplayUpdate(IEntity owner, float timeSlice)
 	{
+		m_ObjectiveElement.UpdateObjectiveDisplay();
+		
 		Widget scoring_root = m_wRoot.FindAnyWidget("Score_Frame");
 		
 		// Reposition scoring UI based on whether it is in a map or not
@@ -98,7 +101,7 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 		}
 
 		// Fade out points when a hint is shown to prevent clipping
-		if (m_wAreaLayoutWidget) {
+		/*if (m_wAreaLayoutWidget) {
 			SCR_PopUpNotification notifications = SCR_PopUpNotification.GetInstance();
 			float target_opacity = 1.0;
 			if (notifications && notifications.IsShowing()) {
@@ -108,7 +111,7 @@ class KOTH_TeamScoreDisplay : SCR_InfoDisplayExtended
 			if (m_wAreaLayoutWidget.GetOpacity() != target_opacity) {
 				m_wAreaLayoutWidget.SetOpacity(Math.Lerp(m_wAreaLayoutWidget.GetOpacity(), target_opacity, timeSlice * POINTS_LAYOUT_FADE_SPEED));
 			}
-		}
+		}*/
 
 		// Update scoring
 		foreach (KOTH_Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {

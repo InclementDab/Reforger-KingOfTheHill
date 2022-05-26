@@ -103,27 +103,4 @@ class KOTH_TeamScoreDisplayObject
 	{
 		return m_Faction;
 	}
-}
-
-class KOTH_ObjectiveDisplayObject
-{
-	//! Topmost frame of this object
-	protected Widget m_Root;
-	
-	//! Reference to text widget that displays distance
-	protected TextWidget m_DistanceText;
-	
-	//! Reference to outline image widget
-	protected ImageWidget m_OutlinesImage;
-	
-	//! Reference to outline image widget
-	protected ImageWidget m_ControlledImage;
-	
-	void KOTH_ObjectiveDisplayObject(notnull Widget root)
-	{
-		m_Root = root;				
-		m_DistanceText = TextWidget.Cast(m_Root.FindAnyWidget("Distance"));
-		m_OutlinesImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Outlines"));
-		m_ControlledImage = ImageWidget.Cast(m_Root.FindAnyWidget("Icon_Controlled"));
-	}
-}
+};
