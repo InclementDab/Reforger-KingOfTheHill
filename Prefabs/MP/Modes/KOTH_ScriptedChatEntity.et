@@ -1,0 +1,8 @@
+ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
+ ID "50D6E52DAA9A19F8"
+ coords 7059.302 118.413 6016.906
+ Channels {
+  BaseChatChannel "{559077E72C7027BC}" {
+  }
+ }
+}

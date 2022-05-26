@@ -1,34 +1,22 @@
 KOTH_ZoneTriggerEntity {
  ID "59695A60CD1FDDE4"
  components {
-  RplComponent "{596911609ADB3657}" {
-  }
   MapDescriptorComponent "{59695A60A5A18EEA}" {
-   DisplayName "The Hill"
-   MapItemDescriptor 1
-   MainType Target
-   Scale 13.6
-  }
-  Hierarchy "{596CF7DC6B137476}" {
+   Enabled 0
+   Scale 100
   }
   SCR_EditableCommentComponent "{596B0DC212D2E84A}" {
-   m_EntityType COMMENT
-   m_UIInfo SCR_EditableDescriptorUIInfo "{596B0DC1D36EC791}" {
-    Name "Zone"
-    Description "(hill)"
-   }
-   m_bAutoRegister ALWAYS
-   m_bStatic 1
-   m_fMaxDrawDistance 14.4
-   m_fSizeCoef 2
-   m_bBold 1
+   Enabled 0
+   m_bStatic 0
+  }
+  SCR_EditableWaypointComponent "{596D61E43710D9B5}" {
   }
  }
- coords 4696.72 130.608 7753.441
- TriggerShapeType Sphere
- SphereRadius 110
- DrawShape 1
- TriggerActivationType "Every query"
- PeriodicQueries 1
- UpdatePeriod 0.1
+ coords 7059.178 119.015 6016.226
+ {
+  SCR_Position {
+   ID "59754BE2285C3E9D"
+   coords 0 0 0
+  }
+ }
 }

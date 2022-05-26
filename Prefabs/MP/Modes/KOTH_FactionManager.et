@@ -1,0 +1,10 @@
+SCR_FactionManager : "{18AD20C1BCC8BDF6}Prefabs/SCR_FactionManager.et" {
+ ID "5968FE6E2BF616AB"
+ components {
+  RplComponent "{596D61E5E58577DD}" {
+  }
+ }
+ coords 7059.521 118.611 6016.403
+ Factions {
+ }
+}

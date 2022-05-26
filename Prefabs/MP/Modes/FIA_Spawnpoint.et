@@ -1,0 +1,53 @@
+SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
+ ID "544EB04DCBFBD126"
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+  }
+  RplComponent "{552E67F19D2F2A2F}" {
+   "Self Insert" 1
+   "Rpl State Override" Static
+  }
+ }
+ coords 6815.458 126.913 6610.908
+ angleX -1.416
+ angleY -31.817
+ angleZ -2.28
+ m_fSpawnRadius 15
+ m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "FIA Spawn (Safe Zone)"
+ }
+ {
+  KOTH_SafeZoneTriggerEntity {
+   ID "59754BE1C107718B"
+   components {
+    Hierarchy "{596EA01B82753F91}" {
+    }
+    RplComponent "{596EA01B7B677B95}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
+   TriggerShapeType Sphere
+   SphereRadius 75
+   DrawShape 1
+   TriggerActivationType "Every query"
+   PeriodicQueries 1
+   UpdatePeriod 0.1
+   m_FactionKey "FIA"
+  }
+  SCR_Position {
+   ID "59754BE1C10771B4"
+   components {
+    Hierarchy "{596EA01BB9A02E5D}" {
+    }
+    RplComponent "{59735AC316518FB0}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
+   coords 0 0 0
+   angleY -154.234
+  }
+ }
+}

@@ -1,0 +1,52 @@
+SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
+ ID "544EB04DCBFBD126"
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   VisibleOnMap 1
+  }
+  RplComponent "{552E67F19D2F2A2F}" {
+   "Self Insert" 1
+   "Rpl State Override" Static
+  }
+ }
+ coords 7453.308 102.114 5689.446
+ angleX -7.751
+ angleY 152.449
+ angleZ -10.845
+ m_fSpawnRadius 15
+ m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "USSR Spawn (Safe Zone)"
+ }
+ {
+  KOTH_SafeZoneTriggerEntity {
+   ID "59754BE1D0CBE8CD"
+   components {
+    Hierarchy "{596EA01B91CD795D}" {
+    }
+    RplComponent "{596EA01B6568F487}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
+   TriggerShapeType Sphere
+   SphereRadius 75
+   DrawShape 1
+   TriggerActivationType "Every query"
+   PeriodicQueries 1
+   UpdatePeriod 0.1
+   m_FactionKey "USSR"
+  }
+  SCR_Position SCR_Position2 {
+   ID "59754BE1D0CBE8CE"
+   components {
+    Hierarchy "{596EA01BE48CF899}" {
+    }
+    RplComponent "{59735AC3786307E6}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
+  }
+ }
+}

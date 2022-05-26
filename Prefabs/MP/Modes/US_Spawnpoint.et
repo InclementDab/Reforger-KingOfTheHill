@@ -1,0 +1,49 @@
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ ID "544EB04DCBFBD126"
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+  }
+  RplComponent "{552E67F19D2F2A2F}" {
+   "Self Insert" 1
+   "Rpl State Override" Static
+  }
+ }
+ coords 6425.169 80.915 5590.523
+ angleY 97.283
+ m_fSpawnRadius 10
+ m_fNoPlayerRadius 0
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "US Spawn (Safe Zone)"
+ }
+ {
+  KOTH_SafeZoneTriggerEntity {
+   ID "59754BE1CB537867"
+   components {
+    Hierarchy "{596EA01B88DBC6C6}" {
+    }
+    RplComponent "{596EA01B76153A59}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
+   TriggerShapeType Sphere
+   SphereRadius 75
+   DrawShape 1
+   TriggerActivationType "Every query"
+   PeriodicQueries 1
+   UpdatePeriod 0.1
+   m_FactionKey "US"
+  }
+  SCR_Position {
+   ID "59754BE1CB537860"
+   components {
+    Hierarchy "{596EA01B8C78D944}" {
+    }
+    RplComponent "{59735AC36B7B0D89}" {
+     "Rpl State Override" Static
+     Streamable Disabled
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,64 @@
+KOTH_GameModeBase KOTH_GameModeBase1 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
+ coords 39.534 9.262 -143.294
+}
+SCR_FactionManager KOTH_FactionManager1 : "{37CFC109E74FFD02}Prefabs/MP/Modes/KOTH_FactionManager.et" {
+ coords 37.655 9.262 -140.786
+}
+TagManager : "{3D44B4E09278591D}Prefabs/MP/Modes/KOTH_TagManager.et" {
+ coords 41.354 9.262 -145.454
+}
+RadioManagerEntity : "{87C805FC9F86FCD3}Prefabs/MP/Modes/KOTH_RadioManager.et" {
+ coords 40.989 9.262 -145.662
+}
+ScriptedChatEntity : "{B1560DA7529A3E3D}Prefabs/MP/Modes/KOTH_ScriptedChatEntity.et" {
+ coords 41.348 9.262 -145.981
+}
+PerceptionManager KOTH_PerceptionManager1 : "{E9B85128FDBFC8F6}Prefabs/MP/Modes/KOTH_PerceptionManager.et" {
+ coords 40.14 9.262 -145.356
+}
+GarbageManager : "{0EEF9699137904C7}Prefabs/MP/Modes/KOTH_GarbageManager.et" {
+ coords 39.9 9.262 -144.43
+}
+BasePreloadManager KOTH_PreloadManager1 : "{2A0901B9F0A30195}Prefabs/MP/Modes/KOTH_PreloadManager.et" {
+ coords 40.749 9.262 -145.273
+}
+HitRegistrationManager KOTH_HitRegManager1 : "{6B1C254E00FCEB57}Prefabs/MP/Modes/KOTH_HitRegManager.et" {
+ coords 39.162 9.262 -145.915
+}
+SCR_MapLocator : "{6D4FA62FC419894E}Prefabs/MP/Modes/KOTH_MapLocator.et" {
+ coords 40.984 9.262 -146.189
+}
+SCR_SpawnPoint : "{6DCFCDB01875785C}Prefabs/MP/Modes/FIA_Spawnpoint.et" {
+ coords 261.415 9.262 121.234
+ angleX 0
+ angleY 0
+ angleZ 0
+}
+SCR_SpawnPoint : "{70A1F3E65CDA8F75}Prefabs/MP/Modes/US_Spawnpoint.et" {
+ coords -182.942 9.262 119.8
+ angleY 0
+}
+SCR_LoadoutManager : "{7C3C17AE4E8DB296}Prefabs/MP/Modes/KOTH_LoadoutManager.et" {
+ coords 39.654 9.262 -144.57
+}
+SCR_MPDestructionManager : "{95ED1D64944971DD}Prefabs/MP/Modes/KOTH_DestructionManager.et" {
+ coords 37.28 9.262 -141.28
+}
+KOTH_DeliveryPoint : "{AF747EB44D2217EF}Prefabs/MP/Modes/KOTH_VehicleRequestSpawnUSA.et" {
+ coords -181.724 9.262 56.093
+ angleZ 0
+}
+KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
+ coords 20.051 9.262 -117.73
+ TriggerShapeType Sphere
+ SphereRadius 100
+ DrawShape 1
+ TriggerActivationType "All changes"
+ PeriodicQueries 1
+}
+SCR_SpawnPoint : "{F831310DC6DEFEFF}Prefabs/MP/Modes/USSR_SpawnPoint.et" {
+ coords -183.666 9.262 -325.853
+ angleX 0
+ angleY 0
+ angleZ 0
+}

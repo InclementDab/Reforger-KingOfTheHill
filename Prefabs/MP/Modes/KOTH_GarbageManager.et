@@ -1,0 +1,8 @@
+GarbageManager {
+ ID "59754BE1ABC58D73"
+ coords 7058.644 118.457 6016.596
+ CollectorIterations 24
+ CharacterLifetime 600
+ VehicleLifetime 600
+ ItemLifetime 600
+}

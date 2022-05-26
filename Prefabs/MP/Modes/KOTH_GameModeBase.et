@@ -1,38 +1,120 @@
 KOTH_GameModeBase {
  ID "5969440691154B3A"
  components {
-  DamageManagerComponent "{59692D0798616CD0}" {
+  KOTH_BriefingComponent "{5970EC09C52BCFAE}" {
+   m_Info SCR_UIInfo "{5970EC094F2FE512}" {
+    Name "King Of The Hill"
+    Description "King the Hill! Created by InclementDab"
+    Icon "{4DB6DBE133252C84}Missions/emoji.edds"
+   }
+   m_aWinConditions {
+    SCR_BriefingVictoryCondition "{5970EC0B439B2BE0}" {
+     name "King Of The Hill - Chotain"
+     description "Control the town of Chotain and gain tickets."
+    }
+    SCR_BriefingVictoryCondition "{5970EC0B6F53D68C}" {
+     victoryCondition CUSTOM
+     name "Acquire Tickets"
+     description "First team to 100 tickets wins the round."
+    }
+   }
+   m_sBriefingImage "{4DB6DBE133252C84}Missions/emoji.edds"
+   m_bUseMissionHeaderImage 1
   }
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
+   m_TicketUpdateInterval 15
   }
-  Hierarchy "{59692D07A48CDCA1}" {
+  SCR_ChatComponent "{596B46E44FAAD167}" {
   }
-  SCR_FactionControlComponent "{59692D07900AA860}" {
+  SCR_DestructionManagerComponent "{596D6DC67BAF89B5}" {
   }
-  SCR_PossessingManagerComponent "{5969310FEE2A5010}" {
+  SCR_GroupsManagerComponent "{596B4A8BDCBF5C28}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
+  }
+  SCR_HintManagerComponent "{596B453A361472AB}" {
+  }
+  SCR_NametagConfigComponent "{596B453AF1C93EC8}" {
+   m_sConfigPath "{2C54289741D01AB5}Configs/NameTags/NametagFriendlies.conf"
+  }
+  SCR_NotificationSenderComponent "{596B453A9CC6C5C1}" {
+   m_iKillFeedType FULL
+   m_iReceiveKillFeedType ALL
+  }
+  SCR_PlayerPenaltyComponent "{596D6DC691C3488E}" {
+   m_iFriendlyPlayerKillPenalty 3
+   m_iFriendlyAIKillPenalty 1
+   m_iKickPenaltyLimit 9
+   m_iBanDuration 1800
+   m_iPenaltySubstractionPeriod 900
+   m_iPenaltySubstractionPoints 2
+  }
+  SCR_PlayerProfileManagerComponent "{596B453A27575582}" {
+  }
+  SCR_PlayersRestrictionZoneManagerComponent "{596EA01AE455AF82}" {
   }
   SCR_RespawnBriefingComponent "{59692D07B8B4EF4A}" {
+   Enabled 0
    m_Info SCR_UIInfo "{5969440545013477}" {
-    Name "Test"
+    Name "King Of The Hill"
+    Description "King the Hill! Created by InclementDab"
+    Icon "{4DB6DBE133252C84}Missions/emoji.edds"
    }
    m_aWinConditions {
     SCR_BriefingVictoryCondition "{596944054C0A6553}" {
-     victoryCondition MOVE
-     name "acquire cock"
+     victoryCondition SEIZE
+     name "King Of The Hill"
+     description "Control the town of Chotain and gain tickets."
+    }
+    SCR_BriefingVictoryCondition "{596D489ABA634C1C}" {
+     victoryCondition CUSTOM
+     name "Acquire Tickets"
+     description "First team to 100 tickets wins."
     }
    }
   }
   SCR_RespawnMenuHandlerComponent "{5969440516D47C96}" {
   }
-  SCR_RespawnSystemComponent "{59692D07C30E8982}" {
-  }
   SCR_RespawnTimerComponent "{59692D07C13904D3}" {
-   m_fRespawnTime 1
+   m_fRespawnTime 7
   }
   SCR_SaveLoadComponent "{5969310FE1453199}" {
+   Enabled 0
+  }
+  SCR_VotingManagerComponent "{596B453A5FF1DC23}" {
+   m_aVotingTemplates {
+    SCR_VotingKick "{596B453A547D4C42}" {
+     m_bIsValuePlayerID 1
+     m_Info SCR_VotingUIInfo "{596B453A4A4308AF}" {
+      Name "#AR-Voting_KICK_AddVoteName"
+      m_sStartVotingName "#AR-Voting_KICK_StartVotingName"
+      m_sStickyNotificationText "#AR-Notification_Sticky_VoteKickPlayer"
+      m_iStartNotificationId VOTING_KICK_START
+      m_iSucceededNotificationId VOTING_KICK_SUCCEED
+      m_iFailedNotificationId VOTING_KICK_FAIL
+     }
+    }
+    SCR_VotingKick "{596B453A1814A97D}" {
+     m_Info SCR_VotingUIInfo "{596B453A1EFF60C2}" {
+      m_iStartNotificationId VOTING_KICK_START
+      m_iSucceededNotificationId VOTING_KICK_SUCCEED
+      m_iFailedNotificationId VOTING_KICK_FAIL
+     }
+    }
+   }
+  }
+  SCR_WaveRespawnTimerComponent "{596B4539F947B3A9}" {
   }
   RplComponent "{59692D07A66DC1D4}" {
+   "Rpl State Override" Static
   }
  }
- coords 4694.512 129.397 7775.764
+ coords 7059.423 118.741 6016.411
+ PlayerControllerPrefab "{0425917B7AF49142}Prefabs/Characters/Core/KOTHPlayerControllerMP.et"
+ m_eTestGameFlags SpawnVehicles
+ m_bEnableMapUIComponent 1
+ m_sCustomWeatherId "Rainy"
+ m_bUseCustomTime 1
+ m_fCustomTimeOfTheDay 9
+ m_VehicleAssetList "{98A343D8C86F9DFB}Configs/Vehicles/VehicleAssetList.conf"
 }
