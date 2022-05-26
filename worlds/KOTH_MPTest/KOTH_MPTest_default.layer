@@ -27,7 +27,7 @@ TimeAndWeatherManagerEntity {
  coords 39.938 0 -105.473
  "Initial Day Time" 12
 }
-SCR_CameraManager CameraManagerTest1 : "{3EC5AF27F12A1B1F}Prefabs/MP/Test/CameraManagerTest.et" {
+SCR_CameraManager CameraManagerTest : "{3EC5AF27F12A1B1F}Prefabs/MP/Test/CameraManagerTest.et" {
  coords 40.819 0.543 -106.595
 }
 TimeAndWeatherManagerEntity : "{902C846F7D5F3B56}Prefabs/MP/Test/WeatherManagerTest.et" {

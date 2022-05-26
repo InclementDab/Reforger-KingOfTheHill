@@ -1,7 +1,11 @@
-KOTH_GameModeBase KOTH_GameModeBase1 : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
+KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
+ components {
+  SCR_RespawnSystemComponent "{59754BE7A74BB00E}" {
+  }
+ }
  coords 39.534 9.262 -143.294
 }
-SCR_FactionManager KOTH_FactionManager1 : "{37CFC109E74FFD02}Prefabs/MP/Modes/KOTH_FactionManager.et" {
+SCR_FactionManager KOTH_FactionManager : "{37CFC109E74FFD02}Prefabs/MP/Modes/KOTH_FactionManager.et" {
  coords 37.655 9.262 -140.786
 }
 TagManager : "{3D44B4E09278591D}Prefabs/MP/Modes/KOTH_TagManager.et" {
@@ -13,16 +17,16 @@ RadioManagerEntity : "{87C805FC9F86FCD3}Prefabs/MP/Modes/KOTH_RadioManager.et" {
 ScriptedChatEntity : "{B1560DA7529A3E3D}Prefabs/MP/Modes/KOTH_ScriptedChatEntity.et" {
  coords 41.348 9.262 -145.981
 }
-PerceptionManager KOTH_PerceptionManager1 : "{E9B85128FDBFC8F6}Prefabs/MP/Modes/KOTH_PerceptionManager.et" {
+PerceptionManager KOTH_PerceptionManager : "{E9B85128FDBFC8F6}Prefabs/MP/Modes/KOTH_PerceptionManager.et" {
  coords 40.14 9.262 -145.356
 }
 GarbageManager : "{0EEF9699137904C7}Prefabs/MP/Modes/KOTH_GarbageManager.et" {
  coords 39.9 9.262 -144.43
 }
-BasePreloadManager KOTH_PreloadManager1 : "{2A0901B9F0A30195}Prefabs/MP/Modes/KOTH_PreloadManager.et" {
+BasePreloadManager KOTH_PreloadManager : "{2A0901B9F0A30195}Prefabs/MP/Modes/KOTH_PreloadManager.et" {
  coords 40.749 9.262 -145.273
 }
-HitRegistrationManager KOTH_HitRegManager1 : "{6B1C254E00FCEB57}Prefabs/MP/Modes/KOTH_HitRegManager.et" {
+HitRegistrationManager KOTH_HitRegManager : "{6B1C254E00FCEB57}Prefabs/MP/Modes/KOTH_HitRegManager.et" {
  coords 39.162 9.262 -145.915
 }
 SCR_MapLocator : "{6D4FA62FC419894E}Prefabs/MP/Modes/KOTH_MapLocator.et" {
@@ -43,6 +47,12 @@ SCR_LoadoutManager : "{7C3C17AE4E8DB296}Prefabs/MP/Modes/KOTH_LoadoutManager.et"
 }
 SCR_MPDestructionManager : "{95ED1D64944971DD}Prefabs/MP/Modes/KOTH_DestructionManager.et" {
  coords 37.28 9.262 -141.28
+}
+SCR_ChimeraCharacter : "{AF5845D2159F5A12}Prefabs/Characters/VehicleMenuTestNPC.et" {
+ coords -189.974 9.262 64.425
+ angleX 0
+ angleY 0
+ angleZ 0
 }
 KOTH_DeliveryPoint : "{AF747EB44D2217EF}Prefabs/MP/Modes/KOTH_VehicleRequestSpawnUSA.et" {
  coords -181.724 9.262 56.093
