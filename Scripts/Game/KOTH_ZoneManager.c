@@ -28,8 +28,7 @@ class KOTH_ZoneManager: GenericComponent
 	
 	// stores tickets for team, indexed by faction id
 	[RplProp()]
-	protected ref array<int> m_Tickets = {}; 
-
+	protected ref array<int> m_Tickets = { 0, 0, 0 };
 
 	protected ref array<SCR_Faction> m_ZoneOwners = {};
 	protected KOTH_GameModeBase m_GameMode;
@@ -135,6 +134,8 @@ class KOTH_ZoneManager: GenericComponent
 	void SetTickets(SCR_Faction faction, int tickets)
 	{
 		int fid = GetFactionId(faction);
+		if (fid == -1) return;
+		
 		m_Tickets[fid] = tickets;
 		Replication.BumpMe();
 	}
@@ -142,6 +143,8 @@ class KOTH_ZoneManager: GenericComponent
 	int GetTickets(SCR_Faction faction)
 	{
 		int fid = GetFactionId(faction);
+		if (fid == -1) return 0;
+		
 		return m_Tickets[fid];
 	}
 

@@ -38,20 +38,18 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		}
 	}
 	
-	override void OnPlayerAuditSuccess(int iPlayerID)
+	override void OnPlayerConnected(int playerId)
 	{
-		super.OnPlayerAuditSuccess(iPlayerID);
+		super.OnPlayerConnected(playerId);
 		
 		if (!Replication.IsServer()) {
 			return;
 		}
 		
-		return; // todo ids not working at this stage, fix!
-		
-		Print("Checking id " + iPlayerID);
+		Print("Checking id " + playerId);
 		// Handle VIP slots
 		PlayerManager player_manager = GetGame().GetPlayerManager();
-		string player_uid = GetGame().GetBackendApi().GetPlayerUID(iPlayerID);
+		string player_uid = GetGame().GetBackendApi().GetPlayerUID(playerId);
 		KOTH_MissionHeader header = KOTH_MissionHeader.Cast(GetGame().GetMissionHeader());
 		Print(player_uid);
 		if (!header) {
@@ -69,7 +67,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			//}
 			
 			Print("Kicking player id " + player_uid);
-			player_manager.KickPlayer(iPlayerID, PlayerManagerKickReason.KICK);
+			player_manager.KickPlayer(playerId, PlayerManagerKickReason.KICK);
 		}
 	}
 	
