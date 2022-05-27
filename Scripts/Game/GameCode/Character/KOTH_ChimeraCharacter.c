@@ -1,22 +1,3 @@
-class KOTH_PlayerStorageComponentClass: ScriptComponentClass
-{
-	
-}
-
-class KOTH_PlayerStorageComponent: ScriptComponent
-{
-	protected string m_PlayerUid;
-	
-	[RplProp()]
-	protected int m_Currency;
-	
-	
-	protected int m_Experience;
-	
-
-		
-}
-
 modded class SCR_ChimeraCharacter
 {
 	[RplProp()] // we are replicating this to our client so they know whats goin on
@@ -106,6 +87,8 @@ modded class SCR_ChimeraCharacter
 		if (RplSession.Mode() != RplMode.Dedicated) {
 			return "1234567";
 		}
+		
+		
 		
 		return GetGame().GetBackendApi().GetPlayerUID(GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(this));
 	}
