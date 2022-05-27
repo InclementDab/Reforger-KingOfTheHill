@@ -1,0 +1,172 @@
+ButtonWidgetClass {
+ Name "Tile"
+ Slot AlignableSlot "{5548E6E7EED73BC0}" {
+  Padding 4 4 4 4
+ }
+ Opacity 0.9
+ components {
+  KOTH_VehicleMenuTile "{59730C6EFD06A5D7}" {
+   m_bMouseOverToFocus 1
+   m_BackgroundDefault 0 0 0 1
+   m_BackgroundHovered 0 0 0 0.784
+   m_sImageName "favourites"
+   m_sSimpleMessageName "VehicleMessage"
+  }
+  SCR_EventHandlerComponent "{5588D78956B78241}" {
+  }
+  SCR_TileBaseComponent "{585A661505520CF6}" {
+   m_ColorSelected 0 0 0 0
+   m_ColorDeselected 0 0 0 0.784
+   m_sContentName "Foreground"
+  }
+ }
+ style blank
+ {
+  SizeLayoutWidgetClass "{5976D7DA437D35CA}" {
+   Name "SizeLayout"
+   Slot ButtonWidgetSlot "{5548E6E7E6AEDDC1}" {
+   }
+   Clipping False
+   AllowWidthOverride 1
+   WidthOverride 400
+   AllowHeightOverride 1
+   HeightOverride 400
+   {
+    OverlayWidgetClass "{5976D7DA437DB79A}" {
+     Name "Overlay"
+     Slot ButtonWidgetSlot "{5548E6E7F213FB11}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 4 4 4 4
+     }
+     {
+      ImageWidgetClass "{5976D7DA437DB7A5}" {
+       Name "Background"
+       Slot OverlayWidgetSlot "{5548E6E7DF4EE313}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       Size 4 4
+      }
+      ImageWidgetClass "{5976D7DA437DB7A4}" {
+       Name "Image"
+       Slot OverlayWidgetSlot "{585A990495B9F313}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding -20 -20 -20 -20
+       }
+       "Is Enabled" 0
+       "Is Visible" 0
+      }
+      ImageWidgetClass "{5976D7DA437E4DDC}" {
+       Name "Icon"
+       Slot OverlayWidgetSlot "{5976D7DA6C92F4EC}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+        Padding 10 10 0 0
+       }
+       Image ""
+       Size 150 150
+      }
+      PanelWidgetClass "{5976D7DA437DB7A7}" {
+       Name "Border"
+       Slot OverlayWidgetSlot "{5548E6E7D859FCD2}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding -4 -4 -4 -4
+       }
+       Color 0.761 0.392 0.078 1
+       style outline_2px
+      }
+      SizeLayoutWidgetClass "{5976D7DC58C44C2E}" {
+       Name "SizeLayout0"
+       Slot OverlayWidgetSlot "{5976D7DC58C44C0E}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+        Padding 170 10 0 0
+       }
+       AllowWidthOverride 1
+       WidthOverride 210
+       AllowHeightOverride 1
+       HeightOverride 150
+       {
+        VerticalLayoutWidgetClass "{5976D7DDE6BF8BF5}" {
+         Name "VerticalLayout0"
+         Slot OverlayWidgetSlot "{5976D7DDE6BF8BD5}" {
+          HorizontalAlign 0
+          VerticalAlign 0
+          Padding 0 0 10 0
+         }
+         {
+          RichTextWidgetClass "{5976D7DD90579149}" {
+           Name "VehicleName"
+           Slot LayoutSlot "{5976D7DD905790AB}" {
+            HorizontalAlign 0
+           }
+           Text "Vehicle Name"
+           "Font Size" 16
+           "Min Font Size" 16
+          }
+          RichTextWidgetClass "{5976D7DD74799222}" {
+           Name "Description"
+           Slot LayoutSlot "{5976D7DD905790AB}" {
+            HorizontalAlign 0
+           }
+           Text "Description"
+           "Font Size" 12
+           "Min Font Size" 12
+          }
+          RichTextWidgetClass "{5976D7DCFE990FD6}" {
+           Name "Armor"
+           Slot LayoutSlot "{5976D7DD905790AB}" {
+            HorizontalAlign 0
+           }
+           Text "Armor"
+           "Font Size" 12
+           "Min Font Size" 1
+          }
+          RichTextWidgetClass "{5976D7DCEE00553C}" {
+           Name "Speed"
+           Slot LayoutSlot "{5976D7DD905790AB}" {
+            HorizontalAlign 0
+           }
+           Text "Speed"
+           "Font Size" 12
+           "Min Font Size" 1
+          }
+          RichTextWidgetClass "{5976D7DF970CFAEE}" {
+           Name "Rank"
+           Slot LayoutSlot "{5976D7DD905790AB}" {
+            HorizontalAlign 0
+           }
+           Text "Rank"
+           "Font Size" 12
+           "Min Font Size" 1
+          }
+          RichTextWidgetClass "{5976D7DF9805351D}" {
+           Name "Price"
+           Slot LayoutSlot "{5976D7DD905790AB}" {
+            HorizontalAlign 0
+           }
+           Text "Price"
+           "Font Size" 12
+           "Min Font Size" 1
+          }
+         }
+        }
+       }
+      }
+      ImageWidgetClass "{5976D7DA437E4DDE}" {
+       Name "Foreground"
+       Slot OverlayWidgetSlot "{585A66156F10E2F0}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       "Is Visible" 0
+      }
+     }
+    }
+   }
+  }
+ }
+}

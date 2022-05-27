@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E0FD4F0A2FC9C7A8}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile2.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}
