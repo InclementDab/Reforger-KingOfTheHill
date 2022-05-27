@@ -62,9 +62,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		Print(character.GetUid());
 		
 		
-		KOTH_PlayerStorage player_storage = GetKOTHGameStorage().GetPlayerStorage(character.GetUid());
-		Print(player_storage);
-		
+		KOTH_PlayerStorage player_storage = GetKOTHGameStorage().GetPlayerStorage(character.GetUid());		
 		character.SetPlayerStorage(player_storage);
 		character.SetCurrency(character.GetCurrency() + 100);
 		

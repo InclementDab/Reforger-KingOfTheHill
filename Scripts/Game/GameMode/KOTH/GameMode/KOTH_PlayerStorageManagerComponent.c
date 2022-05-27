@@ -12,7 +12,7 @@ class KOTH_DSSessionCallback: DSSessionCallback
 	{
 		SessionStorage storage = GetGame().GetBackendApi().GetStorage();
 		storage.AssignFileIDCallback(file_name, this);
-		
+				
 		if (Replication.IsRunning()) {
 			//--- MP
 			storage.RequestSave(file_name);
@@ -209,8 +209,17 @@ class KOTH_GameStorage: KOTH_AutoJsonApiStruct
 		return m_PlayerStorage[uid];
 	}
 	
+	map<string, ref KOTH_PlayerStorage> GetAllPlayerStorage()
+	{
+		return m_PlayerStorage;
+	}
+	
 	override bool Serialize()
 	{
+		foreach (string id, KOTH_PlayerStorage storage: m_PlayerStorage) {
+			storage.Serialize();
+		}
+				
 		return true;
 	}
 
@@ -232,19 +241,16 @@ class KOTH_PlayerStorage: KOTH_AutoJsonApiStruct
 	//! Codec functionality for Rpl
 	static void Encode(SSnapSerializerBase snapshot, ScriptCtx ctx, ScriptBitSerializer packet) 
 	{
-		Print("Encode");		
 		snapshot.Serialize(packet, CURRENT_SIZE);
 	}
 	
 	static bool Decode(ScriptBitSerializer packet, ScriptCtx ctx, SSnapSerializerBase snapshot) 
 	{
-		Print("Decode");
 		return snapshot.Serialize(packet, CURRENT_SIZE);
 	}
 	
 	static bool SnapCompare(SSnapSerializerBase lhs, SSnapSerializerBase rhs, ScriptCtx ctx) 
 	{
-		Print("SnapCompare");
 		return lhs.CompareSnapshots(rhs, CURRENT_SIZE);
 	}
 	
@@ -301,9 +307,7 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 	protected float m_fTimer;
 	
 	protected static string m_sFileNameToLoad;
-	
-	static const int MINIMUM_AUTOSAVE_PERIOD = 60;
-	
+		
 	/*!
 	Check if given mission has a save file
 	\param mission_header Mission header
@@ -447,6 +451,7 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 				return;
 			}
 		}
+		
 #ifdef WORKBENCH
 		else {
 			m_sFileName = "WB_" + FilePath.StripPath(FilePath.StripExtension(GetGame().GetWorldFile()));
@@ -466,11 +471,6 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 		if (Replication.IsServer()) {
 			owner.SetFlags(EntityFlags.ACTIVE, false);
 			SetEventMask(owner, EntityEvent.FRAME);
-			
-			if (m_iAutosavePeriod > 0 && m_iAutosavePeriod < MINIMUM_AUTOSAVE_PERIOD) {
-				Print("SCR_SaveLoadComponent: Autosave period set too low (" + m_iAutosavePeriod + "), setting to " + MINIMUM_AUTOSAVE_PERIOD, LogLevel.WARNING);
-				m_iAutosavePeriod = MINIMUM_AUTOSAVE_PERIOD;
-			}
 		}
 		
 		if (GetGame().IsDev() && Replication.IsServer() && !System.IsConsoleApp()) {

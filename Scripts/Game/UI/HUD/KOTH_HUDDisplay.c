@@ -26,7 +26,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	
 	//! KOTH Game mode instance
 	protected KOTH_GameModeBase m_KOTHGameMode;
-
+	
 	//! Speed used to fade areas hud when hints are shown
 	//protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 
@@ -82,6 +82,8 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		
 		Widget scoring_root = m_wRoot.FindAnyWidget("Score_Frame");
 		
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(GetGame().GetPlayerController().GetControlledEntity());
+		
 		// Reposition scoring UI based on whether it is in a map or not
 		if (scoring_root) {
 			SCR_EditorManagerEntity editor_manager = SCR_EditorManagerEntity.GetInstance();
@@ -92,6 +94,13 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			}
 		}
 
+		// set money, probably temporary
+		RichTextWidget money_widget = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PlayerMoney"));
+		if (money_widget) {
+			money_widget.SetText(character.GetCurrency().ToString());
+		}
+		
+		
 		// Fade out points when a hint is shown to prevent clipping
 		/*if (m_wAreaLayoutWidget) {
 			SCR_PopUpNotification notifications = SCR_PopUpNotification.GetInstance();
@@ -112,7 +121,6 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			}
 				
 			scoring_object.UpdateScore(m_KOTHManager.GetTickets(faction));
-			SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(GetGame().GetPlayerController().GetControlledEntity());
 			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction), character && character.GetFaction() == faction && m_KOTHManager.IsInZone(character));
 			scoring_object.SetBlinkState(ScoreDiplayObjectBlinkState.OFF);
 		}
