@@ -21,12 +21,24 @@ KOTH_GameModeBase {
    m_sBriefingImage "{4DB6DBE133252C84}Missions/emoji.edds"
    m_bUseMissionHeaderImage 1
   }
+  KOTH_SaveLoadComponent "{5977338902870863}" {
+   m_Struct KOTH_GameStorage "{5977415BC3153E82}" {
+   }
+  }
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
    m_TicketUpdateInterval 15
+  }
+  SCR_AutomaticRespawnHandlerComponent "{59754BE58B69EFAF}" {
+  }
+  SCR_CallsignManagerComponent "{59754BE5B8156883}" {
   }
   SCR_ChatComponent "{596B46E44FAAD167}" {
   }
   SCR_DestructionManagerComponent "{596D6DC67BAF89B5}" {
+  }
+  SCR_GameOverScreenManagerComponent "{59754BE5A4ADA06D}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{59754BE557ED2846}" {
+   }
   }
   SCR_GroupsManagerComponent "{596B4A8BDCBF5C28}" {
    m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
@@ -75,11 +87,10 @@ KOTH_GameModeBase {
   }
   SCR_RespawnMenuHandlerComponent "{5969440516D47C96}" {
   }
+  SCR_RespawnSystemComponent "{59754BE7A74BB00E}" {
+  }
   SCR_RespawnTimerComponent "{59692D07C13904D3}" {
    m_fRespawnTime 7
-  }
-  SCR_SaveLoadComponent "{5969310FE1453199}" {
-   Enabled 0
   }
   SCR_VotingManagerComponent "{596B453A5FF1DC23}" {
    m_aVotingTemplates {

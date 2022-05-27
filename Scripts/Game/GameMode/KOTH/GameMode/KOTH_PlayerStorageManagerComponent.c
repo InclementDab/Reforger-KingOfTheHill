@@ -1,9 +1,9 @@
 [BaseContainerProps(), SCR_BaseContainerCustomTitleObject("m_Struct", "Struct: %1")]
 class KOTH_DSSessionCallback: DSSessionCallback
 {
-	protected KOTH_PlayerStorage m_Struct;
+	protected KOTH_GameStorage m_Struct;
 	
-	void KOTH_DSSessionCallback(KOTH_PlayerStorage struct)
+	void KOTH_DSSessionCallback(KOTH_GameStorage struct)
 	{
 		m_Struct = struct;
 	}
@@ -123,6 +123,63 @@ enum KOTH_PlayerClasses
 	SPRINT,
 }
 
+class KOTH_PlayerClassBase: Managed
+{
+	string GetName();
+	string GetDescription();
+}
+
+class KOTH_MoneyClass: KOTH_PlayerClassBase
+{
+	override string GetName()
+	{
+		return "Money";
+	}
+	
+	override string GetDescription()
+	{
+		return "More money, you are actually just a walking bank, shitting coints out";
+	}
+}
+
+class KOTH_AmmoClass: KOTH_PlayerClassBase
+{
+	override string GetName()
+	{
+		return "Ammo";
+	}
+	
+	override string GetDescription()
+	{
+		return "pew pew pew pew pew pew";
+	}
+}
+
+class KOTH_GrenadeClass: KOTH_PlayerClassBase
+{
+	override string GetName()
+	{
+		return "Grenadier";
+	}
+	
+	override string GetDescription()
+	{
+		return "boom!";
+	}
+}
+
+class KOTH_SprintClass: KOTH_PlayerClassBase
+{
+	override string GetName()
+	{
+		return "Sprint";
+	}
+	
+	override string GetDescription()
+	{
+		return "sonic lookin ass";
+	}
+}
 
 // automatically adds every variable to RegV
 class KOTH_AutoJsonApiStruct: SCR_JsonApiStruct
@@ -136,18 +193,83 @@ class KOTH_AutoJsonApiStruct: SCR_JsonApiStruct
 	}
 }
 
+[BaseContainerProps()]
 class KOTH_GameStorage: KOTH_AutoJsonApiStruct
 {
 					// uid
 	protected ref map<string, ref KOTH_PlayerStorage> m_PlayerStorage = new map<string, ref KOTH_PlayerStorage>();
+	
+	KOTH_PlayerStorage GetPlayerStorage(string uid)
+	{
+		if (!m_PlayerStorage[uid]) {
+			// player doesnt exist, intialize
+			m_PlayerStorage[uid] = new KOTH_PlayerStorage();
+		}
+		
+		return m_PlayerStorage[uid];
+	}
+	
+	override bool Serialize()
+	{
+		return true;
+	}
+
+	override bool Deserialize()
+	{
+		return true;
+	}
 }
 
+// uid is stored in GameStorage
 class KOTH_PlayerStorage: KOTH_AutoJsonApiStruct
-{
-	string Uid;
+{	
+	static const int CURRENT_SIZE = 12; // manually update when adding more props
+	
 	int Currency;
 	int Experience;
 	KOTH_PlayerClasses Classes; // bitmask of classes
+	
+	//! Codec functionality for Rpl
+	static void Encode(SSnapSerializerBase snapshot, ScriptCtx ctx, ScriptBitSerializer packet) 
+	{
+		Print("Encode");		
+		snapshot.Serialize(packet, CURRENT_SIZE);
+	}
+	
+	static bool Decode(ScriptBitSerializer packet, ScriptCtx ctx, SSnapSerializerBase snapshot) 
+	{
+		Print("Decode");
+		return snapshot.Serialize(packet, CURRENT_SIZE);
+	}
+	
+	static bool SnapCompare(SSnapSerializerBase lhs, SSnapSerializerBase rhs, ScriptCtx ctx) 
+	{
+		Print("SnapCompare");
+		return lhs.CompareSnapshots(rhs, CURRENT_SIZE);
+	}
+	
+	static bool PropCompare(KOTH_PlayerStorage prop, SSnapSerializerBase snapshot, ScriptCtx ctx) 
+	{
+		return snapshot.Compare(prop.Currency, 4)
+			&& snapshot.Compare(prop.Experience, 4)
+			&& snapshot.Compare(prop.Classes, 4);
+	}
+	
+	static bool Extract(KOTH_PlayerStorage prop, ScriptCtx ctx, SSnapSerializerBase snapshot) 
+	{
+		snapshot.SerializeBytes(prop.Currency, 4);
+		snapshot.SerializeBytes(prop.Experience, 4);
+		snapshot.SerializeBytes(prop.Classes, 4);
+		return true;
+	}
+	
+	static bool Inject(SSnapSerializerBase snapshot, ScriptCtx ctx, KOTH_PlayerStorage prop) 
+	{
+		snapshot.SerializeBytes(prop.Currency, 4);
+		snapshot.SerializeBytes(prop.Experience, 4);
+		snapshot.SerializeBytes(prop.Classes, 4);
+		return true;
+	}
 }
 
 
@@ -222,14 +344,14 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 	/*!
 	\return Local instance of the possession manager
 	*/
-	static SCR_SaveLoadComponent GetInstance()
+	static KOTH_SaveLoadComponent GetInstance()
 	{
 		BaseGameMode game_mode = GetGame().GetGameMode();
 		if (!game_mode) {
 			return null;
 		}
 		
-		return SCR_SaveLoadComponent.Cast(game_mode.FindComponent(SCR_SaveLoadComponent));
+		return KOTH_SaveLoadComponent.Cast(game_mode.FindComponent(KOTH_SaveLoadComponent));
 	}
 	
 	/*!
@@ -237,6 +359,8 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 	*/
 	void Save()
 	{
+		Print("Saving..");
+		
 		if (m_Callback != null) {
 			m_Callback.SaveSession(m_sFileName);
 		}
@@ -275,32 +399,26 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (GetGame().IsDev() && !System.IsConsoleApp())
-		{
-			if (DiagMenu.GetBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_SAVE))
-			{
+		if (GetGame().IsDev() && !System.IsConsoleApp()) {
+			if (DiagMenu.GetBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_SAVE)) {
 				Save();
 				DiagMenu.SetValue(SCR_DebugMenuID.DEBUGUI_SAVELOAD_SAVE, false);
 			}
-			if (DiagMenu.GetBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOAD))
-			{
+			if (DiagMenu.GetBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOAD)) {
 				RestartAndLoad();
 				DiagMenu.SetValue(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOAD, false);
 			}
-			if (DiagMenu.GetBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOG))
-			{
+			if (DiagMenu.GetBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOG)) {
 				Log();
 				DiagMenu.SetValue(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOG, false);
 			}
 		}
 		
 		// Autosave
-		if (m_iAutosavePeriod > 0)
-		{
+		if (m_iAutosavePeriod > 0) {
 			m_fTimer += timeSlice;
 			
-			if (m_fTimer >= m_iAutosavePeriod)
-			{
+			if (m_fTimer >= m_iAutosavePeriod) {
 				m_fTimer = 0;
 				Save();
 			}
@@ -320,9 +438,8 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 			return;
 		} 
 		
-		SCR_MissionHeader mission_header = SCR_MissionHeader.Cast(GetGame().GetMissionHeader());		
-		if (mission_header)
-		{
+		KOTH_MissionHeader mission_header = KOTH_MissionHeader.Cast(GetGame().GetMissionHeader());		
+		if (mission_header) {
 			m_sFileName = mission_header.GetSaveFileName();
 		
 			//--- Saving is disabled, terminate
@@ -356,12 +473,16 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 			}
 		}
 		
-		if (GetGame().IsDev() && Replication.IsServer() && !System.IsConsoleApp())
-		{
+		if (GetGame().IsDev() && Replication.IsServer() && !System.IsConsoleApp()) {
 			DiagMenu.RegisterMenu(SCR_DebugMenuID.DEBUGUI_SAVELOAD, "Save/Load", "Game");
 			DiagMenu.RegisterBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_SAVE, "", "Save Session", "Save/Load");
 			DiagMenu.RegisterBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOAD, "", "Restart and Load Session", "Save/Load");
 			DiagMenu.RegisterBool(SCR_DebugMenuID.DEBUGUI_SAVELOAD_LOG, "", "Log Session Save", "Save/Load");
 		}
 	}
-};
+	
+	KOTH_GameStorage GetGameStorage()
+	{
+		return m_Struct;
+	}
+}

@@ -29,6 +29,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
+		/*
 		PlayerManager player_manager = GetGame().GetPlayerManager();
 		array<int> players = {};
 		player_manager.GetPlayers(players);
@@ -37,7 +38,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			if (player_uid != string.Empty) {
 				PrintFormat("%1: %2", player, player_uid);
 			}
-		}		
+		}*/
 	}
 	
 	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
@@ -61,7 +62,13 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		Print(character.GetUid());
 		
 		
+		KOTH_PlayerStorage player_storage = GetKOTHGameStorage().GetPlayerStorage(character.GetUid());
+		Print(player_storage);
 		
+		character.SetPlayerStorage(player_storage);
+		character.SetCurrency(character.GetCurrency() + 100);
+		
+				
 		// Handle VIP slots
 		/*PlayerManager player_manager = GetGame().GetPlayerManager();
 		string player_uid = GetGame().GetBackendApi().GetPlayerUID(playerId);
@@ -82,6 +89,17 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		}*/
 	}
 
+	KOTH_GameStorage GetKOTHGameStorage()
+	{
+		KOTH_SaveLoadComponent save_load = KOTH_SaveLoadComponent.Cast(FindComponent(KOTH_SaveLoadComponent));
+		if (!save_load) {
+			Print("No KOTH_SaveLoadComponent found on gamemode!", LogLevel.WARNING);
+			return null;
+		}
+		
+		return save_load.GetGameStorage();
+	}
+	
 	KOTH_ZoneManager GetKOTHZoneManager()
 	{
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
