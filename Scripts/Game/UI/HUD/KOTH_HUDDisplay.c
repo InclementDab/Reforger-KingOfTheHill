@@ -65,7 +65,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		//! Create score display
 		foreach (SCR_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
-			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{5968FE6DF3F3853B}UI\\layouts\\HUD\\KOTH\\KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
+			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{DA5637D17656DCA2}UI/layouts/HUD/KOTH/KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
 	}
 
