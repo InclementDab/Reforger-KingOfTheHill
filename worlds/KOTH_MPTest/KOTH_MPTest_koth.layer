@@ -1,16 +1,4 @@
 KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
- components {
-  SCR_AutomaticRespawnHandlerComponent "{59754BE58B69EFAF}" {
-  }
-  SCR_CallsignManagerComponent "{59754BE5B8156883}" {
-  }
-  SCR_GameOverScreenManagerComponent "{59754BE5A4ADA06D}" {
-   m_GameOverScreenConfig SCR_GameOverScreenConfig "{59754BE557ED2846}" {
-   }
-  }
-  SCR_RespawnSystemComponent "{59754BE7A74BB00E}" {
-  }
- }
  coords 39.534 9.262 -143.294
 }
 SCR_FactionManager KOTH_FactionManager : "{37CFC109E74FFD02}Prefabs/MP/Modes/KOTH_FactionManager.et" {
