@@ -4,7 +4,13 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 	[Attribute("VehicleMessage", desc: "Widget name of simple message component")]
 	protected string m_sSimpleMessageName;
 
-	protected TextWidget m_wText;
+	protected RichTextWidget m_wVehicleName;
+	protected RichTextWidget m_wDescription;
+	protected RichTextWidget m_wArmor;
+	protected RichTextWidget m_wSpeed;
+	protected RichTextWidget m_wRank;
+	protected RichTextWidget m_wPrice;
+	
 	protected KOTH_VehicleMenuTileSelection m_Parent;
 	protected bool m_bClickEnabled = false;
 	
@@ -25,7 +31,7 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 			return null;
 
 		handler.SetParent(parent);
-		handler.SetText(vehicle.GetDisplayName());
+		handler.SetText(vehicle);
 		gallery_handler.AddItem(tile);
 
 		Resource res = Resource.Load(vehicle.GetPrefab());		
@@ -101,7 +107,12 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 	{
 		super.HandlerAttached(w);
 
-		m_wText = TextWidget.Cast(w.FindAnyWidget("Text"));
+		m_wVehicleName = RichTextWidget.Cast(w.FindAnyWidget("VehicleName"));
+		m_wDescription = RichTextWidget.Cast(w.FindAnyWidget("Description"));
+		m_wArmor = RichTextWidget.Cast(w.FindAnyWidget("Armor"));
+		m_wSpeed = RichTextWidget.Cast(w.FindAnyWidget("Speed"));
+		m_wRank = RichTextWidget.Cast(w.FindAnyWidget("Rank"));
+		m_wPrice = RichTextWidget.Cast(w.FindAnyWidget("Price"));
 		m_wIcon = ImageWidget.Cast(w.FindAnyWidget("Icon"));
 		m_wImage = ImageWidget.Cast(w.FindAnyWidget("Image"));
 		Widget widget = w.FindAnyWidget("VehiclePreview");
@@ -140,9 +151,13 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SetText(string text)
+	void SetText(KOTH_VehicleAssetInfo vehicle)
 	{	
-		if (m_wText)
-			m_wText.SetText(text);
+		m_wVehicleName.SetText(vehicle.GetDisplayName());
+		m_wDescription.SetText(vehicle.GetDescription());
+		m_wArmor.SetText("Armor: " + vehicle.GetArmor().ToString());
+		m_wSpeed.SetText("Speed: " + vehicle.GetMaxSpeed().ToString());
+		m_wRank.SetText("Rank: " + vehicle.GetRequiredRank());
+		m_wPrice.SetText("Price: " + vehicle.GetPrice());
 	}
 };
