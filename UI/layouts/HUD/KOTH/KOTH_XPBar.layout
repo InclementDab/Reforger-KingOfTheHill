@@ -1,0 +1,77 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ Slot FrameWidgetSlot "{59755E771368811E}" {
+  PositionX 0
+  OffsetLeft 0
+  PositionY 0
+  OffsetTop 0
+  SizeX 160
+  OffsetRight -160
+  SizeY 20
+  OffsetBottom -20
+ }
+ {
+  ImageWidgetClass "{5977293EED155DF9}" {
+   Name "Background"
+   Slot FrameWidgetSlot "{5977293EED155D0F}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 160
+    OffsetRight -160
+    SizeY 20
+    OffsetBottom -20
+   }
+   Color 0.009 0.009 0.009 0.706
+  }
+  SliderWidgetClass "{59772931652A1599}" {
+   Name "PulseSlider"
+   Slot FrameWidgetSlot "{59755E7701295EC4}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 160
+    OffsetRight -160
+    SizeY 20
+    OffsetBottom -20
+   }
+   Color 0.323 0.13 0.007 0.784
+  }
+  PanelWidgetClass "{59772931652A159B}" {
+   Name "Border"
+   Slot FrameWidgetSlot "{59772931652A17CF}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 160
+    OffsetRight -160
+    SizeY 20
+    OffsetBottom -20
+   }
+   Color 0.036 0.048 0.063 1
+   style outline_2px
+  }
+  RichTextWidgetClass "{5977293EAD6E94FA}" {
+   Name "XP"
+   Slot FrameWidgetSlot "{5977293EAD6E9400}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 160
+    OffsetRight -160
+    SizeY 20
+    OffsetBottom -20
+   }
+   Color 1 1 1 0.784
+   Text "10/1000"
+   "Font Size" 12
+   "Min Font Size" 12
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+  }
+ }
+}

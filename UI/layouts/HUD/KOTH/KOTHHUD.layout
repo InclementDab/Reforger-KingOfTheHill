@@ -5,29 +5,94 @@ FrameWidgetClass {
   FrameWidgetClass "{59695DB3FBAC4B28}" {
    Name "Score_Frame"
    Slot FrameWidgetSlot "{5626D0F364797B4C}" {
-    Anchor 0.837 0.88 0.837 0.88
+    Anchor 0.837 0.842 0.837 0.842
     PositionX 100
     OffsetLeft 100
     PositionY 0
     OffsetTop 0
     SizeX 160
     OffsetRight -260
-    SizeY 80
-    OffsetBottom -80
+    SizeY 160
+    OffsetBottom -160
     Alignment 0.5 0
    }
    {
+    FrameWidgetClass "{59773E52F4D02959}" {
+     Name "Player_Frame"
+     Slot FrameWidgetSlot "{5626D0F364797B4C}" {
+      PositionX 80
+      OffsetLeft 80
+      PositionY 20
+      OffsetTop 20
+      SizeX 160
+      OffsetRight -240
+      SizeY 50
+      OffsetBottom -70
+      Alignment 0.5 0
+     }
+     {
+      FrameWidgetClass "{59773E51EFF17A2F}" : "{0F0555609D02A288}UI/layouts/HUD/KOTH/KOTH_XPBar.layout" {
+       Name "XPBar"
+       Slot FrameWidgetSlot "{59755E771368811E}" {
+        Anchor 0.5 0 0.5 0
+        PositionX -80
+        OffsetLeft -80
+        PositionY 30
+        OffsetTop 30
+        SizeX 160
+        OffsetRight -80
+        SizeY 20
+        OffsetBottom -50
+       }
+       {
+        ImageWidgetClass "{5977293EED155DF9}" {
+         Prefab "{5977293EED155DF9}"
+         Pivot 0 0
+        }
+        SliderWidgetClass "{59772931652A1599}" {
+         Prefab "{59772931652A1599}"
+         current 10
+        }
+        RichTextWidgetClass "{5977293EAD6E94FA}" {
+         Prefab "{5977293EAD6E94FA}"
+         Text "XX/1000"
+        }
+       }
+      }
+      RichTextWidgetClass "{59773E57FD1E3C9E}" {
+       Name "PlayerMoney"
+       Slot FrameWidgetSlot "{59773E57FD1E3D60}" {
+        OffsetLeft 0
+        OffsetTop 0
+        SizeX 160
+        OffsetRight -160
+        OffsetBottom -30
+       }
+       Color 0.485 0.761 0.491 1
+       Text "1000$"
+       "Font Size" 28
+       "Horizontal Alignment" Right
+       FontProperties FontProperties "{59773E57B119B64A}" {
+        Font "{DE4B66C39B62E39B}UI/Fonts/Purista/Purista Medium.fnt"
+        OutlineSize 1
+        ShadowSize 1
+       }
+       "Shadow Offset" 0 0
+      }
+     }
+    }
     HorizontalLayoutWidgetClass "{596B0DDF54983966}" {
      Name "Score_Root"
      Slot FrameWidgetSlot "{596B0DDF54983942}" {
-      PositionX 0
-      OffsetLeft 0
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX -80
+      OffsetLeft -80
       PositionY 0
       OffsetTop 0
       SizeX 160
-      OffsetRight -160
-      SizeY 80
-      OffsetBottom -80
+      OffsetRight -80
+      SizeY 57.019
+      OffsetBottom -57
      }
     }
     VerticalLayoutWidgetClass "{59755E76418DFBE9}" {
@@ -43,8 +108,6 @@ FrameWidgetClass {
       SizeY 10
       OffsetBottom 0
      }
-     "Is Enabled" 0
-     "Is Visible" 0
      {
       FrameWidgetClass "{59755E7720128CFC}" : "{8C6FFCB1CCD9FDCE}UI/layouts/HUD/KOTH/KOTH_TicketPulse.layout" {
        Name "PulseFrame"
