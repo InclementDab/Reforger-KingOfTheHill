@@ -1,11 +1,11 @@
-class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
+class KOTH_VehicleSelectionSubMenu : KOTH_SubMenuBase
 {
 	[Attribute("Tiles")]
 	protected string m_sTileContainer;
-	[Attribute("#AR-Button_Confirm-UC")]
-	protected LocalizedString m_sButtonTextSelectVehicle;
-	[Attribute("#AR-Button_Confirm-UC")]
-	protected LocalizedString m_sConfirm;
+	//[Attribute("#AR-Button_Confirm-UC")]
+	//protected LocalizedString m_sButtonTextSelectVehicle;
+	//[Attribute("#AR-Button_Confirm-UC")]
+	//protected LocalizedString m_sConfirm;
 	
 	protected static KOTH_VehicleSelectionSubMenu s_Instance;
 	protected KOTH_GameModeBase m_KOTHGameMode;
@@ -13,8 +13,8 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	protected ref map<KOTH_VehicleMenuTile, KOTH_VehicleAssetInfo> m_mAvailableVehicles = new ref map<KOTH_VehicleMenuTile, KOTH_VehicleAssetInfo>();
 	protected KOTH_VehicleMenuTileSelection m_TileSelection;
 	protected bool m_bVehicleRequestSent = false;
-	protected SCR_NavigationButtonComponent m_ConfirmButton;
-	protected string m_sConfirmButtonText;
+	//protected SCR_NavigationButtonComponent m_ConfirmButton;
+	//protected string m_sConfirmButtonText;
 	protected ref array<ref KOTH_VehicleAssetInfo> m_Vehicles = new array<ref KOTH_VehicleAssetInfo>;
 	
 	//------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class KOTH_VehicleSelectionSubMenu : SCR_SubMenuBase
 	
 	//------------------------------------------------------------------------------------------------
 	//! Called on button click
-	protected bool ConfirmSelection()
+	protected override bool ConfirmSelection()
 	{
 		Print(ToString() + "::ConfirmSelection - Start");
 		

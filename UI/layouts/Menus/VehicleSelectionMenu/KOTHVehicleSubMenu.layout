@@ -12,10 +12,37 @@ FrameWidgetClass {
    }
    components {
     KOTH_VehicleMenuTileSelection "{59732C95FF9F1AFC}" {
-     m_sTilePrefab "{C0907ACA0A72069C}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile.layout"
+     m_sTilePrefab "{E0FD4F0A2FC9C7A8}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile2.layout"
     }
    }
    {
+    VerticalLayoutWidgetClass "{59731A6EB59B7A87}" {
+     Prefab "{59731A6EB59B7A87}"
+     {
+      VerticalLayoutWidgetClass "{59731A6EB59B7A80}" {
+       Prefab "{59731A6EB59B7A80}"
+       {
+        OverlayWidgetClass "{59731A6EB59B7A81}" {
+         Prefab "{59731A6EB59B7A81}"
+         {
+          VerticalLayoutWidgetClass "{59731A6EB59B7A82}" {
+           Prefab "{59731A6EB59B7A82}"
+           components {
+            SCR_GalleryComponent "{56D4A49D514555C0}" {
+             m_iInitialItemCount 3
+             m_iCountShownItems 1
+             m_sItemLayout "{E0FD4F0A2FC9C7A8}UI/layouts/Menus/VehicleSelectionMenu/VehicleMenuTile2.layout"
+            }
+           }
+           {
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
    }
   }
  }

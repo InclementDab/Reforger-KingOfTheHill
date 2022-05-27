@@ -12,6 +12,11 @@ KOTH_ZoneTriggerEntity KOTH_ZoneTrigger_2 : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/
   }
  }
  coords 7059.178 119.015 6016.226
+ TriggerShapeType Sphere
+ SphereRadius 100
+ DrawShape 1
+ TriggerActivationType "All changes"
+ PeriodicQueries 1
  {
   SCR_Position {
    coords 0 0 0

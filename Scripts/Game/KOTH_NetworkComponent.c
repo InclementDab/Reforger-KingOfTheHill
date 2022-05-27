@@ -53,6 +53,12 @@ class KOTH_NetworkComponent : ScriptComponent
 		
 		Print(ToString() + "::SpawnVehicle - End");
 	}
+	
+	//------------------------------------------------------------------------------------------------	
+	protected void SendNotificationPlayer(ENotification messageID, int playerID)
+	{		
+		SCR_NotificationsComponent.SendToPlayer(playerID, messageID);
+	}
 
 	//------------------------------------------------------------------------------------------------
 	//! Checks if the session is run as client
@@ -64,6 +70,36 @@ class KOTH_NetworkComponent : ScriptComponent
 	//***********//
 	//RPC METHODS//
 	//***********//
+	
+	//------------------------------------------------------------------------------------------------
+	//! Show notification about request result to the requester
+	//! \param msgID Message ID (see ECampaignClientNotificationID)
+	protected void RpcDo_PlayerFeedbackImpl(int msgID, float value = 0, int assetID = -1)
+	{
+		LocalizedString msg;
+		LocalizedString msg2;
+		int duration = 2;
+		int prio = -1;
+		string msg1param1;
+		string msg2param1;
+		string msg2param2;
+		
+		switch (msgID)
+		{
+			case EKOTHClientNotificationID.VEHICLE_SPAWNED:
+			{
+				msg = "#AR-Campaign_VehicleReady-UC";
+				msg2 = m_KOTHGameMode.GetVehicleAssetDisplayName(assetID);
+								
+				SCR_UISoundEntity.SoundEvent("SOUND_LOADSUPPLIES");
+				break;
+			};
+			default: {return;};
+		}
+		
+		SCR_PopUpNotification.GetInstance().PopupMsg(msg, duration, 0.5, msg2, param1: msg1param1, text2param1: msg2param1, text2param2: msg2param2);
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	//! Spawn a vehicle at given depot
 	//! \param deliveryPointID Delivery point entity ID
@@ -117,6 +153,8 @@ class KOTH_NetworkComponent : ScriptComponent
 		}
 
 		Replication.BumpMe();
+		
+		RpcDo_PlayerFeedbackImpl(EKOTHClientNotificationID.VEHICLE_SPAWNED, 0, assetID);
 		
 		Print(ToString() + "::RpcAsk_SpawnVehicle - End");
 	}

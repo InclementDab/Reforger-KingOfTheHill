@@ -13,7 +13,6 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 
 	protected ImageWidget m_wIcon;
 	protected ImageWidget m_wFactionBackground;
-	protected KOTH_VehiclePreviewComponent m_Preview;;
 
 	//------------------------------------------------------------------------------------------------
 	static KOTH_VehicleMenuTile InitializeTile(KOTH_VehicleMenuTileSelection parent, KOTH_VehicleAssetInfo vehicle)
@@ -26,7 +25,6 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 			return null;
 
 		handler.SetParent(parent);
-		//handler.SetPreviewedVehicle(vehicle);
 		handler.SetText(vehicle.GetDisplayName());
 		gallery_handler.AddItem(tile);
 
@@ -107,22 +105,9 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 		m_wIcon = ImageWidget.Cast(w.FindAnyWidget("Icon"));
 		m_wImage = ImageWidget.Cast(w.FindAnyWidget("Image"));
 		Widget widget = w.FindAnyWidget("VehiclePreview");
-		m_Preview = KOTH_VehiclePreviewComponent.Cast(widget.FindHandler(KOTH_VehiclePreviewComponent));
-	}
-
-	//------------------------------------------------------------------------------------------------
-	void SetPreviewedVehicle(KOTH_VehicleAssetInfo vehicles)
-	{		
-		if (m_Preview)
-		{
-			IEntity ent = m_Preview.SetPreviewedVehicle(vehicles);
-			if (!ent)
-			{
-				return;
-			}
-		}
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	override void SetImage(ResourceName texture)
 	{
 		if (!m_wImage)
@@ -133,8 +118,8 @@ class KOTH_VehicleMenuTile : SCR_ButtonImageComponent
 		if (show) {
 			int x, y;
 			m_wImage.LoadImageTexture(0, texture);
-			m_wImage.GetImageSize(0, x, y);
-			m_wImage.SetSize(x, y);
+			//m_wImage.GetImageSize(0, x, y);
+			//m_wImage.SetSize(x, y);
 		}
 	}
 

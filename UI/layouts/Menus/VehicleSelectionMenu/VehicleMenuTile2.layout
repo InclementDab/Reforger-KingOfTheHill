@@ -48,18 +48,8 @@ ButtonWidgetClass {
        }
        Size 4 4
       }
-      ImageWidgetClass "{5976D7DA437DB7A4}" {
-       Name "Image"
-       Slot OverlayWidgetSlot "{585A990495B9F313}" {
-        HorizontalAlign 3
-        VerticalAlign 3
-        Padding -20 -20 -20 -20
-       }
-       "Is Enabled" 0
-       "Is Visible" 0
-      }
       ImageWidgetClass "{5976D7DA437E4DDC}" {
-       Name "Icon"
+       Name "Image"
        Slot OverlayWidgetSlot "{5976D7DA6C92F4EC}" {
         HorizontalAlign 0
         VerticalAlign 0
@@ -163,6 +153,65 @@ ButtonWidgetClass {
         VerticalAlign 3
        }
        "Is Visible" 0
+      }
+      VerticalLayoutWidgetClass "{59770C0B500741F7}" {
+       Name "VerticalLayout"
+       Slot OverlayWidgetSlot "{5588C2B20312AF98}" {
+        HorizontalAlign 3
+        VerticalAlign 2
+       }
+       {
+        OverlayWidgetClass "{59770C0B500741F0}" {
+         Name "Overlay"
+         Slot LayoutSlot "{5588C2B1D059DB2F}" {
+          Padding 20 20 20 20
+          SizeMode Fill
+          FillWeight 0.4
+         }
+         {
+          ImageWidgetClass "{59770C0B500741F1}" {
+           Name "Backround"
+           Slot OverlayWidgetSlot "{5588C2BF8C37F8F6}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+            Padding -20 -20 -20 -20
+           }
+           Color 0 0 0 0.784
+          }
+          VerticalLayoutWidgetClass "{59770C0B500741F2}" {
+           Name "VerticalLayout"
+           Slot OverlayWidgetSlot "{5588C2B1D14F4B11}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+           }
+           {
+            OverlayWidgetClass "{59770C0B500741F3}" {
+             Name "Overlay"
+             Slot LayoutSlot "{558E4CB3AF147085}" {
+             }
+             {
+              HorizontalLayoutWidgetClass "{59770C0B500741FC}" {
+               Name "HorizontalLayout"
+               Slot OverlayWidgetSlot "{558E4CB38AB5D991}" {
+               }
+               {
+                ImageWidgetClass "{59770C0B500741FD}" {
+                 Name "Icon"
+                 Slot LayoutSlot "{558E4CB599B10A10}" {
+                  HorizontalAlign 0
+                 }
+                 Image ""
+                 Size 32 32
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
       }
      }
     }
