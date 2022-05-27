@@ -1,4 +1,3 @@
-[ComponentEditorProps(category: "GameScripted/GameMode/KOTH", description: "Manager component allowing access and API over KOTH zones.")]
 class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 {
 }
@@ -27,39 +26,51 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Vehicle asset list", "conf", NULL, category: "KOTH: Configuration")]
 	protected ResourceName m_VehicleAssetList;
 	protected ref array<ref KOTH_VehicleAssetInfo> m_aVehicleAssetList;
+		
+	override void EOnFrame(IEntity owner, float timeSlice)
+	{
+		PlayerManager player_manager = GetGame().GetPlayerManager();
+		array<int> players = {};
+		player_manager.GetPlayers(players);
+		foreach (int player: players) {
+			string player_uid = GetGame().GetBackendApi().GetPlayerUID(player);
+			if (player_uid != string.Empty) {
+				PrintFormat("%1: %2", player, player_uid);
+			}
+		}		
+	}
 	
 	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
 	{
 		super.OnPlayerSpawned(playerId, controlledEntity);
-		
-		// start game
-		if (GetState() == SCR_EGameModeState.PREGAME) {
-			StartGameMode();
-		}
-	}
-	
-	override void OnPlayerConnected(int playerId)
-	{
-		super.OnPlayerConnected(playerId);
-		
+				
 		if (!Replication.IsServer()) {
 			return;
 		}
 		
-		Print("Checking id " + playerId);
+		// start game, hack
+		if (GetState() == SCR_EGameModeState.PREGAME) {
+			StartGameMode();
+		}
+			
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(controlledEntity);
+		if (!character) {
+			return;
+		}
+		
+		Print(character.GetUid());
+		
+		
+		
 		// Handle VIP slots
-		PlayerManager player_manager = GetGame().GetPlayerManager();
+		/*PlayerManager player_manager = GetGame().GetPlayerManager();
 		string player_uid = GetGame().GetBackendApi().GetPlayerUID(playerId);
 		KOTH_MissionHeader header = KOTH_MissionHeader.Cast(GetGame().GetMissionHeader());
 		Print(player_uid);
 		if (!header) {
 			return; // probably offline, dont worry about it
 		}
-		
-		Print(header.m_iPlayerCount);
-		Print(player_manager.GetPlayerCount());
-		Print(header.GetVIPSlotCount());
-		
+				
 		if (header.m_iPlayerCount - player_manager.GetPlayerCount() > header.GetVIPSlotCount()) {
 			// todo if player is VIP, return
 			// if (player.VIP()) {
@@ -68,9 +79,9 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			
 			Print("Kicking player id " + player_uid);
 			player_manager.KickPlayer(playerId, PlayerManagerKickReason.KICK);
-		}
+		}*/
 	}
-	
+
 	KOTH_ZoneManager GetKOTHZoneManager()
 	{
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));

@@ -15,7 +15,7 @@ class KOTH_SafeZoneTriggerEntity: ScriptedGameTriggerEntity
 	protected KOTH_ZoneManager m_ZoneManager;
 
 	override void OnActivate(IEntity ent)
-	{
+	{				
 		super.OnActivate(ent);
 
 		if (!Replication.IsServer()) {
