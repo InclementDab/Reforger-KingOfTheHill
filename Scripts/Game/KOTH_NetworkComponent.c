@@ -63,7 +63,7 @@ class KOTH_NetworkComponent : ScriptComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	bool CanRequestVehicle(int spawnPointID)
+	protected bool CanRequestVehicle(int spawnPointID)
 	{
 		if (!GetGame().AreGameFlagsSet(EGameFlags.SpawnVehicles))
 			return false;
@@ -82,8 +82,7 @@ class KOTH_NetworkComponent : ScriptComponent
 		
 		GetGame().GetWorld().QueryEntitiesBySphere(spawnPoint.GetOrigin(), 20, QueryNearSpawnPoint, null, EQueryEntitiesFlags.ALL);
 		
-		if (m_VehiclesInZone.Count() > 0)
-		{
+		if (m_VehiclesInZone.Count() > 0) {
 			RpcDo_PlayerFeedbackImpl(EKOTHClientNotificationID.ZONE_BLOCKED);
 			return false;
 		}
@@ -97,8 +96,7 @@ class KOTH_NetworkComponent : ScriptComponent
 		Print(ToString() + "::QueryNearSpawnPoint - Enity: " + entity.ToString());
 		
 		Vehicle veh = Vehicle.Cast(entity);
-		if (veh)
-		{
+		if (veh) {
 			Print(ToString() + "::QueryNearSpawnPoint - Vehicle: " + veh.ToString());
 			m_VehiclesInZone.Insert(veh);
 			return false;
@@ -137,8 +135,7 @@ class KOTH_NetworkComponent : ScriptComponent
 		string msg2param1;
 		string msg2param2;
 		
-		switch (msgID)
-		{
+		switch (msgID) {
 			case EKOTHClientNotificationID.VEHICLE_SPAWNED: {
 				msg = "#AR-Campaign_VehicleReady-UC";
 				msg2 = m_KOTHGameMode.GetVehicleAssetDisplayName(assetID);

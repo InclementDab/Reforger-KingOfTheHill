@@ -102,7 +102,7 @@ FrameWidgetClass {
         SizeMode Fill
         FillWeight 1
        }
-       Color 0.036 0.048 0.063 1
+       Color 0.036 0.048 0.063 0
        {
         HorizontalLayoutWidgetClass "{59773E5B949AFED5}" {
          Name "Score_Root"

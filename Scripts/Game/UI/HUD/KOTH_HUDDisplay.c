@@ -97,7 +97,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		// set money, probably temporary
 		RichTextWidget money_widget = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PlayerMoney"));
 		if (money_widget) {
-			money_widget.SetText(character.GetCurrency().ToString());
+			money_widget.SetText(character.GetCurrency().ToString() + " $");
 		}
 		
 		
