@@ -166,12 +166,12 @@ class KOTH_NetworkComponent : ScriptComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	protected string FormatTime( float time, bool include_ms = true )
+	protected string FormatTime(float time, bool include_ms = true)
 	{
 		return FormatTimestamp(time / 1000, include_ms);
 	}
 	
-	//------------------------------------------------------------------------------------------------	
+	//------------------------------------------------------------------------------------------------
 	protected string FormatTimestamp(float time, bool include_ms = true)
 	{
 		int hours = (int) time / 3600;
