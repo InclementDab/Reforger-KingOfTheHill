@@ -1,12 +1,20 @@
 modded class SCR_ChimeraCharacter
 {
 	[RplProp()] // we are replicating this to our client so they know whats goin on
-	protected KOTH_PlayerStorage m_PlayerStorage;
+	protected ref KOTH_PlayerStorage m_PlayerStorage; // extra ref, todo
 	
-	// assigned on spawn
-	void SetPlayerStorage(KOTH_PlayerStorage player_storage) 
+	[RplProp()]
+	protected string m_ClientId;
+		
+	override void EOnInit(IEntity owner)
+	{			
+		//GetGame().GetBackendApi().GetCredentialsItem(EBackendCredentials.EBCRED_NAME);
+	}
+		
+	void SetStorage(KOTH_PlayerStorage storage)
 	{
-		m_PlayerStorage = player_storage;
+		m_PlayerStorage = storage;
+		Replication.BumpMe();
 	}
 	
 	void SetCurrency(int currency)
@@ -81,14 +89,15 @@ modded class SCR_ChimeraCharacter
 		return m_PlayerStorage.Classes;
 	}
 	
-	// Get bohemia id associated with this character
+	
+	// Get unique id associated with this character
 	string GetUid()
 	{
+		return m_ClientId;
+		return "1234567";
 		if (RplSession.Mode() != RplMode.Dedicated) {
 			return "1234567";
-		}
-		
-		
+		}		
 		
 		return GetGame().GetBackendApi().GetPlayerUID(GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(this));
 	}

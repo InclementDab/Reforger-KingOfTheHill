@@ -20,7 +20,7 @@ class KOTH_DSSessionCallback: DSSessionCallback
 		} else {
 			//--- SP
 			storage.LocalSave(file_name);
-			PrintFormat("LocalSave: $profile:.backend\\%1.json", file_name);
+			//PrintFormat("LocalSave: $profile:.backend\\%1.json", file_name);
 		}
 	}
 	
@@ -246,7 +246,7 @@ class KOTH_PlayerStorage: KOTH_AutoJsonApiStruct
 	
 	static bool Decode(ScriptBitSerializer packet, ScriptCtx ctx, SSnapSerializerBase snapshot) 
 	{
-		return snapshot.Serialize(packet, CURRENT_SIZE);
+		return snapshot && snapshot.Serialize(packet, CURRENT_SIZE);
 	}
 	
 	static bool SnapCompare(SSnapSerializerBase lhs, SSnapSerializerBase rhs, ScriptCtx ctx) 
@@ -256,13 +256,15 @@ class KOTH_PlayerStorage: KOTH_AutoJsonApiStruct
 	
 	static bool PropCompare(KOTH_PlayerStorage prop, SSnapSerializerBase snapshot, ScriptCtx ctx) 
 	{
-		return snapshot.Compare(prop.Currency, 4)
+		return snapshot && snapshot.Compare(prop.Currency, 4)
 			&& snapshot.Compare(prop.Experience, 4)
 			&& snapshot.Compare(prop.Classes, 4);
 	}
 	
 	static bool Extract(KOTH_PlayerStorage prop, ScriptCtx ctx, SSnapSerializerBase snapshot) 
 	{
+		Print(snapshot);
+		Print(prop);
 		snapshot.SerializeBytes(prop.Currency, 4);
 		snapshot.SerializeBytes(prop.Experience, 4);
 		snapshot.SerializeBytes(prop.Classes, 4);
@@ -271,6 +273,8 @@ class KOTH_PlayerStorage: KOTH_AutoJsonApiStruct
 	
 	static bool Inject(SSnapSerializerBase snapshot, ScriptCtx ctx, KOTH_PlayerStorage prop) 
 	{
+		Print(snapshot);
+		Print(prop);
 		snapshot.SerializeBytes(prop.Currency, 4);
 		snapshot.SerializeBytes(prop.Experience, 4);
 		snapshot.SerializeBytes(prop.Classes, 4);
@@ -362,9 +366,7 @@ class KOTH_SaveLoadComponent: SCR_BaseGameModeComponent
 	Save all configured structs.
 	*/
 	void Save()
-	{
-		Print("Saving..");
-		
+	{		
 		if (m_Callback != null) {
 			m_Callback.SaveSession(m_sFileName);
 		}

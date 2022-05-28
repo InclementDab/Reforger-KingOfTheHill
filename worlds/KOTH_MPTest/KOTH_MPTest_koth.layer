@@ -1,9 +1,4 @@
 KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
- components {
-  KOTH_SaveLoadComponent "{5977338902870863}" {
-   m_iAutosavePeriod 5
-  }
- }
  coords 39.534 9.262 -143.294
 }
 SCR_FactionManager KOTH_FactionManager : "{37CFC109E74FFD02}Prefabs/MP/Modes/KOTH_FactionManager.et" {

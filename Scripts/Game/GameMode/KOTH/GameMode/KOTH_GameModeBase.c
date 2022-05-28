@@ -1,3 +1,43 @@
+class KOTH_PlayerBackendCb: BackendCallback
+{	
+	void KOTH_PlayerBackendCb()
+	{
+		Print("Hello");
+	}
+	
+	override void OnDataReceive( string data, int size )
+	{
+		Print("[BackendCallback] Data received, size=" + size);
+		Print(data);
+	}
+
+	/**
+	\brief Request finished with error result
+	\param code Error code is type of EBackendError
+	*/
+	override void OnError( int code, int restCode, int apiCode )
+	{
+		Print("[BackendCallback] OnError: "+ g_Game.GetBackendApi().GetErrorCode(code));
+	}
+
+	/**
+	\brief Request finished with success result
+	\param code Code is type of EBackendRequest
+	*/
+	override void OnSuccess( int code )
+	{
+		Print("[BackendCallback] OnSuccess()");
+	}
+
+	/**
+	\brief Request not finished due to timeout
+	*/
+	override void OnTimeout()
+	{
+		Print("[BackendCallback] OnTimeout");
+	}
+}
+
 class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 {
 }
@@ -26,19 +66,28 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	[Attribute("", UIWidgets.ResourceNamePicker, desc: "Vehicle asset list", "conf", NULL, category: "KOTH: Configuration")]
 	protected ResourceName m_VehicleAssetList;
 	protected ref array<ref KOTH_VehicleAssetInfo> m_aVehicleAssetList;
-		
-	override void EOnFrame(IEntity owner, float timeSlice)
+	
+	protected ref map<int, ref KOTH_PlayerStorage> m_PlayerStorages = new map<int, ref KOTH_PlayerStorage>();		
+	
+	protected ref KOTH_PlayerBackendCb m_PlayerBackendCb = new KOTH_PlayerBackendCb();
+	
+	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
+	{		
+		//Parse & register vehicle asset list	
+		m_aVehicleAssetList = new array<ref KOTH_VehicleAssetInfo>;
+		Resource container = BaseContainerTools.LoadContainer(m_VehicleAssetList);
+		if (container && container.IsValid()) {
+			KOTH_VehicleAssetList list = KOTH_VehicleAssetList.Cast(BaseContainerTools.CreateInstanceFromContainer(container.GetResource().ToBaseContainer()));
+			list.GetVehicleAssetList(m_aVehicleAssetList);
+		}
+	}
+	
+	override void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
 	{
-		/*
-		PlayerManager player_manager = GetGame().GetPlayerManager();
-		array<int> players = {};
-		player_manager.GetPlayers(players);
-		foreach (int player: players) {
-			string player_uid = GetGame().GetBackendApi().GetPlayerUID(player);
-			if (player_uid != string.Empty) {
-				PrintFormat("%1: %2", player, player_uid);
-			}
-		}*/
+		super.OnPlayerKilled(playerId, player, killer);
+		
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(player);
+		GetGame().GetBackendApi().PlayerData(m_PlayerStorages[playerId], playerId);
 	}
 	
 	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
@@ -59,12 +108,12 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			return;
 		}
 		
-		Print(character.GetUid());
+		if (!m_PlayerStorages[playerId]) {
+			m_PlayerStorages[playerId] = new KOTH_PlayerStorage();
+		}
 		
+		GetGame().GetBackendApi().PlayerRequest(EBackendRequest.EBREQ_GAME_CharacterGet, m_PlayerBackendCb, m_PlayerStorages[playerId], playerId);
 		
-		KOTH_PlayerStorage player_storage = GetKOTHGameStorage().GetPlayerStorage(character.GetUid());		
-		character.SetPlayerStorage(player_storage);
-		character.SetCurrency(character.GetCurrency() + 100);
 		
 				
 		// Handle VIP slots
@@ -87,6 +136,19 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		}*/
 	}
 
+	void SetPlayerStorage(int id, KOTH_PlayerStorage storage)
+	{
+		m_PlayerStorages[id] = storage;
+		
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(GetGame().GetPlayerManager().GetPlayerControlledEntity(id));
+		character.SetStorage(storage);
+	}
+	
+	KOTH_PlayerStorage GetPlayerStorage(int id)
+	{
+		return m_PlayerStorages[id];
+	}
+	
 	KOTH_GameStorage GetKOTHGameStorage()
 	{
 		KOTH_SaveLoadComponent save_load = KOTH_SaveLoadComponent.Cast(FindComponent(KOTH_SaveLoadComponent));
@@ -101,23 +163,6 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	KOTH_ZoneManager GetKOTHZoneManager()
 	{
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
-	}
-	
-	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
-	{		
-		//Parse & register vehicle asset list
-		m_aVehicleAssetList = new array<ref KOTH_VehicleAssetInfo>;
-		Resource container = BaseContainerTools.LoadContainer(m_VehicleAssetList);
-		if (container && container.IsValid())
-		{
-			KOTH_VehicleAssetList list = KOTH_VehicleAssetList.Cast(BaseContainerTools.CreateInstanceFromContainer(container.GetResource().ToBaseContainer()));
-			list.GetVehicleAssetList(m_aVehicleAssetList);
-		}
-	}
-
-	void ~KOTH_GameModeBase()
-	{	
-		
 	}
 
 	protected void DoPanZoomMap(float x, float z, float zoom)

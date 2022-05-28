@@ -24,7 +24,7 @@ KOTH_GameModeBase {
   KOTH_SaveLoadComponent "{5977338902870863}" {
    m_Struct KOTH_GameStorage "{5977415BC3153E82}" {
    }
-   m_iAutosavePeriod 60
+   m_iAutosavePeriod 30
   }
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
    m_TicketUpdateInterval 15

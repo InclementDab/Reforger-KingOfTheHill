@@ -7,7 +7,6 @@ GameProject {
  }
  Configurations {
   GameProjectConfig PC {
-   WorldFile "{16F9F6F781C1AB2D}worlds/KOTH_BaseWorld/KOTH_BaseWorld.ent"
    MenuManagerSettings MenuManagerSettings "{50C890C996B0A6FC}" {
    }
   }
