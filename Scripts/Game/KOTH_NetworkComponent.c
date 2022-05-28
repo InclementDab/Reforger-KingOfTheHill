@@ -8,11 +8,15 @@ class KOTH_NetworkComponentClass: ScriptComponentClass
 //! Used to identify various notifications for client
 enum EKOTHClientNotificationID
 {
-	VEHICLE_SPAWNED
+	VEHICLE_SPAWNED,
+	COOLDOWN
 };
 
 class KOTH_NetworkComponent : ScriptComponent
 {
+	[RplProp(condition: RplCondition.OwnerOnly)]
+	protected float m_fLastAssetRequestTimestamp = -int.MAX;
+	
 	// Member variables
 	protected SCR_PlayerController m_PlayerController;
 	protected RplComponent m_RplComponent;
@@ -39,7 +43,7 @@ class KOTH_NetworkComponent : ScriptComponent
 	
 	//------------------------------------------------------------------------------------------------
 	void SpawnVehicle(KOTH_DeliveryPoint vehicleSpawnPoint, int assetID)
-	{	
+	{
 		Print(ToString() + "::SpawnVehicle - Start");
 		
 		//RplId spawnPointID = Replication.FindId(vehicleSpawnPoint);
@@ -48,10 +52,29 @@ class KOTH_NetworkComponent : ScriptComponent
 		if (!m_PlayerController)
 			return;
 		
+		if (!CanRequestVehicle())
+			return;
+		
 		int playerID = m_PlayerController.GetPlayerId();
 		Rpc(RpcAsk_SpawnVehicle, pointID, assetID, playerID);
 		
 		Print(ToString() + "::SpawnVehicle - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	bool CanRequestVehicle()
+	{
+		if (!GetGame().AreGameFlagsSet(EGameFlags.SpawnVehicles))
+			return false;
+	
+		float fTimeout = m_fLastAssetRequestTimestamp + GetVehicleRequestCooldown();
+		if (fTimeout > Replication.Time())
+		{
+			RpcDo_PlayerFeedbackImpl(EKOTHClientNotificationID.COOLDOWN);
+			return false;
+		}
+		
+		return true;
 	}
 	
 	//------------------------------------------------------------------------------------------------	
@@ -94,10 +117,52 @@ class KOTH_NetworkComponent : ScriptComponent
 				SCR_UISoundEntity.SoundEvent("SOUND_LOADSUPPLIES");
 				break;
 			};
+			case EKOTHClientNotificationID.COOLDOWN:
+			{
+				float fTimeout = m_fLastAssetRequestTimestamp + GetVehicleRequestCooldown();
+				float timediff = fTimeout - Replication.Time();
+				msg = "VEHICLE SPAWN COOLDOWN";
+				msg2 = "You can spawn your next vehicle in " + FormatTime(timediff, false);
+								
+				SCR_UISoundEntity.SoundEvent("SOUND_HUD_NOTIFICATION");
+				break;
+			};
 			default: {return;};
 		}
 		
 		SCR_PopUpNotification.GetInstance().PopupMsg(msg, duration, 0.5, msg2, param1: msg1param1, text2param1: msg2param1, text2param2: msg2param2);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected string FormatTime( float time, bool include_ms = true )
+	{
+		return FormatTimestamp(time / 1000, include_ms);
+	}
+	
+	//------------------------------------------------------------------------------------------------	
+	protected string FormatTimestamp(float time, bool include_ms = true)
+	{
+		int hours = (int) time / 3600;
+		time -= hours * 3600;
+		int minutes = (int) time / 60;
+		time -= minutes * 60;
+		int seconds = (int) time;
+		
+		string timestring = hours.ToString(2) + ":" + minutes.ToString(2) + ":" + seconds.ToString(2);
+		
+		if (include_ms)
+		{
+			time -= seconds;
+			int ms = time * 1000;
+			timestring += "." + ms.ToString(3);
+		}
+
+		return timestring;
+	}
+	//------------------------------------------------------------------------------------------------	
+	protected int GetVehicleRequestCooldown()
+	{
+		return 120 * 1000;
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -146,15 +211,16 @@ class KOTH_NetworkComponent : ScriptComponent
 
 		veh.GetPhysics().SetVelocity("0 -0.1 0"); // Make the vehicle copy the terrain properly
 		SCR_VehicleSpawnProtectionComponent protectionComponent = SCR_VehicleSpawnProtectionComponent.Cast(veh.FindComponent(SCR_VehicleSpawnProtectionComponent));
-
+	
 		if (protectionComponent) {
 			protectionComponent.SetVehicleOwner(playerID);
 			protectionComponent.SetProtectionTime(120.0);
 		}
-
-		Replication.BumpMe();
 		
+		m_fLastAssetRequestTimestamp = Replication.Time();
+		Print(FormatTime(m_fLastAssetRequestTimestamp));
 		RpcDo_PlayerFeedbackImpl(EKOTHClientNotificationID.VEHICLE_SPAWNED, 0, assetID);
+		Replication.BumpMe();
 		
 		Print(ToString() + "::RpcAsk_SpawnVehicle - End");
 	}
@@ -171,7 +237,7 @@ class KOTH_NetworkComponent : ScriptComponent
 	override void EOnInit(IEntity owner)
 	{
 		m_PlayerController = SCR_PlayerController.Cast(PlayerController.Cast(owner));
-
+		
 		if (!m_PlayerController)
 		{
 			Print("KOTH_NetworkComponent must be attached to PlayerController!", LogLevel.ERROR);
@@ -191,6 +257,8 @@ class KOTH_NetworkComponent : ScriptComponent
 			Print("Could not find KOTH_GameModeBase!", LogLevel.ERROR);
 			return;
 		}
+		
+		m_fLastAssetRequestTimestamp = Replication.Time();
 	}
 
 	//------------------------------------------------------------------------------------------------
