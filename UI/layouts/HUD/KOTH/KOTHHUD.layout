@@ -82,7 +82,7 @@ FrameWidgetClass {
      }
     }
     HorizontalLayoutWidgetClass "{596B0DDF54983966}" {
-     Name "Score_Root"
+     Name "Score_Panel"
      Slot FrameWidgetSlot "{596B0DDF54983942}" {
       Anchor 0.5 0.5 0.5 0.5
       PositionX -80
@@ -91,8 +91,35 @@ FrameWidgetClass {
       OffsetTop 0
       SizeX 160
       OffsetRight -80
-      SizeY 57.019
+      SizeY 57
       OffsetBottom -57
+     }
+     {
+      PanelWidgetClass "{59773E5BD3157B77}" {
+       Prefab "{59756396F1E90FB9}"
+       Name "Border0"
+       Slot LayoutSlot "{59773E5BE0E21AA4}" {
+        SizeMode Fill
+        FillWeight 1
+       }
+       Color 0.036 0.048 0.063 1
+       {
+        HorizontalLayoutWidgetClass "{59773E5B949AFED5}" {
+         Name "Score_Root"
+         Slot FrameWidgetSlot "{59773E5B8DB64CA0}" {
+          Anchor 0 0 1 1
+          PositionX 2.301
+          OffsetLeft 2.301
+          PositionY 8.5
+          OffsetTop 5
+          SizeX -6.808
+          OffsetRight 4.507
+          SizeY -17
+          OffsetBottom 8.5
+         }
+        }
+       }
+      }
      }
     }
     VerticalLayoutWidgetClass "{59755E76418DFBE9}" {
@@ -117,6 +144,10 @@ FrameWidgetClass {
         SliderWidgetClass "{59755E7701295EB9}" {
          Prefab "{59755E7701295EB9}"
          Color 0.15 0.001 0.001 1
+        }
+        PanelWidgetClass "{59756396F1E90FB9}" {
+         Prefab "{59756396F1E90FB9}"
+         Color 0.036 0.048 0.063 1
         }
        }
       }
