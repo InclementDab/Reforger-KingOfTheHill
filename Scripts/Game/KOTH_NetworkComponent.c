@@ -9,7 +9,8 @@ class KOTH_NetworkComponentClass: ScriptComponentClass
 enum EKOTHClientNotificationID
 {
 	VEHICLE_SPAWNED,
-	COOLDOWN
+	COOLDOWN,
+	ZONE_BLOCKED
 };
 
 class KOTH_NetworkComponent : ScriptComponent
@@ -21,6 +22,9 @@ class KOTH_NetworkComponent : ScriptComponent
 	protected SCR_PlayerController m_PlayerController;
 	protected RplComponent m_RplComponent;
 	protected KOTH_GameModeBase m_KOTHGameMode;
+	protected const int VEHICLE_REQUEST_COOLDOWN = 5;
+	protected bool m_bIsSpawnZoneFree = false;
+	protected ref array<Vehicle> m_VehiclesInZone = {};
 	
 	//------------------------------------------------------------------------------------------------
 	static KOTH_NetworkComponent GetKOTHNetworkComponent(int playerID)
@@ -52,9 +56,6 @@ class KOTH_NetworkComponent : ScriptComponent
 		if (!m_PlayerController)
 			return;
 		
-		if (!CanRequestVehicle())
-			return;
-		
 		int playerID = m_PlayerController.GetPlayerId();
 		Rpc(RpcAsk_SpawnVehicle, pointID, assetID, playerID);
 		
@@ -62,15 +63,44 @@ class KOTH_NetworkComponent : ScriptComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	bool CanRequestVehicle()
+	bool CanRequestVehicle(int spawnPointID)
 	{
 		if (!GetGame().AreGameFlagsSet(EGameFlags.SpawnVehicles))
 			return false;
 	
 		float fTimeout = m_fLastAssetRequestTimestamp + GetVehicleRequestCooldown();
-		if (fTimeout > Replication.Time())
-		{
+		if (fTimeout > Replication.Time()) {
 			RpcDo_PlayerFeedbackImpl(EKOTHClientNotificationID.COOLDOWN);
+			return false;
+		}
+		
+		KOTH_DeliveryPoint spawnPoint;
+		if (spawnPointID == 1)
+			spawnPoint = m_KOTHGameMode.GetUSDeliveryPoint();
+		
+		m_VehiclesInZone.Clear();
+		
+		GetGame().GetWorld().QueryEntitiesBySphere(spawnPoint.GetOrigin(), 20, QueryNearSpawnPoint, null, EQueryEntitiesFlags.ALL);
+		
+		if (m_VehiclesInZone.Count() > 0)
+		{
+			RpcDo_PlayerFeedbackImpl(EKOTHClientNotificationID.ZONE_BLOCKED);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected bool QueryNearSpawnPoint(IEntity entity)
+	{
+		Print(ToString() + "::QueryNearSpawnPoint - Enity: " + entity.ToString());
+		
+		Vehicle veh = Vehicle.Cast(entity);
+		if (veh)
+		{
+			Print(ToString() + "::QueryNearSpawnPoint - Vehicle: " + veh.ToString());
+			m_VehiclesInZone.Insert(veh);
 			return false;
 		}
 		
@@ -109,20 +139,25 @@ class KOTH_NetworkComponent : ScriptComponent
 		
 		switch (msgID)
 		{
-			case EKOTHClientNotificationID.VEHICLE_SPAWNED:
-			{
+			case EKOTHClientNotificationID.VEHICLE_SPAWNED: {
 				msg = "#AR-Campaign_VehicleReady-UC";
 				msg2 = m_KOTHGameMode.GetVehicleAssetDisplayName(assetID);
 								
 				SCR_UISoundEntity.SoundEvent("SOUND_LOADSUPPLIES");
 				break;
 			};
-			case EKOTHClientNotificationID.COOLDOWN:
-			{
+			case EKOTHClientNotificationID.COOLDOWN: {
 				float fTimeout = m_fLastAssetRequestTimestamp + GetVehicleRequestCooldown();
 				float timediff = fTimeout - Replication.Time();
 				msg = "VEHICLE SPAWN COOLDOWN";
 				msg2 = "You can spawn your next vehicle in " + FormatTime(timediff, false);
+								
+				SCR_UISoundEntity.SoundEvent("SOUND_HUD_NOTIFICATION");
+				break;
+			};
+			case EKOTHClientNotificationID.ZONE_BLOCKED: {
+				msg = "SPAWN ZONE BLOCKED";
+				msg2 = "A other vehicle is blocking the spawn zone!";
 								
 				SCR_UISoundEntity.SoundEvent("SOUND_HUD_NOTIFICATION");
 				break;
@@ -149,9 +184,8 @@ class KOTH_NetworkComponent : ScriptComponent
 		int seconds = (int) time;
 		
 		string timestring = hours.ToString(2) + ":" + minutes.ToString(2) + ":" + seconds.ToString(2);
-		
-		if (include_ms)
-		{
+
+		if (include_ms) {
 			time -= seconds;
 			int ms = time * 1000;
 			timestring += "." + ms.ToString(3);
@@ -159,10 +193,17 @@ class KOTH_NetworkComponent : ScriptComponent
 
 		return timestring;
 	}
+	
+	//------------------------------------------------------------------------------------------------
+	float GetLastAssetRequestTimestamp()
+	{
+		return m_fLastAssetRequestTimestamp;
+	}
+	
 	//------------------------------------------------------------------------------------------------	
 	protected int GetVehicleRequestCooldown()
 	{
-		return 120 * 1000;
+		return VEHICLE_REQUEST_COOLDOWN * 1000;
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -174,6 +215,9 @@ class KOTH_NetworkComponent : ScriptComponent
 	protected void RpcAsk_SpawnVehicle(int spawnPointID, int assetID, int playerID)
 	{
 		Print(ToString() + "::RpcAsk_SpawnVehicle - Start");
+		
+		if (!CanRequestVehicle(spawnPointID))
+			return;
 		
 		KOTH_DeliveryPoint spawnPoint;
 		if (spawnPointID == 1)
@@ -238,22 +282,19 @@ class KOTH_NetworkComponent : ScriptComponent
 	{
 		m_PlayerController = SCR_PlayerController.Cast(PlayerController.Cast(owner));
 		
-		if (!m_PlayerController)
-		{
+		if (!m_PlayerController) {
 			Print("KOTH_NetworkComponent must be attached to PlayerController!", LogLevel.ERROR);
 			return;
 		}
 		
 		m_RplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
-		if (!m_RplComponent)
-		{
+		if (!m_RplComponent) {
 			Print("Could not find RplComponent on PlayerController!", LogLevel.ERROR);
 			return;
 		}
 		
 		m_KOTHGameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
-		if (!m_KOTHGameMode)
-		{
+		if (!m_KOTHGameMode) {
 			Print("Could not find KOTH_GameModeBase!", LogLevel.ERROR);
 			return;
 		}
