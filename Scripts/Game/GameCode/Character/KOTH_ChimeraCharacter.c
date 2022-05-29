@@ -30,7 +30,7 @@ modded class SCR_ChimeraCharacter
 	int GetCurrency()
 	{
 		if (!m_PlayerStorage) {
-			Print("PlayerStorage was invalid!", LogLevel.ERROR);
+			//Print("PlayerStorage was invalid!", LogLevel.ERROR);
 			return -1;
 		}
 		
@@ -50,7 +50,7 @@ modded class SCR_ChimeraCharacter
 	int GetExperience()
 	{
 		if (!m_PlayerStorage) {
-			Print("PlayerStorage was invalid!", LogLevel.ERROR);
+			//Print("PlayerStorage was invalid!", LogLevel.ERROR);
 			return -1;
 		}
 		
@@ -82,7 +82,7 @@ modded class SCR_ChimeraCharacter
 	KOTH_PlayerClasses GetClasses()
 	{
 		if (!m_PlayerStorage) {
-			Print("PlayerStorage was invalid!", LogLevel.ERROR);
+			//Print("PlayerStorage was invalid!", LogLevel.ERROR);
 			return -1;
 		}
 		

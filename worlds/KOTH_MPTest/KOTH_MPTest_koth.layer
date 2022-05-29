@@ -1,5 +1,7 @@
 KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
  coords 39.534 9.262 -143.294
+ m_vObjectivePosition 20.051 9.262 -117.73
+ m_vObjectiveRadius 100
 }
 SCR_FactionManager KOTH_FactionManager : "{37CFC109E74FFD02}Prefabs/MP/Modes/KOTH_FactionManager.et" {
  coords 37.655 9.262 -140.786
@@ -71,14 +73,6 @@ KOTH_DeliveryPoint VehicleRequestSpawnUSA : "{AF747EB44D2217EF}Prefabs/MP/Modes/
  }
  coords -181.724 9.262 56.093
  angleZ 0
-}
-KOTH_ZoneTriggerEntity : "{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et" {
- coords 20.051 9.262 -117.73
- TriggerShapeType Sphere
- SphereRadius 100
- DrawShape 1
- TriggerActivationType "All changes"
- PeriodicQueries 1
 }
 SCR_SpawnPoint : "{F831310DC6DEFEFF}Prefabs/MP/Modes/USSR_SpawnPoint.et" {
  coords -183.666 9.262 -325.853

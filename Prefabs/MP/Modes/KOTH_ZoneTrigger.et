@@ -13,6 +13,12 @@ KOTH_ZoneTriggerEntity {
   }
  }
  coords 7059.178 119.015 6016.226
+ TriggerShapeType Sphere
+ SphereRadius 100
+ DrawShape 1
+ TriggerActivationType "All changes"
+ PeriodicQueries 1
+ UpdatePeriod 0.1
  {
   SCR_Position {
    ID "59754BE2285C3E9D"

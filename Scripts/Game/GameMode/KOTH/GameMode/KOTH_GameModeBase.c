@@ -44,6 +44,12 @@ class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 
 class KOTH_GameModeBase: SCR_BaseGameMode
 {
+	[Attribute(defvalue: "0", UIWidgets.EditBox, desc: "Position of the objective zone.", category: "KOTH: Settings")]
+	protected vector m_vObjectivePosition;
+	
+	[Attribute(defvalue: "0", desc: "Radius of the objective zone.", category: "KOTH: Settings")]
+	protected float m_vObjectiveRadius;
+	
 	[Attribute(defvalue: "0", desc: "If enabled, the KOTH_MapUIComponenMapMarkers will be used and safe zone and objective markers get created on the players map.", category: "KOTH: Settings")]
 	protected bool m_bEnableMapUIComponent;
 		
@@ -71,6 +77,8 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	
 	protected ref KOTH_PlayerBackendCb m_PlayerBackendCb = new KOTH_PlayerBackendCb();
 	
+	protected KOTH_ZoneTriggerEntity m_Zone;
+		
 	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
 	{		
 		//Parse & register vehicle asset list	
@@ -217,6 +225,19 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 
 		if (m_bUseCustomWeather)
 			SetWeather(m_sCustomWeatherId);
+
+		//! Spawn zone trigger entity
+		EntitySpawnParams params = EntitySpawnParams();
+		params.TransformMode = ETransformMode.WORLD;
+		
+		vector matrix[4];
+		Math3D.MatrixIdentity4(matrix);
+		matrix[3] = m_vObjectivePosition;
+		params.Transform = matrix;
+		Resource res = Resource.Load("{DA440D2C7D1E29A7}Prefabs/MP/Modes/KOTH_ZoneTrigger.et");
+		World world = GetGame().GetWorld();
+		m_Zone = KOTH_ZoneTriggerEntity.Cast(GetGame().SpawnEntityPrefab(res, world, params));
+		m_Zone.SetSphereRadius(m_vObjectiveRadius);
 	}
 		
 	//------------------------------------------------------------------------------------------------
