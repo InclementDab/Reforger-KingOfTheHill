@@ -40,6 +40,7 @@ class KOTH_TeamScoreDisplayObject
 	protected int m_CurrentScore = 0;
 	protected int m_CurrentPlayerCount = 0;
 	
+	//------------------------------------------------------------------------------------------------
 	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull SCR_Faction faction)
 	{
 		m_Root = root;
@@ -63,7 +64,8 @@ class KOTH_TeamScoreDisplayObject
 		// Color elements
 		m_Root.SetColor(faction.GetFactionColor());
 	}
-		
+	
+	//------------------------------------------------------------------------------------------------	
 	void SetBlinkState(ScoreDiplayObjectBlinkState blink_state)
 	{
 		m_BlinkState = blink_state;
@@ -93,7 +95,8 @@ class KOTH_TeamScoreDisplayObject
 			}
 		}
 	}
-		
+	
+	//------------------------------------------------------------------------------------------------	
 	void UpdateScore(int score)
 	{
 		if (score == m_CurrentScore)
@@ -106,6 +109,7 @@ class KOTH_TeamScoreDisplayObject
 		AnimateWidget_TextPopUp(m_ScoreText, 36, 54);
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	void UpdatePlayerCount(int count, bool in_zone)
 	{
 		if (count == m_CurrentPlayerCount)
@@ -118,7 +122,8 @@ class KOTH_TeamScoreDisplayObject
 		AnimateWidget_ColorFlash(m_PlayerCountText, 1.0, Color.FromSRGBA(226, 167, 80, 255));	
 		AnimateWidget_TextPopUp(m_PlayerCountText, 36, 54);
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	SCR_Faction GetFaction()
 	{
 		return m_Faction;
