@@ -78,7 +78,13 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	protected ref KOTH_PlayerBackendCb m_PlayerBackendCb = new KOTH_PlayerBackendCb();
 	
 	protected KOTH_ZoneTriggerEntity m_Zone;
-		
+	
+	protected ref map<int, ref KOTH_PlayerUIData> m_PlayerUIDatas = new map<int, ref KOTH_PlayerUIData>;
+	
+	protected float m_PlayersUpdateTime;
+	protected const float PLAYER_UPDATEQUE_TIME = 0.100;
+	
+	//------------------------------------------------------------------------------------------------		
 	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
 	{		
 		//Parse & register vehicle asset list	
@@ -90,6 +96,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		}
 	}
 	
+	//------------------------------------------------------------------------------------------------	
 	override void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
 	{
 		super.OnPlayerKilled(playerId, player, killer);
@@ -98,6 +105,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		GetGame().GetBackendApi().PlayerData(m_PlayerStorages[playerId], playerId);
 	}
 	
+	//------------------------------------------------------------------------------------------------	
 	override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
 	{
 		super.OnPlayerSpawned(playerId, controlledEntity);
@@ -115,6 +123,11 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		if (!character) {
 			return;
 		}
+		
+		KOTH_PlayerUIData playerUIData = new KOTH_PlayerUIData();
+		playerUIData.SetPosition(character.GetOrigin());
+		playerUIData.SetFactionKey(character.GetFactionKey());
+		m_PlayerUIDatas.Insert(playerId, playerUIData);
 		
 		if (!m_PlayerStorages[playerId]) {
 			m_PlayerStorages[playerId] = new KOTH_PlayerStorage();
@@ -143,7 +156,8 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			player_manager.KickPlayer(playerId, PlayerManagerKickReason.KICK);
 		}*/
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	void SetPlayerStorage(int id, KOTH_PlayerStorage storage)
 	{
 		m_PlayerStorages[id] = storage;
@@ -152,11 +166,13 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		character.SetStorage(storage);
 	}
 	
+	//------------------------------------------------------------------------------------------------	
 	KOTH_PlayerStorage GetPlayerStorage(int id)
 	{
 		return m_PlayerStorages[id];
 	}
 	
+	//------------------------------------------------------------------------------------------------	
 	KOTH_GameStorage GetKOTHGameStorage()
 	{
 		KOTH_SaveLoadComponent save_load = KOTH_SaveLoadComponent.Cast(FindComponent(KOTH_SaveLoadComponent));
@@ -168,11 +184,13 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		return save_load.GetGameStorage();
 	}
 	
+	//------------------------------------------------------------------------------------------------	
 	KOTH_ZoneManager GetKOTHZoneManager()
 	{
 		return KOTH_ZoneManager.Cast(FindComponent(KOTH_ZoneManager));
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	protected void DoPanZoomMap(float x, float z, float zoom)
 	{
 		SCR_MapEntity mapEntity = SCR_MapEntity.GetMapInstance();
@@ -183,6 +201,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		mapEntity.ZoomPanSmooth(zoom, x, z, 0.001);
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	protected void SetWeather(string weatherId)
 	{
 		if (!IsMaster())
@@ -201,6 +220,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		weatherManager.ForceWeatherTo(true, weatherId, 0.0);
 	}
 
+	//------------------------------------------------------------------------------------------------
 	protected void SetTimeOfTheDay(float timeOfTheDay)
 	{
 		if (!IsMaster())
@@ -216,6 +236,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		weatherManager.SetTimeOfTheDay(timeOfTheDay, true);
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	protected override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
@@ -277,11 +298,13 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		return m_aVehicleAssetList[assetID].GetPrefab();
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	bool UseMapMarkerComponent()
 	{
 		return m_bEnableMapUIComponent;
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	static IEntity FindEntityByName(string entityName)
 	{
 		if (!GetGame())
@@ -297,6 +320,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		return entity;
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	static KOTH_DeliveryPoint GetUSDeliveryPoint()
 	{
 		if (!GetGame())
@@ -306,5 +330,81 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		KOTH_DeliveryPoint usPoint = KOTH_DeliveryPoint.Cast(world.FindEntityByName("VehicleRequestSpawnUSA"));
 		
 		return usPoint;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override void OnPlayerDisconnected(int playerId)
+	{
+		super.OnPlayerDisconnected(playerId);
+				
+		if (!Replication.IsServer()) {
+			return;
+		}
+		
+		if (m_PlayerUIDatas.Contains(playerId))
+			m_PlayerUIDatas.Remove(playerId);
+	}
+	
+	override void EOnFrame(IEntity owner, float timeSlice)
+	{
+		super.EOnFrame(owner, timeSlice);
+		
+		m_PlayersUpdateTime += timeSlice;
+		
+		if (m_PlayersUpdateTime >= PLAYER_UPDATEQUE_TIME)
+		{
+			foreach (int playerId, KOTH_PlayerUIData data: m_PlayerUIDatas)
+			{
+				IEntity player = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
+				if (!player)
+					continue;
+				
+				vector position = player.GetOrigin();
+				data.SetPosition(position);
+				m_PlayerUIDatas.Set(playerId, data);
+				Print("Updated pos for player " + playerId + ". Pos: " + data.GetPosition());
+			}
+			
+			m_PlayersUpdateTime = 0;
+		}
+	}
+	
+	map<int, ref KOTH_PlayerUIData> GetPlayerUIDatas()
+	{
+		return m_PlayerUIDatas;
+	}
+}
+
+class KOTH_PlayerUIData
+{
+	protected vector m_Position;
+	protected string m_FactionKey;
+	
+	void KOTH_PlayerUIData()
+	{
+	}
+	
+	void ~KOTH_PlayerUIData()
+	{
+	}
+	
+	void SetPosition(vector pos)
+	{
+		m_Position = pos;
+	}
+	
+	vector GetPosition()
+	{
+		return m_Position;
+	}
+	
+	void SetFactionKey(string key)
+	{
+		m_FactionKey = key;
+	}
+	
+	string GetFactionKey()
+	{
+		return m_FactionKey;
 	}
 }

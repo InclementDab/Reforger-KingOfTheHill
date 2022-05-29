@@ -35,7 +35,9 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 	protected ref array<ref KOTH_MapMarker> m_MapMarkers = new array<ref KOTH_MapMarker>;
 	protected ref KOTH_MapMarker m_ObjectiveMarker;
 	protected ref KOTH_PlayerMapMarker m_PlayerMarker;
-	protected ChimeraCharacter m_Player;
+	protected ref array<ref KOTH_PlayerMapMarker> m_TeamMarkers = new array<ref KOTH_PlayerMapMarker>;
+	protected SCR_ChimeraCharacter m_Player;
+	protected int m_PlayerID = -1;
 	protected bool m_Enabled = true;
 
 	protected KOTH_GameModeBase m_GameMode;
@@ -53,6 +55,12 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 		if (m_ObjectiveMarker)
 			m_ObjectiveMarker.Update();
 
+		if (m_TeamMarkers && m_TeamMarkers.Count() > 0) {
+			foreach (KOTH_PlayerMapMarker teamMarker: m_TeamMarkers) {
+				teamMarker.Update();
+			}
+		}
+		
 		if (m_MapMarkers && m_MapMarkers.Count() > 0) {
 			foreach (KOTH_MapMarker mapMarker: m_MapMarkers) {
 				mapMarker.Update();
@@ -89,8 +97,12 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 
 		//! Create player position marker
 		if (!m_PlayerMarker) {
-			m_Player = ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity());
+			m_Player = SCR_ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity());
 			if (!m_Player) 
+				return;
+			
+			m_PlayerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_Player);
+			if (m_PlayerID == -1)
 				return;
 			
 			m_PlayerMarker = new KOTH_PlayerMapMarker(m_RootWidget, m_Player);
@@ -109,6 +121,36 @@ class KOTH_MapUIComponentMapMarkers : SCR_MapUIBaseComponent
 			string formatedName = FilterName(playerName);
 			m_PlayerMarker.SetLabel(formatedName);
 			m_PlayerMarker.SetIconSize(m_fPlayerMarkerIconSize, m_fPlayerMarkerIconSize);
+		}
+		
+		//! Create team-mate markers
+		foreach(int playerId, KOTH_PlayerUIData data: m_GameMode.GetPlayerUIDatas())
+		{
+			if (playerId == m_PlayerID)
+				continue;
+			
+			SCR_ChimeraCharacter player = SCR_ChimeraCharacter.Cast(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId));
+			if (!player) 
+				continue;
+			
+			if (player.GetFactionKey() != m_Player.GetFactionKey())
+				continue;
+			
+			FactionManager factionManager = GetGame().GetFactionManager();
+			if (!factionManager)
+				return;
+			
+			Faction faction = factionManager.GetFactionByKey(player.GetFactionKey());
+			Color factionColor = faction.GetFactionColor();
+			KOTH_PlayerMapMarker playerMarker = new KOTH_PlayerMapMarker(m_RootWidget, player);
+			PlayerManager playerManager = GetGame().GetPlayerManager();
+			string playerName = playerManager.GetPlayerName(playerId);
+			string formatedName = FilterName(playerName);
+			playerMarker.SetLabel(formatedName);
+			playerMarker.SetIconFromSet("{0250208EA4A9AB25}UI/Textures/Icons/icons_wrapperUI-32-glow.imageset", "compass");
+			playerMarker.SetIconSize(32, 32);
+			playerMarker.SetColor(factionColor);
+			m_TeamMarkers.Insert(playerMarker);
 		}
 		
 		//! Create objective marker

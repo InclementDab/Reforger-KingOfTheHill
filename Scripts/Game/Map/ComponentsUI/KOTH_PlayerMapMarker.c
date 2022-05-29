@@ -6,9 +6,9 @@ class KOTH_PlayerMapMarker
 	protected ImageWidget m_Icon;
 	protected RichTextWidget m_Text;
 
-	protected ChimeraCharacter m_Player;
+	protected SCR_ChimeraCharacter m_Player;
 
-	void KOTH_PlayerMapMarker(Widget parent, ChimeraCharacter player)
+	void KOTH_PlayerMapMarker(Widget parent, SCR_ChimeraCharacter player)
 	{
 		m_ParentRoot = parent;
 		m_Player = player;
