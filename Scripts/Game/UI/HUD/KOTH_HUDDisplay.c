@@ -29,7 +29,8 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	
 	//! Speed used to fade areas hud when hints are shown
 	//protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
-
+	
+	//------------------------------------------------------------------------------------------------
 	override bool DisplayStartDrawInit(IEntity owner)
 	{
 		// No ui can be drawn without necessary items	
@@ -47,7 +48,8 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 
 		return true;
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	override void DisplayStartDraw(IEntity owner)
 	{
 		if (RplSession.Mode() == RplMode.Dedicated) {
@@ -68,13 +70,15 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{DA5637D17656DCA2}UI/layouts/HUD/KOTH/KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	override void DisplayStopDraw(IEntity owner)
 	{
 		super.DisplayStopDraw(owner);
 		m_ScoringElements.Clear();
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	override void DisplayUpdate(IEntity owner, float timeSlice)
 	{
 		if (m_bEnable3DObjectiveMarker)
@@ -119,7 +123,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			if (!scoring_object || !m_KOTHManager) {
 				continue;
 			}
-				
+			
 			scoring_object.UpdateScore(m_KOTHManager.GetTickets(faction));
 			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction), character && character.GetFaction() == faction && m_KOTHManager.IsInZone(character));
 			scoring_object.SetBlinkState(ScoreDiplayObjectBlinkState.OFF);

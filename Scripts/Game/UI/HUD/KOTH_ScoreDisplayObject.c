@@ -33,7 +33,13 @@ class KOTH_TeamScoreDisplayObject
 	protected SCR_Faction m_Faction;
 	
 	protected ScoreDiplayObjectBlinkState m_BlinkState;
-
+	
+	const ref Color COLOR_WHITE = Color.FromSRGBA(255, 255, 255, 255);
+	const ref Color COLOR_ORANGE = Color.FromSRGBA(226, 167, 80, 255);
+	
+	protected int m_CurrentScore = 0;
+	protected int m_CurrentPlayerCount = 0;
+	
 	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull SCR_Faction faction)
 	{
 		m_Root = root;
@@ -90,17 +96,53 @@ class KOTH_TeamScoreDisplayObject
 		
 	void UpdateScore(int score)
 	{
+		if (score == m_CurrentScore)
+			return;
+		
+		m_CurrentScore = score;
 		m_ScoreText.SetText(score.ToString());
+		
+		AnimateWidget_ColorFlash(m_ScoreText, 1.0, Color.FromSRGBA(226, 167, 80, 255));	
+		AnimateWidget_TextPopUp(m_ScoreText, 36, 54);
 	}
 	
 	void UpdatePlayerCount(int count, bool in_zone)
 	{
+		if (count == m_CurrentPlayerCount)
+			return;
+		
+		m_CurrentPlayerCount = count;
 		m_PlayerCountText.SetText(count.ToString());
 		m_PlayerImage.SetColor(Color.FromRGBA(255 * !in_zone, 255, 255 * !in_zone, 255));
+		
+		AnimateWidget_ColorFlash(m_PlayerCountText, 1.0, Color.FromSRGBA(226, 167, 80, 255));	
+		AnimateWidget_TextPopUp(m_PlayerCountText, 36, 54);
 	}
 
 	SCR_Faction GetFaction()
 	{
 		return m_Faction;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void AnimateWidget_ColorFlash(Widget w, float speed = WidgetAnimator.FADE_RATE_SLOW, Color color = Color.FromSRGBA(226, 167, 80, 255))
+	{
+		if (!w)
+			return;
+		
+		w.SetColor(color);
+		WidgetAnimator.PlayAnimation(w, WidgetAnimationType.Color, COLOR_WHITE, speed);
+	}	
+
+	//------------------------------------------------------------------------------------------------
+	void AnimateWidget_TextPopUp(Widget w, float size, float sizeBoosted, float speed = WidgetAnimator.FADE_RATE_SLOW)
+	{
+		if (!w)
+			return;
+		
+		float width = FrameSlot.GetSizeX(w);
+		
+		FrameSlot.SetSize(w, width, sizeBoosted);
+		WidgetAnimator.PlayAnimation(w, WidgetAnimationType.FrameSize, speed, width, size);
 	}
 };

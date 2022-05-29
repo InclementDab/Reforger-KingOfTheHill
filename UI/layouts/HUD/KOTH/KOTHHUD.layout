@@ -155,5 +155,79 @@ FrameWidgetClass {
     }
    }
   }
+  OverlayWidgetClass "{597B3B9A141466F9}" {
+   Name "Crosshairs"
+   Slot FrameWidgetSlot "{597B3B9A14146606}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -100
+    OffsetLeft -100
+    PositionY -50
+    OffsetTop -50
+    SizeX 200
+    OffsetRight -100
+    SizeY 100
+    OffsetBottom -50
+   }
+   {
+    ImageWidgetClass "{597B3B9DFA42F033}" {
+     Name "Dot"
+     Slot OverlayWidgetSlot "{597B3B9271B0DAF8}" {
+     }
+     "Is Visible" 0
+     Texture "{E024508DCAEE8F75}UI/Imagesets/Editor/Camera/CameraIcons.imageset"
+     Image "Crosshair"
+     Size 32 32
+    }
+    OverlayWidgetClass "{597B3B9E3C8FC009}" {
+     Name "Full"
+     Slot OverlayWidgetSlot "{597B3B9E3C8FC028}" {
+     }
+     "Is Visible" 0
+     {
+      ImageWidgetClass "{597B3B9D535F862D}" {
+       Name "Down"
+       Slot OverlayWidgetSlot "{597B3B9D535F86E3}" {
+        Padding 0 18 0 0
+       }
+       Color 1 1 1 0.784
+       Texture "{6AF768BBF5ED1302}UI/Textures/HUD_obsolete/crosshair_down.edds"
+       Image ""
+       Size 2 8
+       "Flip Vertically" 1
+      }
+      ImageWidgetClass "{597B3B9CDC6D1FBE}" {
+       Name "Left"
+       Slot OverlayWidgetSlot "{597B3B9CDC6D184F}" {
+        Padding 0 0 20 0
+       }
+       Color 1 1 1 0.784
+       Texture "{D68DD90812798020}UI/Textures/HUD_obsolete/crosshair_side.edds"
+       Image ""
+       Size 10 2
+      }
+      ImageWidgetClass "{597B3B9CF9E8928B}" {
+       Name "Right"
+       Slot OverlayWidgetSlot "{597B3B9CDC6D184F}" {
+        Padding 20 0 0 0
+       }
+       Color 1 1 1 0.784
+       Texture "{D68DD90812798020}UI/Textures/HUD_obsolete/crosshair_side.edds"
+       Image ""
+       Size 10 2
+       "Flip Horizontally" 1
+      }
+      ImageWidgetClass "{597B3B9CEC111F3B}" {
+       Name "Mid"
+       Slot OverlayWidgetSlot "{597B3B9CEC111FC8}" {
+       }
+       Color 1 1 1 0.784
+       Texture "{1C5982C09A7A984C}UI/Textures/HUD_obsolete/crosshair_core.edds"
+       Image ""
+       Size 4 4
+      }
+     }
+    }
+   }
+  }
  }
 }

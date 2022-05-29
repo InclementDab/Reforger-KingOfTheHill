@@ -59,7 +59,7 @@ FrameWidgetClass {
         Padding 0 0 0 0
        }
        Clipping False
-       Text "12"
+       Text "0"
        "Min Font Size" 14
        "Horizontal Alignment" Center
        "Vertical Alignment" Center
