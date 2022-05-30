@@ -113,13 +113,13 @@ FrameWidgetClass {
          Slot FrameWidgetSlot "{59773E5B8DB64CA0}" {
           Anchor 0 0 1 1
           PositionX 2.301
-          OffsetLeft 2.301
+          OffsetLeft 2
           PositionY 8.5
-          OffsetTop 5
+          OffsetTop 0
           SizeX -6.808
-          OffsetRight 4.507
+          OffsetRight 0
           SizeY -17
-          OffsetBottom 8.5
+          OffsetBottom 0
          }
         }
        }

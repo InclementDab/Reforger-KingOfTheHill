@@ -23,6 +23,9 @@ KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_G
   KOTH_ZoneManager "{59692D07CCA0E69E}" {
    m_TicketUpdateInterval 15
   }
+  SCR_AutomaticRespawnHandlerComponent "{59754BE58B69EFAF}" {
+   Enabled 0
+  }
   SCR_ChatComponent "{596B46E44FAAD167}" {
   }
   SCR_DestructionManagerComponent "{596D6DC67BAF89B5}" {
