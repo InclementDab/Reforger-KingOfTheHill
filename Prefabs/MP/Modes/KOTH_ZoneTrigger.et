@@ -11,6 +11,10 @@ KOTH_ZoneTriggerEntity {
   }
   SCR_EditableWaypointComponent "{596D61E43710D9B5}" {
   }
+  RplComponent "{597D29D1225E60B5}" {
+   "Rpl State Override" Static
+   Streamable Disabled
+  }
  }
  coords 7059.178 119.015 6016.226
  TriggerShapeType Sphere
