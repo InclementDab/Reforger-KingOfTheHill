@@ -53,6 +53,10 @@ FrameWidgetClass {
          Prefab "{59772931652A1599}"
          current 10
         }
+        PanelWidgetClass "{59772931652A159B}" {
+         Prefab "{59772931652A159B}"
+         Color 0.036 0.048 0.063 0.784
+        }
         RichTextWidgetClass "{5977293EAD6E94FA}" {
          Prefab "{5977293EAD6E94FA}"
          Text "XX/1000"
@@ -68,7 +72,7 @@ FrameWidgetClass {
         OffsetRight -160
         OffsetBottom -30
        }
-       Color 0.485 0.761 0.491 1
+       Color 0.485 0.761 0.491 0.784
        Text "1000$"
        "Font Size" 28
        "Horizontal Alignment" Right

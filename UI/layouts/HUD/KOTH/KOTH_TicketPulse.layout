@@ -21,7 +21,7 @@ FrameWidgetClass {
     SizeY 10
     OffsetBottom -10
    }
-   Color 0.15 0.001 0.001 1
+   Color 0.15 0.001 0.001 0.784
    maximum 15
    current 0
   }

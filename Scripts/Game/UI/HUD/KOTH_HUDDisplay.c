@@ -125,6 +125,8 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		if (m_PulseSlider) {
 			if (m_CurrentTickTime <= m_UpdateTickTime) {
 				m_PulseSlider.SetCurrent(m_CurrentTickTime * 1.0);
+				if (m_CurrentTickTime >= m_UpdateTickTime - 0.3)
+					AnimateWidget_ColorFlash(m_PulseSlider, WidgetAnimator.FADE_RATE_FAST, Color.FromSRGBA(226, 167, 80, 255));
 			} else if (m_CurrentTickTime >= m_UpdateTickTime) {
 				m_CurrentTickTime = 0;
 				m_PulseSlider.SetCurrent(0);
@@ -175,5 +177,14 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 				}
 			}
 		}
+	}
+	
+	void AnimateWidget_ColorFlash(Widget w, float speed = WidgetAnimator.FADE_RATE_SLOW, Color color = Color.FromSRGBA(226, 167, 80, 255))
+	{
+		if (!w)
+			return;
+		
+		w.SetColor(color);
+		WidgetAnimator.PlayAnimation(w, WidgetAnimationType.Color, Color.FromRGBA(108, 3, 3, 255), speed);
 	}
 }
