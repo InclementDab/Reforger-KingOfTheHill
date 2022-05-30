@@ -26,7 +26,7 @@ FrameWidgetClass {
    Color 0.009 0.009 0.009 0.706
   }
   SliderWidgetClass "{59772931652A1599}" {
-   Name "PulseSlider"
+   Name "XPSlider"
    Slot FrameWidgetSlot "{59755E7701295EC4}" {
     PositionX 0
     OffsetLeft 0

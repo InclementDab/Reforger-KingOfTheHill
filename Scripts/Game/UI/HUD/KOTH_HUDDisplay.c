@@ -30,6 +30,11 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	//! Speed used to fade areas hud when hints are shown
 	//protected const float POINTS_LAYOUT_FADE_SPEED = 5.0;
 	
+	protected RichTextWidget m_PlayerMoney;
+	protected SliderWidget m_PulseSlider;
+	protected float m_CurrentTickTime = 0;
+	protected float m_UpdateTickTime = 0;
+	
 	//------------------------------------------------------------------------------------------------
 	override bool DisplayStartDrawInit(IEntity owner)
 	{
@@ -45,6 +50,8 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		if (!m_KOTHManager) {
 			return false;
 		}
+		
+		m_UpdateTickTime = m_KOTHManager.GetUpdateTickInterval() * 1.000;
 
 		return true;
 	}
@@ -69,6 +76,17 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			// dynamically load widgets based on teams that are active
 			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{DA5637D17656DCA2}UI/layouts/HUD/KOTH/KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
+		
+		m_PlayerMoney = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PlayerMoney"));
+		if (!m_PlayerMoney)
+			return;
+		
+		m_PulseSlider = SliderWidget.Cast(m_wRoot.FindAnyWidget("PulseSlider"));
+		if (!m_PulseSlider)
+			return;
+		
+		m_PulseSlider.SetMin(0);
+		m_PulseSlider.SetMax(m_UpdateTickTime);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -99,11 +117,19 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		}
 
 		// set money, probably temporary
-		RichTextWidget money_widget = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PlayerMoney"));
-		if (money_widget) {
-			money_widget.SetText(character.GetCurrency().ToString() + " $");
+		if (m_PlayerMoney) {
+			m_PlayerMoney.SetText(character.GetCurrency().ToString() + " $");
 		}
 		
+		m_CurrentTickTime += timeSlice;
+		if (m_PulseSlider) {
+			if (m_CurrentTickTime <= m_UpdateTickTime) {
+				m_PulseSlider.SetCurrent(m_CurrentTickTime * 1.0);
+			} else if (m_CurrentTickTime >= m_UpdateTickTime) {
+				m_CurrentTickTime = 0;
+				m_PulseSlider.SetCurrent(0);
+			}
+		}
 		
 		// Fade out points when a hint is shown to prevent clipping
 		/*if (m_wAreaLayoutWidget) {

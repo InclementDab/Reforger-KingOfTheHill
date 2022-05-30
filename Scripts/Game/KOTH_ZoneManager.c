@@ -211,4 +211,9 @@ class KOTH_ZoneManager: GenericComponent
 	{
 		return m_Zone;
 	}
+
+	float GetUpdateTickInterval()
+	{
+		return m_TicketUpdateInterval;
+	}
 }

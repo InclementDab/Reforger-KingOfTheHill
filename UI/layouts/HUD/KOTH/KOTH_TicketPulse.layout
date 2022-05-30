@@ -22,10 +22,12 @@ FrameWidgetClass {
     OffsetBottom -10
    }
    Color 0.15 0.001 0.001 1
+   maximum 15
+   current 0
   }
   PanelWidgetClass "{59756396F1E90FB9}" {
    Name "Border"
-   Slot FrameWidgetSlot {
+   Slot FrameWidgetSlot "{597C6B9BB47A2897}" {
     PositionX 0
     OffsetLeft 0
     PositionY 0

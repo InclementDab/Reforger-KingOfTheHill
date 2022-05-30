@@ -345,16 +345,14 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 			m_PlayerUIDatas.Remove(playerId);
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		super.EOnFrame(owner, timeSlice);
 		
 		m_PlayersUpdateTime += timeSlice;
-		
-		if (m_PlayersUpdateTime >= PLAYER_UPDATEQUE_TIME)
-		{
-			foreach (int playerId, KOTH_PlayerUIData data: m_PlayerUIDatas)
-			{
+		if (m_PlayersUpdateTime >= PLAYER_UPDATEQUE_TIME) {
+			foreach (int playerId, KOTH_PlayerUIData data: m_PlayerUIDatas) {
 				IEntity player = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
 				if (!player)
 					continue;
@@ -362,13 +360,14 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 				vector position = player.GetOrigin();
 				data.SetPosition(position);
 				m_PlayerUIDatas.Set(playerId, data);
-				Print("Updated pos for player " + playerId + ". Pos: " + data.GetPosition());
+				//Print("Updated pos for player " + playerId + ". Pos: " + data.GetPosition());
 			}
 			
 			m_PlayersUpdateTime = 0;
 		}
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	map<int, ref KOTH_PlayerUIData> GetPlayerUIDatas()
 	{
 		return m_PlayerUIDatas;
