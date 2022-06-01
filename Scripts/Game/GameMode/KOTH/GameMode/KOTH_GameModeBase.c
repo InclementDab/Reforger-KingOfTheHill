@@ -96,6 +96,12 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		}
 	}
 	
+	//------------------------------------------------------------------------------------------------
+	void ~KOTH_GameModeBase()
+	{
+
+	}
+	
 	//------------------------------------------------------------------------------------------------	
 	override void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
 	{
@@ -371,6 +377,37 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	map<int, ref KOTH_PlayerUIData> GetPlayerUIDatas()
 	{
 		return m_PlayerUIDatas;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	void EndGame(Faction faction)
+	{
+		int factionIndex = GetGame().GetFactionManager().GetFactionIndex(faction);
+		ref SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: factionIndex );
+		EndGameMode(endData);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override void OnGameModeEnd(SCR_GameModeEndData endData)
+	{
+		super.OnGameModeEnd(endData);
+		// Terminate the session in provided time
+		GetGame().GetCallqueue().CallLater(TerminateSession, 10 * 1000.0, false);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void TerminateSession()
+	{
+		if (RplSession.Mode() == RplMode.Dedicated)
+		{
+			Print("KOTH_GameModeBase::TerminateSession() - Game mode is over, terminating server session!");
+		    GetGame().RequestClose();
+		}
+		else
+		{
+			Print("KOTH_GameModeBase::TerminateSession() - Game mode is over, requesting gameplay end transition!");
+		    GameStateTransitions.RequestGameplayEndTransition();
+		}
 	}
 }
 
