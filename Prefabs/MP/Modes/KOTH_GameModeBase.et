@@ -39,6 +39,12 @@ KOTH_GameModeBase {
   }
   SCR_GameOverScreenManagerComponent "{59754BE5A4ADA06D}" {
    m_GameOverScreenConfig SCR_GameOverScreenConfig "{59754BE557ED2846}" {
+    m_aGameOverScreens {
+     SCR_FactionVictoryGameOverScreenInfo "{59828EA2E850C1D1}" {
+      m_GameOverScreenId FACTION_VICTORY_SCORE
+      m_GameOverContentLayout "{E04021BC742BE432}UI/layouts/HUD/GameOver/EndScreen/EndScreen_Default.layout"
+     }
+    }
    }
   }
   SCR_GroupsManagerComponent "{596B4A8BDCBF5C28}" {

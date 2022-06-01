@@ -30,7 +30,7 @@ class KOTH_TeamScoreDisplayObject
 	protected TextWidget m_ScoreText;
 
 	//! Faction this object represents
-	protected SCR_Faction m_Faction;
+	protected Faction m_Faction;
 	
 	protected ScoreDiplayObjectBlinkState m_BlinkState;
 	
@@ -41,7 +41,7 @@ class KOTH_TeamScoreDisplayObject
 	protected int m_CurrentPlayerCount = 0;
 	
 	//------------------------------------------------------------------------------------------------
-	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull SCR_Faction faction)
+	void KOTH_TeamScoreDisplayObject(notnull Widget root, notnull Faction faction)
 	{
 		m_Root = root;
 		m_Faction = faction;
@@ -52,7 +52,7 @@ class KOTH_TeamScoreDisplayObject
 		m_PlayerCountText = TextWidget.Cast(m_Root.FindAnyWidget("ScoreBar_PlayerCount")); 
 		m_PlayerImage = ImageWidget.Cast(m_Root.FindAnyWidget("ScoreBar_PlayerImage")); 
 
-		ResourceName icon_resource = faction.GetFactionFlag();
+		ResourceName icon_resource = SCR_Faction.Cast(faction).GetFactionFlag();
 		if (!icon_resource.IsEmpty()) {
 			m_FactionImage.SetColor(Color.White);
 			m_FactionImage.LoadImageTexture(0, icon_resource);
@@ -124,7 +124,7 @@ class KOTH_TeamScoreDisplayObject
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	SCR_Faction GetFaction()
+	Faction GetFaction()
 	{
 		return m_Faction;
 	}

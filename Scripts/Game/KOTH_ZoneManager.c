@@ -17,8 +17,8 @@ class KOTH_ZoneManager: GenericComponent
 	[Attribute("100", desc: "Amount of tickets required by a team to win the game.")]
 	protected int m_TicketCountToWin;
 
-	[Attribute("10", desc: "Update rate of tickets, in seconds.")]
-	protected float m_TicketUpdateInterval;
+	/*[Attribute("10", desc: "Update rate of tickets, in seconds.")]
+	protected float m_TicketUpdateInterval;*/
 
 	protected KOTH_ZoneTriggerEntity m_Zone;
 	protected ref ScriptInvoker<OnFactionTicketChanged> OnFactionTicketChangedScript = new ScriptInvoker<OnFactionTicketChanged>();
@@ -41,8 +41,8 @@ class KOTH_ZoneManager: GenericComponent
 			m_GameMode = KOTH_GameModeBase.Cast(GetGame().GetGameMode());
 		}
 
-		m_GameMode.GetOnGameStart().Insert(OnGameStart);
-		m_GameMode.GetOnGameEnd().Insert(OnGameEnd);
+		//m_GameMode.GetOnGameStart().Insert(OnGameStart);
+		//m_GameMode.GetOnGameEnd().Insert(OnGameEnd);
 	}
 
 	void SetZone(KOTH_ZoneTriggerEntity zone)
@@ -60,7 +60,25 @@ class KOTH_ZoneManager: GenericComponent
 		return m_SafeZones;
 	}
 
-	void OnGameStart()
+	KOTH_ZoneTriggerEntity GetZone()
+	{
+		return m_Zone;
+	}
+	
+	static KOTH_ZoneManager GetInstance()
+	{
+		return KOTH_ZoneManager.Cast(GetGame().GetGameMode().FindComponent(KOTH_ZoneManager));
+	}
+	
+	array<Faction> GetCurrentFactions()
+	{
+		array<Faction> factions = {};
+		GetGame().GetFactionManager().GetFactionsList(factions);
+		
+		return factions;
+	}
+	
+	/*void OnGameStart()
 	{
 		if (Replication.IsServer()) {
 			GetGame().GetCallqueue().CallLater(DoTicketUpdate, m_TicketUpdateInterval * 1000, true);
@@ -214,5 +232,5 @@ class KOTH_ZoneManager: GenericComponent
 	float GetUpdateTickInterval()
 	{
 		return m_TicketUpdateInterval;
-	}
+	}*/
 }

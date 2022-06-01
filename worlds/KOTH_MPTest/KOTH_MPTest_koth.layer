@@ -1,4 +1,85 @@
 KOTH_GameModeBase KOTH_GameModeBase : "{07DBCCAB9F68873D}Prefabs/MP/Modes/KOTH_GameModeBase.et" {
+ components {
+  KOTH_SaveLoadComponent "{5977338902870863}" {
+  }
+  KOTH_ZoneManager "{59692D07CCA0E69E}" {
+   m_TicketCountToWin 1
+  }
+  SCR_GameOverScreenManagerComponent "{59754BE5A4ADA06D}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{59754BE557ED2846}" {
+    m_aGameOverScreens {
+     SCR_FactionVictoryGameOverScreenInfo "{59828EA2E850C1D1}" {
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{59828EA3C98CB5BA}" {
+       m_sTitle "#AR-MatchResult_Victory-UC"
+       m_sSubtitle "#AR-Campaign_MatchResult"
+       m_sDebriefing "#AR-Campaign_MatchResult_VictoryDetail_Score"
+       m_sAudioOneShot "SOUND_ONVICTORY"
+      }
+     }
+     SCR_BaseGameOverScreenInfo "{59828EA26226FBCA}" {
+      m_GameOverScreenId SERVER_RESTART
+      m_GameOverContentLayout "{C4507D07F3C54831}UI/layouts/HUD/GameOver/EndScreen/EndScreen_NoImage.layout"
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{59828EA211FDAF44}" {
+       m_sTitle "#AR-ServerRestart_Title-UC"
+       m_sSubtitle "#AR-ServerRestart_Description"
+      }
+      m_OptionalEditorParams SCR_BaseGameOverScreenInfoEditor "{59828EA20ABFEE55}" {
+       m_sDisplayName "#AR-Editor_GameOverAttribute_RestartServer_Name"
+       m_sDescription "#AR-Editor_GameOverAttribute_RestartServer_Description"
+      }
+     }
+     SCR_FactionGameOverScreenInfo "{59828EA4CC31A04F}" {
+      m_GameOverScreenId FACTION_DEFEAT_SCORE
+      m_GameOverContentLayout "{E04021BC742BE432}UI/layouts/HUD/GameOver/EndScreen/EndScreen_Default.layout"
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{59828EA4F3A2A1A3}" {
+       m_sTitle "#AR-MatchResult_Defeat-UC"
+       m_sSubtitle "#AR-Campaign_MatchResult"
+       m_sDebriefing "#AR-MatchResult_DefeatDetail_Score"
+       m_sAudioOneShot "SOUND_ONDEFEAT"
+      }
+     }
+     SCR_FactionVictoryGameOverScreenInfo "{59828EA48000D858}" {
+      m_GameOverScreenId EDITOR_FACTION_VICTORY
+      m_GameOverContentLayout "{E04021BC742BE432}UI/layouts/HUD/GameOver/EndScreen/EndScreen_Default.layout"
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{59828EA4B206811A}" {
+       m_sTitle "#AR-MatchResult_Victory-UC"
+       m_sSubtitle "#AR-Campaign_MatchResult"
+       m_sDebriefing "#AR-MatchResult_EditorNeutral_Debrief"
+       m_sAudioOneShot "SOUND_ONVICTORY"
+      }
+     }
+     SCR_EditorFactionGameOverScreenInfo "{59828EA453E1B251}" {
+      m_GameOverScreenId EDITOR_FACTION_DEFEAT
+      m_GameOverContentLayout "{E04021BC742BE432}UI/layouts/HUD/GameOver/EndScreen/EndScreen_Default.layout"
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{59828EA44F97E5E2}" {
+       m_sTitle "#AR-MatchResult_Defeat-UC"
+       m_sSubtitle "#AR-Campaign_MatchResult"
+       m_sDebriefing "#AR-MatchResult_EditorNeutral_Debrief"
+       m_sAudioOneShot "SOUND_ONDEFEAT"
+      }
+      m_OptionalEditorParams SCR_BaseGameOverScreenInfoEditor "{59828EA47D494E8C}" {
+       m_bCanBeSetByGameMaster 0
+       m_MirroredState EDITOR_FACTION_VICTORY
+      }
+      m_sMultiFactionsSubtiteText "#AR-MatchResult_MultiFactions"
+     }
+    }
+   }
+   m_fShowEndscreenDelay 30
+  }
+  SCR_ScoringSystemComponent "{5982ACC7C02A4C91}" {
+   m_iKillScoreMultiplier 0
+   m_aActions {
+    EndGameAction "{5982ACC7F7B12F7B}" {
+     m_eScoringMode SLM_Faction
+     m_iScoreLimit 1
+    }
+   }
+  }
+  RplComponent "{59692D07A66DC1D4}" {
+   Streamable Disabled
+  }
+ }
  coords 39.534 9.262 -143.294
  m_vObjectivePosition 20.051 9.262 -117.73
  m_vObjectiveRadius 100
@@ -17,6 +98,29 @@ ScriptedChatEntity : "{B1560DA7529A3E3D}Prefabs/MP/Modes/KOTH_ScriptedChatEntity
 }
 PerceptionManager KOTH_PerceptionManager : "{E9B85128FDBFC8F6}Prefabs/MP/Modes/KOTH_PerceptionManager.et" {
  coords 40.14 9.262 -145.356
+}
+SCR_MusicManager {
+ components {
+  EventHandlerManagerComponent "{5982ACCC88861C2E}" {
+   EventHandlers {
+    BaseEventHandler "{5982ACCC8EE02496}" {
+     EventName "BeforePlaying"
+    }
+   }
+  }
+  SCR_CampaignMusicComponent "{5982ACCCB295AB84}" {
+  }
+  RplComponent "{5982ACCCA97246A8}" {
+   Streamable Disabled
+  }
+ }
+ coords 15.087 9.262 -124.7
+ Filenames {
+  "{71AA761577272A1B}Sounds/Music/Ingame/Music_Ingame.acp"
+ }
+ "Time between songs" 60
+ "Time between repeats" 60
+ "Min disruption volume" 0.5
 }
 GarbageManager : "{0EEF9699137904C7}Prefabs/MP/Modes/KOTH_GarbageManager.et" {
  coords 39.9 9.262 -144.43

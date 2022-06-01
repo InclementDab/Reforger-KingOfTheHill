@@ -7,20 +7,19 @@
     "gameHostRegisterPort": 2001,
     "adminPassword": "mp",
     "game": {
-        "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "scenarioId": "{5968FE6DF3F3853B}Missions/KOTH_Test.conf",
+        "name": "KOTH Test (Alpha)",
+        "scenarioId": "{AC5C08F4520F3420}Missions/KOTH_MissionHeader.conf",
         "playerCountLimit": 64,
         "visible": true,
-        "gameMode": "",
+        "gameMode": "King Of The Hill",
         "supportedGameClientTypes": [
-            "PLATFORM_PC",
-            "PLATFORM_XBL"
+            "PLATFORM_PC"
         ],
         "gameProperties": {
             "serverMaxViewDistance": 1600,
             "battleEye": true,
             "fastValidation": true
         },
-        "mods": []
+        "mods": ["5968FE6DF3F3853B"]
     }
 }

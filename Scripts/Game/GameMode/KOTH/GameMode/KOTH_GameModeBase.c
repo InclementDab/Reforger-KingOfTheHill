@@ -1,3 +1,4 @@
+
 class KOTH_PlayerBackendCb: BackendCallback
 {	
 	void KOTH_PlayerBackendCb()
@@ -42,6 +43,14 @@ class KOTH_GameModeBaseClass : SCR_BaseGameModeClass
 {
 }
 
+#define GAME_MODE_DEBUG;
+#define ENABLE_DIAG;
+#define SLOT_ENTITY_DEBUG;
+
+//#define VEHICLE_LOCK;
+//#define ENABLE_BASE_DESTRUCTION;
+//#define ENABLE_DESTRUCTION;
+
 class KOTH_GameModeBase: SCR_BaseGameMode
 {
 	[Attribute(defvalue: "0", UIWidgets.EditBox, desc: "Position of the objective zone.", category: "KOTH: Settings")]
@@ -83,6 +92,9 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	
 	protected float m_PlayersUpdateTime;
 	protected const float PLAYER_UPDATEQUE_TIME = 0.100;
+	
+	//! Callback for when a tick event is raised by this area
+	protected ref KOTHZoneTickEvent m_pOnTickEvent = new KOTHZoneTickEvent();
 	
 	//------------------------------------------------------------------------------------------------		
 	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
@@ -377,34 +389,44 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	}
 
 	//------------------------------------------------------------------------------------------------
-	void EndGame(Faction faction)
-	{
+	/*void EndGame(Faction faction)
+	{		
 		int factionIndex = GetGame().GetFactionManager().GetFactionIndex(faction);
-		ref SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: factionIndex );
+		Print(ToString() + "::EndGame - Faction Index: " + factionIndex);
+		//ref SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_EDITOR_FACTION_VICTORY, winnerFactionId: factionIndex);
+		ref SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: factionIndex);
 		EndGameMode(endData);
-	}
+	}*/
 	
 	//------------------------------------------------------------------------------------------------
 	protected override void OnGameModeEnd(SCR_GameModeEndData endData)
 	{
+		Print(ToString() + "::OnGameModeEnd - Start");
+		
 		super.OnGameModeEnd(endData);
 		// Terminate the session in provided time
-		GetGame().GetCallqueue().CallLater(TerminateSession, 30 * 1000.0, false);
+		GetGame().GetCallqueue().CallLater(RestartSession, 30 * 1000.0, false);
+		
+		Print(ToString() + "::OnGameModeEnd - End");
 	}
 
 	//------------------------------------------------------------------------------------------------
-	protected void TerminateSession()
+	protected void RestartSession()
 	{
+		Print(ToString() + "::RestartSession - Start");
+		
 		if (RplSession.Mode() == RplMode.Dedicated)
 		{
-			Print("KOTH_GameModeBase::TerminateSession() - Game mode is over, terminating server session!");
-		    GetGame().RequestClose();
+			Print("KOTH_GameModeBase::RestartSession() - Game mode is over, terminating server session!");
+		    GetGame().RequestReload();
 		}
 		else
 		{
-			Print("KOTH_GameModeBase::TerminateSession() - Game mode is over, requesting gameplay end transition!");
-		    GameStateTransitions.RequestGameplayEndTransition();
+			Print("KOTH_GameModeBase::RestartSession() - Game mode is over, requesting gameplay end transition!");
+		    GameStateTransitions.RequestServerReload();
 		}
+		
+		Print(ToString() + "::RestartSession - End");
 	}
 }
 

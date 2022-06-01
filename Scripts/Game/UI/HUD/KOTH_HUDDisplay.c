@@ -19,7 +19,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 	//! Objective waypoint ui element	
 	protected ref KOTH_ObjectiveDisplayObject m_ObjectiveElement;
 	//! Array of all wrappers for the individual teams
-	protected ref map<SCR_Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<SCR_Faction, ref KOTH_TeamScoreDisplayObject>();
+	protected ref map<Faction, ref KOTH_TeamScoreDisplayObject> m_ScoringElements = new map<Faction, ref KOTH_TeamScoreDisplayObject>();
 
 	//! Area manager provides us with necessary API
 	protected KOTH_ZoneManager m_KOTHManager;
@@ -51,7 +51,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			return false;
 		}
 		
-		m_UpdateTickTime = m_KOTHManager.GetUpdateTickInterval() * 1.000;
+		m_UpdateTickTime = m_KOTHManager.GetZone().GetTickRate() * 1.000;
 
 		return true;
 	}
@@ -72,7 +72,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 			m_ObjectiveElement = KOTH_ObjectiveDisplayObject(GetGame().GetWorkspace().CreateWidgets("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", m_wRoot), this);
 		
 		//! Create score display
-		foreach (SCR_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
+		foreach (Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active
 			m_ScoringElements[faction] = new KOTH_TeamScoreDisplayObject(GetGame().GetWorkspace().CreateWidgets("{DA5637D17656DCA2}UI/layouts/HUD/KOTH/KOTHScore.layout", m_wRoot.FindAnyWidget("Score_Root")), faction)
 		}
@@ -147,18 +147,18 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		}*/
 
 		// Update scoring
-		foreach (SCR_Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
+		foreach (Faction faction, KOTH_TeamScoreDisplayObject scoring_object: m_ScoringElements) {
 			if (!scoring_object || !m_KOTHManager) {
 				continue;
 			}
 			
-			scoring_object.UpdateScore(m_KOTHManager.GetTickets(faction));
-			scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction), character && character.GetFaction() == faction && m_KOTHManager.IsInZone(character));
+			scoring_object.UpdateScore(m_KOTHGameMode.GetScoringSystemComponent().GetFactionScore(faction));
+			//scoring_object.UpdatePlayerCount(m_KOTHManager.GetAmountOfPlayersInZone(faction), character && character.GetFaction() == faction && m_KOTHManager.IsInZone(character));
 			scoring_object.SetBlinkState(ScoreDiplayObjectBlinkState.OFF);
 		}
 		
 		// update blinking on hud
-		foreach (SCR_Faction faction, KOTH_TeamScoreDisplayObject score_display: m_ScoringElements) {
+		/*foreach (Faction faction, KOTH_TeamScoreDisplayObject score_display: m_ScoringElements) {
 			switch (m_KOTHManager.GetZoneContestType()) {
 				case KOTHZoneContestType.OWNED: {
 					if (faction == m_KOTHManager.GetZoneOwner()) {
@@ -176,7 +176,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 					break;
 				}
 			}
-		}
+		}*/
 	}
 	
 	void AnimateWidget_ColorFlash(Widget w, float speed = WidgetAnimator.FADE_RATE_SLOW, Color color = Color.FromSRGBA(226, 167, 80, 255))
