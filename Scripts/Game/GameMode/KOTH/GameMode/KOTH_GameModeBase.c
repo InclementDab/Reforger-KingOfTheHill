@@ -86,7 +86,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	
 	//------------------------------------------------------------------------------------------------		
 	void KOTH_GameModeBase(IEntitySource src, IEntity parent)
-	{		
+	{
 		//Parse & register vehicle asset list	
 		m_aVehicleAssetList = new array<ref KOTH_VehicleAssetInfo>;
 		Resource container = BaseContainerTools.LoadContainer(m_VehicleAssetList);
@@ -141,8 +141,6 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 		
 		GetGame().GetBackendApi().PlayerRequest(EBackendRequest.EBREQ_GAME_CharacterGet, m_PlayerBackendCb, m_PlayerStorages[playerId], playerId);
 		
-		
-				
 		// Handle VIP slots
 		/*PlayerManager player_manager = GetGame().GetPlayerManager();
 		string player_uid = GetGame().GetBackendApi().GetPlayerUID(playerId);
@@ -366,7 +364,6 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 				vector position = player.GetOrigin();
 				data.SetPosition(position);
 				m_PlayerUIDatas.Set(playerId, data);
-				//Print("Updated pos for player " + playerId + ". Pos: " + data.GetPosition());
 			}
 			
 			m_PlayersUpdateTime = 0;
@@ -392,7 +389,7 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	{
 		super.OnGameModeEnd(endData);
 		// Terminate the session in provided time
-		GetGame().GetCallqueue().CallLater(TerminateSession, 10 * 1000.0, false);
+		GetGame().GetCallqueue().CallLater(TerminateSession, 30 * 1000.0, false);
 	}
 
 	//------------------------------------------------------------------------------------------------

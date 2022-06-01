@@ -77,14 +77,13 @@ class KOTH_ZoneManager: GenericComponent
 	//! Server Only
 	void DoTicketUpdate()
 	{
-		if (!m_Zone) {
+		if (!m_Zone || !m_GameMode) {
 			return;
 		}
 
 		// todo plz fix
-		if (m_GameMode.GetState() != SCR_EGameModeState.GAME) {
+		if (!m_GameMode.IsRunning() || m_GameMode.GetState() != SCR_EGameModeState.GAME)
 			return;
-		}
 
 		m_ZoneOwners.Clear();
 		int max_fact_count;
@@ -125,7 +124,7 @@ class KOTH_ZoneManager: GenericComponent
 		foreach (SCR_Faction faction: fctn) {
 			if (GetTickets(faction) >= m_TicketCountToWin) {
 				if (m_GameMode) {
-					m_GameMode.EndGameMode(SCR_GameModeEndData.CreateSimple(SCR_GameModeEndData.ENDREASON_SCORELIMIT, winnerFactionId: GetGame().GetFactionManager().GetFactionIndex(faction)));
+					m_GameMode.EndGame(faction);
 				}
 			}
 		}
