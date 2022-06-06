@@ -70,7 +70,7 @@ class KOTH_HUDDisplay : SCR_InfoDisplayExtended
 		//! Create 3D objective waypoint marker
 		if (m_bEnable3DObjectiveMarker)
 			m_ObjectiveElement = KOTH_ObjectiveDisplayObject(GetGame().GetWorkspace().CreateWidgets("{EEDBCD234A118D9F}UI/layouts/HUD/KOTH/KOTHWaypoint.layout", m_wRoot), this);
-
+		
 		//! Create score display
 		foreach (SCR_Faction faction: m_KOTHManager.GetCurrentFactions()) {		
 			// dynamically load widgets based on teams that are active

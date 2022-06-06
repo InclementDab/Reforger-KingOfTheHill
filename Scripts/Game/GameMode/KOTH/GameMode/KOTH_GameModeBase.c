@@ -395,10 +395,15 @@ class KOTH_GameModeBase: SCR_BaseGameMode
 	//------------------------------------------------------------------------------------------------
 	protected void TerminateSession()
 	{
-		if (RplSession.Mode() == RplMode.Dedicated) {
-		    GetGame().RequestReload();
-		} else {
-		    GameStateTransitions.RequestServerReload();
+		if (RplSession.Mode() == RplMode.Dedicated)
+		{
+			Print("KOTH_GameModeBase::TerminateSession() - Game mode is over, terminating server session!");
+		    GetGame().RequestClose();
+		}
+		else
+		{
+			Print("KOTH_GameModeBase::TerminateSession() - Game mode is over, requesting gameplay end transition!");
+		    GameStateTransitions.RequestGameplayEndTransition();
 		}
 	}
 }
